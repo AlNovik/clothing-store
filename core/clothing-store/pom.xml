@@ -1,0 +1,411 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>pro.redsoft.clothingstore</groupId>
+    <artifactId>clothing-store</artifactId>
+    <packaging>war</packaging>
+    <version>0.1</version>
+    <name>clothing-store</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <java-version>1.6</java-version>
+        <spring-version>3.2.1.RELEASE</spring-version>
+        <spring-data>1.3.4.RELEASE</spring-data>
+        <spring-security>3.1.3.RELEASE</spring-security>
+        <hiberate.version>4.1.7.Final</hiberate.version>
+        <org.apache.tiles-version>2.1.4</org.apache.tiles-version>
+        <mysql-connector-java>5.1.6</mysql-connector-java>
+        <jackson.version>1.9.10</jackson.version>
+
+        <!-- Deploy setting-->
+        <amazon-tomcat>http://54.194.55.135:8085/manager/text</amazon-tomcat>
+        <vmware-tomcat>http://192.168.0.111:8085/manager/text</vmware-tomcat>
+        <ftp.host>54.194.55.135</ftp.host>
+        <ftp.remotedir>/home/web-developers/dev/clothing-store/</ftp.remotedir>
+        <ftp.userid>dev</ftp.userid>
+        <ftp.password>dev</ftp.password>
+        <ftp.depends>yes</ftp.depends>
+        <ftp.verbose>no</ftp.verbose>
+    </properties>
+
+    <scm>
+        <connection>scm:svn:http://127.0.0.1/svn/my-project</connection>
+        <developerConnection>scm:svn:https://127.0.0.1/svn/my-project</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://127.0.0.1/websvn/my-project</url>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>tduchateau-maven-repo</id>
+            <url>https://raw.github.com/tduchateau/tduchateau-maven-repo/master/releases</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <finalName>${project.name}-${buildNumber}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <warName>${project.build.finalName}</warName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>sources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <revisionOnScmFailure>1</revisionOnScmFailure>
+                    <doCheck>true</doCheck>
+                    <buildNumberPropertyName>buildNumber</buildNumberPropertyName>
+                    <doUpdate>true</doUpdate>
+                    <format>${project.version}.{0,number}</format>
+                    <items>
+                        <item>buildNumber</item>
+                    </items>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons-core</artifactId>
+            <version>1.1.0.RELEASE</version>
+        </dependency>
+
+        <!-- Apache-Tiles -->
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-jsp</artifactId>
+            <version>${org.apache.tiles-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-servlet</artifactId>
+            <version>${org.apache.tiles-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-core</artifactId>
+            <version>${org.apache.tiles-version}</version>
+        </dependency>
+
+        <!-- Hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hiberate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hiberate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
+        </dependency>
+
+        <!-- Jackson JSON Mapper -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-lgpl</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>15.0</version>
+        </dependency>
+
+
+        <!-- Database -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java}</version>
+        </dependency>
+
+        <!-- Servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- DataTables -->
+        <dependency>
+            <groupId>fr.tduchateau</groupId>
+            <artifactId>datatables-taglib</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>publishAWS</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.0</version>
+                        <configuration>
+                            <url>${amazon-tomcat}</url>
+                            <server>amazon-tomcat</server>
+                            <path>/${project.build.finalName}</path>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                                <phase>install</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>publishVMWare</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.0</version>
+                        <configuration>
+                            <url>${vmware-tomcat}</url>
+                            <server>amazon-tomcat</server>
+                            <path>/${project.build.finalName}</path>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                                <phase>install</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>static</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>attached</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!--<plugin>-->
+                    <!--<groupId>com.github.goldin</groupId>-->
+                    <!--<artifactId>copy-maven-plugin</artifactId>-->
+                    <!--<version>0.2.5</version>-->
+                    <!--<executions>-->
+                    <!--<execution>-->
+                    <!--<id>create-archive</id>-->
+                    <!--<phase>package</phase>-->
+                    <!--<goals>-->
+                    <!--<goal>copy</goal>-->
+                    <!--</goals>-->
+                    <!--<configuration>-->
+                    <!--<resources>-->
+                    <!--<resource>-->
+                    <!--<targetPath>ftp://${ftp.userid}:${ftp.password}@${ftp.host}:${ftp.remotedir}</targetPath>-->
+                    <!--<directory>${project.build.directory}</directory>-->
+                    <!--<include>${project.build.finalName}-static.zip</include>-->
+                    <!--</resource>-->
+                    <!--</resources>-->
+                    <!--</configuration>-->
+                    <!--</execution>-->
+                    <!--</executions>-->
+                    <!--</plugin>-->
+
+                    <!--<plugin>-->
+                    <!--<groupId>org.apache.maven.plugins</groupId>-->
+                    <!--<artifactId>maven-antrun-plugin</artifactId>-->
+                    <!--<version>1.7</version>-->
+                    <!--<executions>-->
+                    <!--<execution>-->
+                    <!--<id>ftp</id>-->
+                    <!--<phase>deploy</phase>-->
+                    <!--<configuration>-->
+                    <!--&lt;!&ndash;<tasks>&ndash;&gt;-->
+
+                    <!--<target name="ftp" description="Uploads zip with static to FTP">-->
+                    <!--<ftp action="send"-->
+                    <!--server="${ftp.host}" remotedir="${ftp.remotedir}"-->
+                    <!--userid="${ftp.userid}" password="${ftp.password}">-->
+                    <!--<fileset dir="${project.build.directory}">-->
+                    <!--<include name="${project.build.finalName}-static.zip"/>-->
+                    <!--</fileset>-->
+                    <!--</ftp>-->
+                    <!--</target>-->
+
+
+                    <!--&lt;!&ndash;<ftp action="send"&ndash;&gt;-->
+                    <!--&lt;!&ndash;server="${ftp.host}" remotedir="${ftp.remotedir}"&ndash;&gt;-->
+                    <!--&lt;!&ndash;userid="${ftp.userid}" password="${ftp.password}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<fileset dir="${project.build.directory}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<include&ndash;&gt;-->
+                    <!--&lt;!&ndash;name="${project.build.finalName}-static.zip"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</fileset>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</ftp>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</tasks>&ndash;&gt;-->
+                    <!--</configuration>-->
+                    <!--<goals>-->
+                    <!--<goal>run</goal>-->
+                    <!--</goals>-->
+                    <!--</execution>-->
+                    <!--</executions>-->
+                    <!--<dependencies>-->
+                    <!--<dependency>-->
+                    <!--<groupId>commons-net</groupId>-->
+                    <!--<artifactId>commons-net</artifactId>-->
+                    <!--<version>1.4.1</version>-->
+                    <!--</dependency>-->
+                    <!--<dependency>-->
+                    <!--<groupId>ant</groupId>-->
+                    <!--<artifactId>ant-commons-net</artifactId>-->
+                    <!--<version>1.6.5</version>-->
+                    <!--</dependency>-->
+                    <!--<dependency>-->
+                    <!--<groupId>ant</groupId>-->
+                    <!--<artifactId>ant-nodeps</artifactId>-->
+                    <!--<version>1.6.5</version>-->
+                    <!--</dependency>-->
+                    <!--</dependencies>-->
+                    <!--</plugin>-->
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

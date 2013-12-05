@@ -1,0 +1,45 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Building clothing-store
+[INFO]    task-segment: [clean, install]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean {execution: default-clean}]
+[INFO] Deleting directory d:\Java\project\GitHub\ClothingStore\core\clothing-store\target
+[INFO] [buildnumber:create {execution: default}]
+[INFO] Storing buildNumber: 1.0-SNAPSHOT.57 at timestamp: 1386074529007
+[INFO] Executing: cmd.exe /X /C "svn --non-interactive info"
+[INFO] Working directory: d:\Java\project\GitHub\ClothingStore\core\clothing-store
+[INFO] Storing buildScmBranch: UNKNOWN_BRANCH
+[INFO] [resources:resources {execution: default-resources}]
+[WARNING] Using platform encoding (Cp1251 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 0 resource
+[INFO] [compiler:compile {execution: default-compile}]
+[WARNING] File encoding has not been set, using platform encoding Cp1251, i.e. build is platform dependent!
+[INFO] Compiling 27 source files to d:\Java\project\GitHub\ClothingStore\core\clothing-store\target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] Failure executing javac, but could not parse the error:
+javac: invalid target release: 1.7
+Usage: javac <options> <source files>
+use -help for a list of possible options
+
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Compilation failure
+Failure executing javac, but could not parse the error:
+javac: invalid target release: 1.7
+Usage: javac <options> <source files>
+use -help for a list of possible options
+
+
+[INFO] ------------------------------------------------------------------------
+[INFO] For more information, run Maven with the -e switch
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4 seconds
+[INFO] Finished at: Tue Dec 03 08:12:10 VET 2013
+[INFO] Final Memory: 26M/260M
+[INFO] ------------------------------------------------------------------------

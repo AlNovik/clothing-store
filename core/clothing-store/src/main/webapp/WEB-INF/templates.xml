@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+    <!-- Client -->
+    <definition name="base.client" template="/WEB-INF/layout/client/layout.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/WEB-INF/layout/client/parts/header.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/client/parts/menu.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="search" value="/WEB-INF/layout/client/parts/search.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/layout/client/parts/footer.jsp"/>
+    </definition>
+
+    <!-- Admin -->
+    <definition name="base.admin" template="/WEB-INF/layout/admin/admin.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="notification" value="/WEB-INF/layout/admin/parts/notification.jsp"/>
+        <put-attribute name="sidebar" value="/WEB-INF/layout/admin/parts/sidebar.jsp"/>
+        <put-attribute name="settings" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/layout/admin/parts/footer.jsp"/>
+    </definition>
+
+    <!-- Admin Tabs-->
+    <definition name="admin.products" extends="base.admin">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/products.jsp"/>
+    </definition>
+    <definition name="admin.orders" extends="base.admin">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/orders.jsp"/>
+    </definition>
+    <definition name="admin.import" extends="base.admin">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/import.jsp"/>
+    </definition>
+    <definition name="admin.statistics" extends="base.admin">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/statistics.jsp"/>
+    </definition>
+    <definition name="admin.settings" extends="base.admin">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/settings.jsp"/>
+    </definition>
+
+    <!-- Авторизация в админку -->
+    <definition name="login">
+        <put-attribute name="login" value="login.jsp"/>
+    </definition>
+
+    <!-- PARTS -->
+    <definition name="index" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/index.jsp"/>
+    </definition>
+    <definition name="information" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/information.jsp"/>
+    </definition>
+    <definition name="catalog" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/catalog/catalog.jsp"/>
+    </definition>
+    <definition name="item" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/catalog/item.jsp"/>
+    </definition>
+    <definition name="about" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/about.jsp"/>
+    </definition>
+    <definition name="contacts" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/contacts.jsp"/>
+    </definition>
+    <definition name="category" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/catalog/category.jsp"/>
+    </definition>
+    <definition name="brand" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/catalog/brand.jsp"/>
+    </definition>
+
+</tiles-definitions>
