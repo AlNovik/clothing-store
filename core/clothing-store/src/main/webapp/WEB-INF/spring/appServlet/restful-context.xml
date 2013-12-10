@@ -13,6 +13,8 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
     <context:component-scan base-package="pro.redsoft.clothingstore.web.rest"/>
 
 </beans>

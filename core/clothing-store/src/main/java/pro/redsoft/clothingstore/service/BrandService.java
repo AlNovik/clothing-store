@@ -19,27 +19,32 @@ import java.util.List;
 public class BrandService implements IBrandService {
 
     @Autowired
-    private BrandRepository companyRepository;
+    private BrandRepository brandRepository;
 
     @Override
     @Transactional(readOnly = true)
     public List<Brand> findAll() {
-        return Lists.newArrayList(companyRepository.findAll());
+        return Lists.newArrayList(brandRepository.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Brand findById(Integer id) {
-        return companyRepository.findOne(id);
+        return brandRepository.findOne(id);
     }
 
     @Override
     public void delete(Integer id) {
-        companyRepository.delete(id);
+        brandRepository.delete(id);
     }
 
     @Override
     public void save(Brand manufacturer) {
-        companyRepository.save(manufacturer);
+        brandRepository.save(manufacturer);
+    }
+
+    @Override
+    public List<Brand> findAllOrderByTitleAsc() {
+        return brandRepository.findAllOrderByTitleAsc();
     }
 }

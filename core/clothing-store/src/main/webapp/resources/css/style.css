@@ -1,0 +1,23 @@
+html, body {
+    min-height: 100%;
+    position: relative;
+}
+
+.page-wrapper {
+    padding-bottom: 100px;
+}
+
+.footer {
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+}
+
+.search-block-header {
+    padding: 3px 5px;
+    margin-bottom: 5px;
+}
+
+.well .nav > li {
+    float: left;
+}

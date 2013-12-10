@@ -21,6 +21,8 @@ public class Order implements Serializable {
     }
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue
     public Integer getId() {
         return id;
     }

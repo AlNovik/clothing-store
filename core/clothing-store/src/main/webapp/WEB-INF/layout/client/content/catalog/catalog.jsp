@@ -7,84 +7,86 @@
 
 <div>
     <div class="breadcrumb"><span>Интернет магазин белорусской одежды. Брест / Беларусь.</span></div>
+
+    <div class="well well-small row pagination-sort" style="margin-left: 0"></div>
+
     <div class="thumbnails" id="items"></div>
 </div>
 
+
 <script>
-    $.getJSON(restLink, function (json) {
-        catalog(json, '${pageContext.request.contextPath}');
-        <%--var rowCount = 0;--%>
-        <%--$.each(json.clothings, function (i, book) {--%>
-            <%--if (rowCount == 0) {--%>
-                <%--$('#items').append('<div class="row-fluid"></div>');--%>
-            <%--}--%>
-            <%--var item = '<div class="thumbnail span3">' +--%>
-                    <%--'<a href="${pageContext.request.contextPath}/clothing/' + this.id + '">' +--%>
-                    <%--'<img class="test" src="' + this.images[0].link + '" alt=""></a>' +--%>
-                    <%--'<h6>' + this.title + '</h6>' +--%>
-                    <%--'<span class="badge">' + this.price + ' руб.</span>' +--%>
-                    <%--'<dl class="dl-horizontal">' +--%>
-                    <%--'<dt>Фирма :</dt><dd>' + '<a href="${pageContext.request.contextPath}/company/' + this.brand.id + '">' + this.brand.title + '</a></dd>' +--%>
-                    <%--'<dt>Размер :</dt><dd>' + arrayToSting(this.size) + '</dd>' +--%>
-                    <%--'<dt>Тип :</dt><dd>' + this.category.title + '</dd>' +--%>
-                    <%--'</dl><p>' +--%>
-                    <%--'<input type="text" class="input-mini">' +--%>
-                    <%--'<a class="btn btn-mini btn-primary" href="#"><i class="icon-plus icon-white"></i> В корзину</a>' +--%>
-                    <%--'<a class="btn btn-mini" href="#">Подробнее</a>' +--%>
-                    <%--'</p></div>';--%>
-            <%--if (rowCount < 4) {--%>
-                <%--$('#items .row-fluid:last-child').append(item);--%>
-                <%--rowCount++;--%>
-                <%--if (rowCount == 4) rowCount = 0;--%>
-            <%--}--%>
-        <%--});--%>
+    $(document).ready(function () {
+        var pagination = $("#pagination-sort").html();
+        var template = Handlebars.compile(pagination);
+        var paginationData;
+
+        $.getJSON(restLink, function (json) {
+            paginationData = json;
+            var html = template(paginationData);
+        })
     });
-
-
-
 </script>
 
-<style type="text/css">
-    .st2 {
-        width: 150px;
-        height: 150px;
-    }
 
-    .st2  img {
-        width: 150px;
-        height: 150px;
-        position: absolute;
-        z-index: 150;
-    }
-
-    .st2:hover {
-        width: 150px;
-        height: 150px;
-        overflow: visible;
-    }
-
-    .st2:hover img {
-        visibility: visible;
-        position: absolute;
-        z-index: 150;
-    }
-</style>
-
-<script type="text/javascript">
-    $(function () {
-        $('.thumbnail').hover(function () {
-            $(this).children('img').stop().animate({width: "300px", height: "300px"}, 400);
-        }, function () {
-            $(this).children('img').stop().animate({width: "150px", height: "150px"}, 400);
-        });
-    });
-
+<script id="product-item" type="text/x-handlebars-template">
+    <div class="thumbnail span3">
+        <a href="/clothing/{{id}}">
+            <img class="test" src="" alt=""></a>
+        <h6>{{title}}</h6>
+        <span class="badge">{{price}} руб.</span>
+        <dl class="dl-horizontal">
+            <dt>Фирма :</dt>
+            <dd><a href="/brand/{{brand.id}}">{{brand.title}}</a></dd>
+            <dt>Размер :</dt>
+            <dd> arrayToSting(this.size)</dd>
+            <dt>Тип :</dt>
+            <dd> {{category.title}}</dd>
+        </dl>
+        <p>
+            <input type="text" class="input-mini">
+            <a class="btn btn-mini btn-primary" href="#"><i class="icon-plus icon-white"></i> В корзину</a>
+            <a class="btn btn-mini" href="#">Подробнее</a>
+        </p></div>
 </script>
-<%--<div class="st2">--%>
-<%--<div class="img2">--%>
-<%--<img src="http://4.bp.blogspot.com/-MMqXthpCFcI/UIfAX1IGRmI/AAAAAAAAB68/v9A7-fSMtQg/s1600/a_bae1912d.jpg"--%>
-<%--width="150" height="150"/>--%>
-<%--</div>--%>
-<%--</div>--%>
+
+<script id="pagination-sort" type="text/x-handlebars-template">
+    <div class="span6">
+        <div class="pagination pagination-small">
+            <ul class="nav">
+                <li><a href="/clothing/page/{{currentPage-1}}">Prev</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="/clothing/page/{{currentPage+1}}">Next</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="span6">
+        <ul class="nav pull-right" style="margin-bottom: 0">
+            <li>
+                <div class="btn-group" data-toggle="buttons-radio">
+                    <button type="button" class="btn btn-small"><i class="icon-arrow-up"></i></button>
+                    <button type="button" class="btn btn-small"><i class="icon-arrow-down"></i></button>
+                </div>
+            </li>
+            <li>
+                <select class="span12" style="margin-bottom: 0">
+                    <option>По цене</option>
+                    <option>По новизне</option>
+                    <option>По модели</option>
+                </select>
+            </li>
+            <li>
+                <div class="btn-group" data-toggle="buttons-radio">
+                    <button type="button" class="btn btn-small">16</button>
+                    <button type="button" class="btn btn-small">24</button>
+                    <button type="button" class="btn btn-small">32</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</script>
+
 
 

@@ -53,30 +53,6 @@ public class RESTController {
         return clothing;
     }
 
-    @RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, List<Clothing>> findClothingByCategory(@PathVariable Integer id) {
-
-        Category category = categoryService.findById(id);
-        List<Clothing> clothings = clothingService.findByCategory(category);
-        logger.info("Found " + clothings.size() + " categories");
-        Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
-        listClothinds.put("clothings", clothings);
-        return listClothinds;
-    }
-
-    @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, List<Clothing>> findClothingByBrand(@PathVariable Integer id) {
-
-        Brand brand = brandService.findById(id);
-        List<Clothing> clothings = clothingService.findByBrand(brand);
-        logger.info("Found " + clothings.size() + " clothings");
-        Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
-        listClothinds.put("clothings", clothings);
-        return listClothinds;
-    }
-
     @RequestMapping(value = "/clothing", method = RequestMethod.POST)
     @ResponseBody
     public Clothing createClothing(@RequestBody Clothing clothing) {
@@ -109,11 +85,23 @@ public class RESTController {
     @ResponseBody
     public Map<String, List<Category>> categories() {
 
-        List<Category> categories = categoryService.findAll();
+        List<Category> categories = categoryService.findAllOrderByTitleAsc();
         logger.info("Found " + categories.size() + " categories");
         Map<String, List<Category>> listCategory = new HashMap<String, List<Category>>();
         listCategory.put("categories", categories);
         return listCategory;
+    }
+
+    @RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, List<Clothing>> findClothingByCategory(@PathVariable Integer id) {
+
+        Category category = categoryService.findById(id);
+        List<Clothing> clothings = clothingService.findByCategory(category);
+        logger.info("Found " + clothings.size() + " categories");
+        Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
+        listClothinds.put("clothings", clothings);
+        return listClothinds;
     }
 
     @RequestMapping(value = "/category",method = RequestMethod.POST)
@@ -129,10 +117,22 @@ public class RESTController {
     @ResponseBody
     public Map<String, List<Brand>> brand() {
 
-        List<Brand> brands = brandService.findAll();
+        List<Brand> brands = brandService.findAllOrderByTitleAsc();
         logger.info("Found " + brands.size() + " brands");
         Map<String, List<Brand>> listBrands = new HashMap<String, List<Brand>>();
         listBrands.put("brands", brands);
         return listBrands;
+    }
+
+    @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, List<Clothing>> findClothingByBrand(@PathVariable Integer id) {
+
+        Brand brand = brandService.findById(id);
+        List<Clothing> clothings = clothingService.findByBrand(brand);
+        logger.info("Found " + clothings.size() + " clothings");
+        Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
+        listClothinds.put("clothings", clothings);
+        return listClothinds;
     }
 }

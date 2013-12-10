@@ -14,15 +14,16 @@
     <meta name="author" content="">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="http://${pageContext.request.serverName}/resources/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap.css">
     <link rel="stylesheet"
-          href="http://${pageContext.request.serverName}/resources/bootstrap/css/bootstrap-responsive.css">
-    <link rel="stylesheet" href="http://${pageContext.request.serverName}/resources/jQuery/css/jquery.dataTables.css">
+          href="${staticInTomcat}/resources/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/css/style.css">
 
-    <script src="http://${pageContext.request.serverName}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
-    <script src="http://${pageContext.request.serverName}/resources/bootstrap/js/bootstrap.min.js"></script>
-    <script src="http://${pageContext.request.serverName}/resources/jQuery/js/jquery.dataTables.min.js"></script>
-    <script src="http://${pageContext.request.serverName}/resources/js/script.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
+    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.dataTables.min.js"></script>
+    <script src="${staticInTomcat}/resources/js/script.js"></script>
     <script>
         var appLink = window.location.origin + '${pageContext.request.contextPath}';
         var restLink = window.location.origin + window.location.pathname.replace('${pageContext.request.contextPath}', '${pageContext.request.contextPath}/rest');
@@ -30,26 +31,25 @@
 </head>
 <body>
 
-<div class="container-fluid">
-    <tiles:insertAttribute name="notification"/>
-    <div class="row-fluid">
-        <!-- SideBar -->
-        <div class="span2">
-            <tiles:insertAttribute name="sidebar"/>
-        </div>
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <tiles:insertAttribute name="notification"/>
+        <div class="row-fluid">
+            <!-- SideBar -->
+            <div class="span2">
+                <tiles:insertAttribute name="sidebar"/>
+            </div>
 
-        <!-- Settings -->
-        <div class="span10">
-            <tiles:insertAttribute name="settings"/>
+            <!-- Settings -->
+            <div class="span10">
+                <tiles:insertAttribute name="settings"/>
+            </div>
         </div>
     </div>
+
+    <tiles:insertAttribute name="footer"/>
 </div>
 
-<tiles:insertAttribute name="footer"/>
 
-<script>
-    var appLink = window.location.origin + '${pageContext.request.contextPath}';
-    var restLink = window.location.origin + window.location.pathname.replace('${pageContext.request.contextPath}', '${pageContext.request.contextPath}/rest');
-</script>
 </body>
 </html>

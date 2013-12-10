@@ -15,6 +15,13 @@ public class Image implements Serializable {
     private String link;
     private String title;
 
+    public Image() {
+    }
+
+    public Image(String link) {
+        this.link = link;
+    }
+
     @Column(name = "link")
     public String getLink() {
         return link;
@@ -31,5 +38,33 @@ public class Image implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Image image = (Image) o;
+
+        if (link != null ? !link.equals(image.link) : image.link != null) return false;
+        if (title != null ? !title.equals(image.title) : image.title != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = link != null ? link.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "link='" + link + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

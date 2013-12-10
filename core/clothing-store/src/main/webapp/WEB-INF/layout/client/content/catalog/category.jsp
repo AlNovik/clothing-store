@@ -17,6 +17,6 @@
 
 <script>
     $.getJSON(restLink, function (json) {
-        catalog(json, '${pageContext.request.contextPath}');
+        buildCatalog(json, '${pageContext.request.contextPath}');
     });
 </script>

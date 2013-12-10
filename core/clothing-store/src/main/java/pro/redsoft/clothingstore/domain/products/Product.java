@@ -22,6 +22,15 @@ public abstract class Product implements Serializable {
     private Set<Image> images;
     private Boolean visible;
 
+    protected Product() {
+    }
+
+    protected Product(String title, Double price, Set<Image> images) {
+        this.title = title;
+        this.price = price;
+        this.images = images;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -33,7 +42,7 @@ public abstract class Product implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "title")
+    @Column(name = "title", unique = true)
     public String getTitle() {
         return title;
     }
@@ -62,8 +71,8 @@ public abstract class Product implements Serializable {
 
     @ElementCollection
     @CollectionTable(
-            name="product_images",
-            joinColumns=@JoinColumn(name="product_id")
+            name = "product_images",
+            joinColumns = @JoinColumn(name = "product_id")
     )
     public Set<Image> getImages() {
         return images;
@@ -80,5 +89,45 @@ public abstract class Product implements Serializable {
 
     public void setVisible(Boolean visible) {
         this.visible = visible;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (description != null ? !description.equals(product.description) : product.description != null) return false;
+        if (id != null ? !id.equals(product.id) : product.id != null) return false;
+        if (images != null ? !images.equals(product.images) : product.images != null) return false;
+        if (price != null ? !price.equals(product.price) : product.price != null) return false;
+        if (title != null ? !title.equals(product.title) : product.title != null) return false;
+        if (visible != null ? !visible.equals(product.visible) : product.visible != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (images != null ? images.hashCode() : 0);
+        result = 31 * result + (visible != null ? visible.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", images=" + images +
+                ", visible=" + visible +
+                '}';
     }
 }

@@ -10,7 +10,7 @@
         <put-attribute name="header" value="/WEB-INF/layout/client/parts/header.jsp"/>
         <put-attribute name="menu" value="/WEB-INF/layout/client/parts/menu.jsp"/>
         <put-attribute name="content" value=""/>
-        <put-attribute name="search" value="/WEB-INF/layout/client/parts/search.jsp"/>
+        <put-attribute name="search" value="/WEB-INF/layout/client/parts/searchBar.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/layout/client/parts/footer.jsp"/>
     </definition>
 
@@ -27,6 +27,18 @@
     <definition name="admin.products" extends="base.admin">
         <put-attribute name="title" type="string" value=""/>
         <put-attribute name="settings" value="/WEB-INF/layout/admin/content/products.jsp"/>
+    </definition>
+    <definition name="admin.product.add" extends="base.admin">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/product.add.jsp"/>
+    </definition>
+    <definition name="admin.category.add" extends="base.admin">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/category.add.jsp"/>
+    </definition>
+    <definition name="admin.brand.add" extends="base.admin">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/brand.add.jsp"/>
     </definition>
     <definition name="admin.orders" extends="base.admin">
         <put-attribute name="title" type="string" value=""/>
@@ -82,6 +94,11 @@
     <definition name="brand" extends="base.client">
         <put-attribute name="title" type="string" value=""/>
         <put-attribute name="content" value="/WEB-INF/layout/client/content/catalog/brand.jsp"/>
+    </definition>
+    <!-- Выдача поискового запроса -->
+    <definition name="search" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/search.jsp"/>
     </definition>
 
 </tiles-definitions>

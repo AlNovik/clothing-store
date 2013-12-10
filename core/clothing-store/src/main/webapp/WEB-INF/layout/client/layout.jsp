@@ -5,6 +5,9 @@
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
+<c:set var="staticInApache" value="http://${pageContext.request.serverName}"/>
+<c:set var="staticInTomcat" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,41 +17,45 @@
     <meta name="author" content="">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="http://${pageContext.request.serverName}/resources/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap.css">
     <link rel="stylesheet"
-          href="http://${pageContext.request.serverName}/resources/bootstrap/css/bootstrap-responsive.css">
+          href="${staticInTomcat}/resources/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/css/style.css">
 
-    <script src="http://${pageContext.request.serverName}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
-    <script src="http://${pageContext.request.serverName}/resources/bootstrap/js/bootstrap.min.js"></script>
-    <script src="http://${pageContext.request.serverName}/resources/js/script.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
+    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
+    <script src="${staticInTomcat}/resources/js/script.js"></script>
     <script>
         var appLink = window.location.origin + '${pageContext.request.contextPath}';
         var restLink = window.location.origin + window.location.pathname.replace('${pageContext.request.contextPath}', '${pageContext.request.contextPath}/rest');
+        var restAPI = appLink + '/rest';
     </script>
 </head>
 <body>
 
-<div class="container-fluid">
-    <tiles:insertAttribute name="header"/>
-    <div class="row-fluid">
-        <!-- Menu -->
-        <div class="span2 left_content">
-            <tiles:insertAttribute name="menu"/>
-        </div>
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <tiles:insertAttribute name="header"/>
+        <div class="row-fluid">
+            <!-- Menu -->
+            <div class="span2 left_content">
+                <tiles:insertAttribute name="menu"/>
+            </div>
 
-        <!-- Content -->
-        <div class="span7 content">
-            <tiles:insertAttribute name="content"/>
-        </div>
+            <!-- Content -->
+            <div class="span7 content">
+                <tiles:insertAttribute name="content"/>
+            </div>
 
-        <!-- Search parameters -->
-        <div class="span3 right_content">
-            <tiles:insertAttribute name="search"/>
+            <!-- Search parameters -->
+            <div class="span3 right_content">
+                <tiles:insertAttribute name="search"/>
+            </div>
         </div>
     </div>
+
+    <tiles:insertAttribute name="footer"/>
 </div>
-
-<tiles:insertAttribute name="footer"/>
-
 </body>
 </html>

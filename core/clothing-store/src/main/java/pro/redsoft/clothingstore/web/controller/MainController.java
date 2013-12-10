@@ -24,6 +24,11 @@ public class MainController {
 
     @RequestMapping("/clothing")
     public String catalogPage(){
+        return "redirect:/clothing/page/1";
+    }
+
+    @RequestMapping("/clothing/page/{page}")
+    public String clothingPage(@PathVariable Integer page){
         return "catalog";
     }
 
@@ -55,5 +60,10 @@ public class MainController {
     @RequestMapping("/category/{id}")
     public String category(@PathVariable Integer id){
         return "category";
+    }
+
+    @RequestMapping("/search")
+    public String search(){
+        return "search";
     }
 }

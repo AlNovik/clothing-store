@@ -21,6 +21,13 @@ public class Brand implements Serializable {
     private String url;
     private List<Clothing> clothings;
 
+    public Brand() {
+    }
+
+    public Brand(String title) {
+        this.title = title;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue
@@ -58,5 +65,39 @@ public class Brand implements Serializable {
 
     public void setClothings(List<Clothing> clothings) {
         this.clothings = clothings;
+    }
+
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", clothings=" + clothings +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Brand brand = (Brand) o;
+
+        if (clothings != null ? !clothings.equals(brand.clothings) : brand.clothings != null) return false;
+        if (id != null ? !id.equals(brand.id) : brand.id != null) return false;
+        if (title != null ? !title.equals(brand.title) : brand.title != null) return false;
+        if (url != null ? !url.equals(brand.url) : brand.url != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (clothings != null ? clothings.hashCode() : 0);
+        return result;
     }
 }

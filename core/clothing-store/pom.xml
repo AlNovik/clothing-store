@@ -22,6 +22,7 @@
         <!-- Deploy setting-->
         <amazon-tomcat>http://54.194.55.135:8085/manager/text</amazon-tomcat>
         <vmware-tomcat>http://192.168.0.111:8085/manager/text</vmware-tomcat>
+        <locale-tomcat>http://localhost:8085/manager/text</locale-tomcat>
         <ftp.host>54.194.55.135</ftp.host>
         <ftp.remotedir>/home/web-developers/dev/clothing-store/</ftp.remotedir>
         <ftp.userid>dev</ftp.userid>
@@ -240,6 +241,17 @@
             <version>1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
         <!-- DataTables -->
         <dependency>
             <groupId>fr.tduchateau</groupId>
@@ -285,6 +297,32 @@
                         <version>2.0</version>
                         <configuration>
                             <url>${vmware-tomcat}</url>
+                            <server>amazon-tomcat</server>
+                            <path>/${project.build.finalName}</path>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                                <phase>install</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>publishLocale</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.0</version>
+                        <configuration>
+                            <url>${locale-tomcat}</url>
                             <server>amazon-tomcat</server>
                             <path>/${project.build.finalName}</path>
                         </configuration>

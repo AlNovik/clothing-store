@@ -42,4 +42,9 @@ public class CategoryService implements ICategoryService {
     public void save(Category category) {
         categoryRepository.save(category);
     }
+
+    @Override
+    public List<Category> findAllOrderByTitleAsc() {
+        return categoryRepository.findAllOrderByTitleAsc();
+    }
 }

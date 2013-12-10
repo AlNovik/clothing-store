@@ -5,18 +5,7 @@
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
 
-<div class="well">
-    <h4 align="center">Производитель : </h4>
-
-    <b>Описание:</b>
-
-    <p></p>
+<div>
+    <div class="breadcrumb"><span>По вашему запросу найдено N товаров</span></div>
+    <div class="thumbnails" id="items"></div>
 </div>
-
-<div class="thumbnails" id="items"></div>
-
-<script>
-    $.getJSON(restLink, function (json) {
-        buildCatalog(json, '${pageContext.request.contextPath}');
-    });
-</script>

@@ -14,9 +14,7 @@
         <%-- Вкладка товаров --%>
         <div class="tab-pane fade active in" id="catalog">
             <h3>В каталоге всего N товаров</h3>
-            <a href="#createProduct" class="btn btn-success" data-toggle="modal"><i class="icon-plus icon-white"></i> Новый товар</a>
-            <p>Здесь будет список всех товаров</p>
-
+            <p><a href="${pageContext.request.contextPath}/admin/product/add" class="btn btn-success" data-toggle="modal"><i class="icon-plus icon-white"></i> Новый товар</a></p>
             <div class="modal hide fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -51,8 +49,7 @@
         <%-- Вкладкв категорий --%>
         <div class="tab-pane fade" id="category">
             <h3>Категории </h3>
-            <a href="#createCategory" class="btn btn-success" data-toggle="modal"><i class="icon-plus icon-white"></i> Новая категория</a>
-            <p>Зесь будет список категорий</p>
+            <p><a href="${pageContext.request.contextPath}/admin/category/add" class="btn btn-success" data-toggle="modal"><i class="icon-plus icon-white"></i> Новая категория</a></p>
             <table id="table_category" class="table table-bordered table-striped span8">
                 <thead>
                 <tr>
@@ -67,8 +64,7 @@
         <%-- Вкаладка брэндов --%>
         <div class="tab-pane fade" id="brand">
             <h3>Брэнды </h3>
-            <button class="btn btn-success"><i class="icon-plus icon-white"></i> Новый производитель</button>
-            <p>Зесь будет список брэндов</p>
+            <p><a href="${pageContext.request.contextPath}/admin/brand/add" class="btn btn-success"><i class="icon-plus icon-white"></i> Новый производитель</a></p>
             <table id="table_brand" class="table table-bordered table-striped span8">
                 <thead>
                 <tr>
@@ -131,7 +127,7 @@
         $.getJSON(appLink + '/rest/clothing', function (json) {
             $.each(json.clothings, function () {
                 var item = [];
-                item.push(this.id, this.model, this.brand.title, this.category.title, '<i class="icon-eye-open"></i> <i class="icon-search"></i> <i class="icon-remove"></i>');
+                item.push(this.id, this.title, this.brand.title, this.category.title, '<i class="icon-eye-open"></i> <i class="icon-search"></i> <i class="icon-remove"></i>');
                 data_catalog_table.push(item);
 //                $('#table_catalog tbody').append('<tr><td>' + this.id + '</td>' +
 //                        '<td>' + this.model + '</td>' +

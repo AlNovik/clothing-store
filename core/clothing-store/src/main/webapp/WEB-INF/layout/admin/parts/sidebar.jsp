@@ -7,7 +7,7 @@
 
 <ul class="nav nav-pills nav-stacked">
     <li>
-        <a href="${pageContext.request.contextPath}/products">Каталог</a>
+        <a href="${pageContext.request.contextPath}/admin/products">Каталог</a>
     </li>
     <li>
         <a href="${pageContext.request.contextPath}/admin/orders">Заказы</a>

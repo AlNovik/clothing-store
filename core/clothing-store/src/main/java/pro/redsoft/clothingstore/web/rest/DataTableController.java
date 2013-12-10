@@ -52,7 +52,7 @@ public class DataTableController {
         for (Clothing clothing : clothings) {
             Map<String, String> item = new HashMap<String, String>();
             item.put("0", clothing.getId().toString());
-            item.put("1", clothing.getModel());
+            item.put("1", clothing.getTitle());
             item.put("2", clothing.getBrand().getTitle());
             item.put("3", clothing.getCategory().getTitle());
             item.put("4", "test");
