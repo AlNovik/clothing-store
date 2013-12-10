@@ -23,6 +23,7 @@ import pro.redsoft.clothingstore.web.pagination.ProductPage;
 public class PaginationController {
 
     Logger logger = LoggerFactory.getLogger(PaginationController.class);
+    private Integer amount = 16;
 
     @Autowired
     private IClothingService clothingService;
@@ -30,9 +31,10 @@ public class PaginationController {
     @RequestMapping(value = "/clothing/page/{pageNumber}", method = RequestMethod.GET)
     @ResponseBody
     public ProductPage productGrid(@PathVariable(value = "pageNumber") Integer pageNumber,
-                                   @RequestParam(value = "size", required = false, defaultValue = "16") Integer size,
+                                   @RequestParam(value = "size", required = false) Integer size,
                                    @RequestParam(value = "sortBy", required = false) String sortBy,
                                    @RequestParam(value = "order", required = false) String order) {
+
 
         Sort sort = null;
         String orderBy = sortBy;
@@ -44,11 +46,14 @@ public class PaginationController {
             }
         }
 
+        if(size != null){
+            amount = size;
+        }
         PageRequest pageRequest = null;
         if (sort != null) {
-            pageRequest = new PageRequest(pageNumber - 1, size, sort);
+            pageRequest = new PageRequest(pageNumber - 1, amount, sort);
         } else {
-            pageRequest = new PageRequest(pageNumber - 1, size);
+            pageRequest = new PageRequest(pageNumber - 1, amount);
         }
 
         Page<? extends Product> page = clothingService.findAllByPage(pageRequest);

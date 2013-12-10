@@ -16,7 +16,11 @@
 <div class="thumbnails" id="items"></div>
 
 <script>
-    $.getJSON(restLink, function (json) {
-        buildCatalog(json, '${pageContext.request.contextPath}');
+    $(document).ready(function(){
+        $.getJSON(restLink, function (json) {
+            buildCatalog(json, '${pageContext.request.contextPath}');
+        });
+
     });
+
 </script>

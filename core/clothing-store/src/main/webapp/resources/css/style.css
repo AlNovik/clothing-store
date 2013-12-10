@@ -21,3 +21,10 @@ html, body {
 .well .nav > li {
     float: left;
 }
+#items [class*="span"]:nth-child(4n+1) {
+    margin-left: 0;
+}
+
+#items .thumbnail {
+    margin-bottom: 20px;
+}

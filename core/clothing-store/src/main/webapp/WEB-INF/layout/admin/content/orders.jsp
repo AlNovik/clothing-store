@@ -26,11 +26,3 @@
         </div>
     </div>
 </div>
-
-
-
-<script>
-    $(document).ready(function() {
-        $('#example').dataTable();
-    } );
-</script>

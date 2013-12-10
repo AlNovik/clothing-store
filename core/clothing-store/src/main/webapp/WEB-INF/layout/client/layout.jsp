@@ -23,12 +23,13 @@
     <link rel="stylesheet" href="${staticInTomcat}/resources/css/style.css">
 
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
     <script src="${staticInTomcat}/resources/js/script.js"></script>
     <script>
         var appLink = window.location.origin + '${pageContext.request.contextPath}';
-        var restLink = window.location.origin + window.location.pathname.replace('${pageContext.request.contextPath}', '${pageContext.request.contextPath}/rest');
+        var restLink = window.location.href.replace(window.location.origin + '${pageContext.request.contextPath}', window.location.origin + '${pageContext.request.contextPath}/rest');
         var restAPI = appLink + '/rest';
     </script>
 </head>
