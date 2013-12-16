@@ -21,10 +21,72 @@ html, body {
 .well .nav > li {
     float: left;
 }
+
 #items [class*="span"]:nth-child(4n+1) {
     margin-left: 0;
 }
 
 #items .thumbnail {
     margin-bottom: 20px;
+}
+
+#search-size-checkbox .checkbox:nth-child(6n+1) {
+    margin-left: 0;
+}
+
+.checkbox-block {
+    padding: 0 10px;
+}
+
+.check-item {
+    width: 120px;
+    float: left;
+}
+
+.product-photo {
+    float: left;
+    margin-right: 20px;
+    height: auto;
+    width: 250px;
+}
+
+.product-description {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.product-description .dl-horizontal dt {
+    width: 140px;
+}
+
+.product-description .dl-horizontal dd {
+    margin-left: 150px;
+}
+
+#product-addcart {
+    position: relative;
+}
+
+#product-addcart .dl-horizontal dt {
+    width: 80px;
+}
+
+#product-addcart .dl-horizontal dd {
+    margin-left: 90px;
+}
+
+#product-addcart select, #product-addcart input {
+    height: 20px;
+    line-height: 25px;
+    font-size: 12px;
+}
+#product-addcart a{
+    position: absolute;
+    bottom: 30px;
+}
+
+.product-price {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }

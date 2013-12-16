@@ -10,14 +10,14 @@ import java.util.List;
  *         Date: 28.11.13
  */
 @Entity
-@Table(name = "Order")
-public class Order implements Serializable {
+@Table(name = "Orders")
+public class Orders implements Serializable {
 
     private Integer id;
     private Date date;
     private List<OrderItem> items;
 
-    public Order() {
+    public Orders() {
     }
 
     @Id

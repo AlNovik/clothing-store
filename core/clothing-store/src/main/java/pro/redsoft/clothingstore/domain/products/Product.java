@@ -32,7 +32,7 @@ public abstract class Product implements Serializable {
     }
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.TABLE)
     public Integer getId() {
         return id;

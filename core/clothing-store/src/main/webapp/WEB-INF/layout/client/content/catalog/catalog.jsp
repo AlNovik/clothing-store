@@ -4,61 +4,18 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-<script src="${pageContext.request.contextPath}/resources/js/helpers.js"></script>
-
-<div>
-    <div class="breadcrumb"><span>Интернет магазин белорусской одежды. Брест / Беларусь.</span></div>
-
-    <div id="products">
-
-    </div>
+<div id="products">
 </div>
 
+<script id="product-list" type="text/x-handlebars-template">
 
-<script>
-    $(document).ready(function () {
-        var page = $("#product-page").html();
-        var template = Handlebars.compile(page);
-        var data;
+    {{#if properties}}
+    {{> products-group}}
+    {{else}}
+    <div class="breadcrumb"><span>Интернет магазин белорусской одежды. Брест / Беларусь.</span></div>
+    {{/if}}
 
-        $.getJSON(restLink, function (json) {
-            data = json;
-            var render = template(data);
-            $("#products").html(render);
-        })
-    });
-</script>
-
-<script id="product-page" type="text/x-handlebars-template">
-    <div class="well well-small row pagination-sort" style="margin-left: 0">
-        <div class="span6">
-            {{paginationList totalPages currentPage}}
-        </div>
-        <div class="span6">
-            <ul class="nav pull-right" style="margin-bottom: 0">
-                <li>
-                    <div class="btn-group" data-toggle="buttons-radio">
-                        <button type="button" class="btn btn-small"><i class="icon-arrow-up"></i></button>
-                        <button type="button" class="btn btn-small"><i class="icon-arrow-down"></i></button>
-                    </div>
-                </li>
-                <li>
-                    <select class="span12" style="margin-bottom: 0">
-                        <option>По цене</option>
-                        <option>По новизне</option>
-                        <option>По модели</option>
-                    </select>
-                </li>
-                <li>
-                    <div class="btn-group" data-toggle="buttons-radio">
-                        <a href="/clothing/page/{{currentPage}}?size=16" class="btn btn-small">16</a>
-                        <a href="/clothing/page/{{currentPage}}?size=24" class="btn btn-small">24</a>
-                        <a href="/clothing/page/{{currentPage}}?size=32" class="btn btn-small">32</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+    {{> pagination-line}}
 
     <div class="thumbnails" id="items">
         {{#each clothings}}
@@ -81,46 +38,96 @@
                     {{else}}не указано{{/if}}
                 </dd>
             </dl>
-            <%--<p>--%>
-            <%--<input type="text" class="input-mini">--%>
-            <%--<a class="btn btn-mini btn-primary" href="#"><i class="icon-plus icon-white"></i> В корзину</a>--%>
-            <%--<a class="btn btn-mini" href="#">Подробнее</a>--%>
-            <%--</p>--%>
         </div>
         {{/each}}
     </div>
+    {{> pagination-line}}
+</script>
 
+<script id="pagination-line" type="text/x-handlebars-template">
     <div class="well well-small row pagination-sort" style="margin-left: 0">
         <div class="span6">
+            <%--{{#if totalPages>1}}--%>
             {{paginationList totalPages currentPage}}
+            <%--{{/if}}--%>
         </div>
         <div class="span6">
             <ul class="nav pull-right" style="margin-bottom: 0">
                 <li>
                     <div class="btn-group" data-toggle="buttons-radio">
-                        <button type="button" class="btn btn-small"><i class="icon-arrow-up"></i></button>
-                        <button type="button" class="btn btn-small"><i class="icon-arrow-down"></i></button>
+                        <button type="button" class="btn btn-mini" onclick="pagination({order:'desc'})"><i
+                                class="icon-arrow-down"></i></button>
+                        <button type="button" class="btn btn-mini" onclick="pagination({order:'asc'})"><i
+                                class="icon-arrow-up"></i></button>
                     </div>
                 </li>
                 <li>
-                    <select class="span12" style="margin-bottom: 0">
-                        <option>По цене</option>
+                    <select class="span12" style="margin-bottom: 0"
+                            onchange="pagination({sortBy:this.options[this.selectedIndex].value})">
+                        <option>Сортировка</option>
+                        <option value="price">По цене</option>
                         <option>По новизне</option>
-                        <option>По модели</option>
+                        <option value="title">По модели</option>
                     </select>
                 </li>
                 <li>
                     <div class="btn-group" data-toggle="buttons-radio">
-                        <a href="/clothing/page/{{currentPage}}?size=16" class="btn btn-small">16</a>
-                        <a href="/clothing/page/{{currentPage}}?size=24" class="btn btn-small">24</a>
-                        <a href="/clothing/page/{{currentPage}}?size=32" class="btn btn-small">32</a>
+                        <button class="btn btn-mini" onclick="pagination({size:16})">16</button>
+                        <button class="btn btn-mini" onclick="pagination({size:24})">24</button>
+                        <button class="btn btn-mini" onclick="pagination({size:32})">32</button>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
-
 </script>
+
+<script id="products-group" type="text/x-handlebars-template">
+    <div class="well">
+        <h4 align="center">{{properties.type}} : {{properties.description.title}}</h4>
+
+        <b>Описание:</b>
+
+        <p></p>
+    </div>
+</script>
+
+
+<script>
+
+    $(document).ready(function () {
+        var template = Handlebars.compile($("#product-list").html());
+        Handlebars.registerPartial("pagination-line", $("#pagination-line").html());
+        Handlebars.registerPartial("products-group", $("#products-group").html());
+        var data;
+
+        $.getJSON(restLink, $.evalJSON($.cookie('paginationParam')), function (json) {
+            data = json;
+            var render = template(data);
+            $("#products").html(render);
+        })
+    });
+
+    function pagination(param) {
+        var paginationParam;
+        if ($.cookie('paginationParam') == null) {
+            paginationParam = {
+                "size": 16,
+                "order": "asc",
+                "sortBy": "price"
+            };
+        } else {
+            paginationParam = $.evalJSON($.cookie('paginationParam'));
+        }
+        for (var key in param) {
+            paginationParam[key] = param[key];
+        }
+        $.cookie('paginationParam', $.toJSON(paginationParam), { expires: 28, path: '/'});
+
+        document.location = window.location.href;
+    }
+</script>
+
 
 
 

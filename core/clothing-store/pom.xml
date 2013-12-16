@@ -397,7 +397,7 @@
                     <!--<configuration>-->
                     <!--&lt;!&ndash;<tasks>&ndash;&gt;-->
 
-                    <!--<target name="ftp" description="Uploads zip with static to FTP">-->
+                    <!--<target name="ftp" properties="Uploads zip with static to FTP">-->
                     <!--<ftp action="send"-->
                     <!--server="${ftp.host}" remotedir="${ftp.remotedir}"-->
                     <!--userid="${ftp.userid}" password="${ftp.password}">-->

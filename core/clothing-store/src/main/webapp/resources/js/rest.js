@@ -4,3 +4,7 @@ function clothingPage(url) {
         result = json;
     })
 }
+
+function findAllProducts(){
+    $.getJSON()
+}

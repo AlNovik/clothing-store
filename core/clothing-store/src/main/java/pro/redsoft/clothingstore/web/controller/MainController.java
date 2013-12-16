@@ -22,13 +22,35 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/clothing")
-    public String catalogPage(){
-        return "redirect:/clothing/page/1";
+    @RequestMapping("/catalog")
+    public String catalogPage() {
+        return "catalog";
     }
 
-    @RequestMapping("/clothing/page/{page}")
-    public String clothingPage(@PathVariable Integer page){
+    @RequestMapping("/catalog/page/{page}")
+    public String clothingPage(@PathVariable Integer page) {
+        return "catalog";
+    }
+
+    @RequestMapping("/catalog/brand/{id}")
+    public String company(@PathVariable Integer id) {
+        return "catalog";
+    }
+
+    @RequestMapping("/catalog/brand/{id}/page/{page}")
+    public String brandByPage(@PathVariable Integer id,
+                              @PathVariable Integer page) {
+        return "catalog";
+    }
+
+    @RequestMapping("/catalog/category/{id}")
+    public String category(@PathVariable Integer id) {
+        return "catalog";
+    }
+
+    @RequestMapping("/catalog/category/{id}/page/{page}")
+    public String categoryByPage(@PathVariable Integer id,
+                                 @PathVariable Integer page) {
         return "catalog";
     }
 
@@ -43,7 +65,7 @@ public class MainController {
     }
 
     @RequestMapping("/about")
-    public String about(){
+    public String about() {
         return "about";
     }
 
@@ -52,18 +74,8 @@ public class MainController {
         return "contacts";
     }
 
-    @RequestMapping("/brand/{id}")
-    public String company(@PathVariable Integer id){
-        return "brand";
-    }
-
-    @RequestMapping("/category/{id}")
-    public String category(@PathVariable Integer id){
-        return "category";
-    }
-
     @RequestMapping("/search")
-    public String search(){
+    public String search() {
         return "search";
     }
 }

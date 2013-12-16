@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface CategoryRepository extends CrudRepository<Category,Integer> {
 
+    Category findByTitle(String title);
+
     @Query("SELECT c FROM Category c ORDER BY c.title ASC")
     List<Category> findAllOrderByTitleAsc();
+
+    Category findByUrl(String url);
 }

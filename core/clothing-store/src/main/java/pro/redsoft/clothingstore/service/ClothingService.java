@@ -64,6 +64,16 @@ public class ClothingService implements IClothingService {
     }
 
     @Override
+    public Page<Clothing> findPageByCategory(Category category, Pageable pageable) {
+        return clothingRepository.findByCategory(category, pageable);
+    }
+
+    @Override
+    public Page<Clothing> findPageByBrand(Brand brand, Pageable pageable) {
+        return clothingRepository.findByBrand(brand, pageable);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Clothing> findAll() {
         return Lists.newArrayList(productRepository.findAll());
@@ -72,7 +82,7 @@ public class ClothingService implements IClothingService {
     @Override
     @Transactional(readOnly = true)
     public Clothing findById(Integer id) {
-        return (Clothing)productRepository.findOne(id);
+        return (Clothing) productRepository.findOne(id);
     }
 
     @Override

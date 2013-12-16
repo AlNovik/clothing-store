@@ -16,12 +16,12 @@
 
     $.getJSON(appLink + '/rest/category', function (json) {
         $.each(json.categories, function () {
-            $('#category').append('<li><a href="${pageContext.request.contextPath}/category/' + this.id +'">' + this.title + '</a></li>')
+            $('#category').append('<li><a href="${pageContext.request.contextPath}/catalog/category/' + this.id +'">' + this.title + '</a></li>')
         })
     });
     $.getJSON(appLink + '/rest/brand', function (json) {
         $.each(json.brands, function () {
-            $('#company').append('<li><a href="${pageContext.request.contextPath}/brand/' + this.id +'">' + this.title + '</a></li>')
+            $('#company').append('<li><a href="${pageContext.request.contextPath}/catalog/brand/' + this.id +'">' + this.title + '</a></li>')
         })
     });
 

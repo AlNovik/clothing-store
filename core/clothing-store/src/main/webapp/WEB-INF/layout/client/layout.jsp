@@ -13,7 +13,7 @@
 <head>
     <title>Магазин одежды // <tiles:insertAttribute name="title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    <meta name="properties" content="">
     <meta name="author" content="">
     <meta charset="utf-8">
 
@@ -24,8 +24,10 @@
 
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.json-2.4.min.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
+    <script src="${staticInTomcat}/resources/js/helpers.js"></script>
     <script src="${staticInTomcat}/resources/js/script.js"></script>
     <script>
         var appLink = window.location.origin + '${pageContext.request.contextPath}';

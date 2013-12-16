@@ -160,7 +160,7 @@
                     <div class="control-group">
                         <label class="control-label">Описание</label>
                         <div class="controls">
-                            <input type="text" id="description-page">
+                            <input type="text" id="properties-page">
                         </div>
                     </div>
                 </div>
@@ -192,7 +192,7 @@
 
             <div class="control-group">
                 <h4>Описание</h4>
-                <textarea class="span10" id="description" placeholder="Описание..." style="height: 200px"></textarea>
+                <textarea class="span10" id="properties" placeholder="Описание..." style="height: 200px"></textarea>
             </div>
 
             <div class="form-actions">

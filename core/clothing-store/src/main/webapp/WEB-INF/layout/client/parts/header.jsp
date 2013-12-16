@@ -8,7 +8,7 @@
     <div class="navbar-inner">
         <ul class="nav">
             <li><a href="${pageContext.request.contextPath}/index">На главную</a></li>
-            <li><a href="${pageContext.request.contextPath}/clothing">Каталог</a></li>
+            <li><a href="${pageContext.request.contextPath}/catalog">Каталог</a></li>
             <li><a href="${pageContext.request.contextPath}/about">О компании</a></li>
             <li><a href="${pageContext.request.contextPath}/information">Информация</a></li>
             <li><a href="${pageContext.request.contextPath}/contacts">Контакты</a></li>

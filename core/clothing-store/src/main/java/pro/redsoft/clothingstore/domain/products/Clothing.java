@@ -16,9 +16,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Clothing")
-@NamedQueries(
-        @NamedQuery(name = "clothing.models",query = "select c.title from Clothing c")
-)
 public class Clothing extends Product implements Serializable {
 
     private List<Short> height;

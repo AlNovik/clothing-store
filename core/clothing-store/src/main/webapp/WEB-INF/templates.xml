@@ -87,14 +87,6 @@
         <put-attribute name="title" type="string" value=""/>
         <put-attribute name="content" value="/WEB-INF/layout/client/content/contacts.jsp"/>
     </definition>
-    <definition name="category" extends="base.client">
-        <put-attribute name="title" type="string" value=""/>
-        <put-attribute name="content" value="/WEB-INF/layout/client/content/catalog/category.jsp"/>
-    </definition>
-    <definition name="brand" extends="base.client">
-        <put-attribute name="title" type="string" value=""/>
-        <put-attribute name="content" value="/WEB-INF/layout/client/content/catalog/brand.jsp"/>
-    </definition>
     <!-- Выдача поискового запроса -->
     <definition name="search" extends="base.client">
         <put-attribute name="title" type="string" value=""/>

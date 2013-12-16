@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface BrandRepository extends CrudRepository<Brand,Integer> {
 
+    Brand findByTitle(String title);
+
     @Query("SELECT b FROM Brand b ORDER BY b.title ASC")
     List<Brand> findAllOrderByTitleAsc();
+
+    Brand findByUrl(String url);
 }

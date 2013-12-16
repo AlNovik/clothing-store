@@ -3,6 +3,7 @@ package pro.redsoft.clothingstore.web.pagination;
 import pro.redsoft.clothingstore.domain.products.Product;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Alexander Novik
@@ -13,7 +14,8 @@ public class ProductPage {
     private int totalPages;
     private int currentPage;
     private long totalRecords;
-    private List<Product> clothings;
+    private List<? extends Product> clothings;
+    private Map<String,Object> properties;
 
     public int getTotalPages() {
         return totalPages;
@@ -39,11 +41,19 @@ public class ProductPage {
         this.totalRecords = totalRecords;
     }
 
-    public List<Product> getClothings() {
+    public List<? extends Product> getClothings() {
         return clothings;
     }
 
-    public void setClothings(List<Product> clothings) {
+    public void setClothings(List<? extends Product> clothings) {
         this.clothings = clothings;
+    }
+
+    public Map<String,Object> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String,Object> properties) {
+        this.properties = properties;
     }
 }

@@ -24,4 +24,8 @@ public interface IClothingService extends CRUDService<Clothing> {
     List<Clothing> findClothingLikeTitle(String title);
 
     Page<? extends Product> findAllByPage(Pageable pageable);
+
+    Page<Clothing> findPageByCategory(Category category, Pageable pageable);
+
+    Page<Clothing> findPageByBrand(Brand brand, Pageable pageable);
 }

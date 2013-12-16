@@ -11,4 +11,6 @@ import java.util.List;
 public interface IBrandService extends CRUDService<Brand> {
 
     List<Brand> findAllOrderByTitleAsc();
+
+
 }
