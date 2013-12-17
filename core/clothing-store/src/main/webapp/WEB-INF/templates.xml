@@ -79,6 +79,10 @@
         <put-attribute name="title" type="string" value=""/>
         <put-attribute name="content" value="/WEB-INF/layout/client/content/catalog/item.jsp"/>
     </definition>
+    <definition name="shopping" extends="base.client">
+        <put-attribute name="title" type="string" value=""/>
+        <put-attribute name="content" value="/WEB-INF/layout/client/content/shoppingCart.jsp"/>
+    </definition>
     <definition name="about" extends="base.client">
         <put-attribute name="title" type="string" value=""/>
         <put-attribute name="content" value="/WEB-INF/layout/client/content/about.jsp"/>

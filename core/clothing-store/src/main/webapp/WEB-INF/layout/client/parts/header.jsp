@@ -13,8 +13,11 @@
             <li><a href="${pageContext.request.contextPath}/information">Информация</a></li>
             <li><a href="${pageContext.request.contextPath}/contacts">Контакты</a></li>
         </ul>
+        <ul class="nav pull-right">
+            <li><a href="${pageContext.request.contextPath}/admin/products">Админка</a></li>
+            <li><a href="${pageContext.request.contextPath}/shopping">Корзина</a></li>
+        </ul>
 
-        <a href="${pageContext.request.contextPath}/admin/products" class="btn pull-right">Админка</a>
     </div>
 </div>
 

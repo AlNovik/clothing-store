@@ -4,13 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pro.redsoft.clothingstore.domain.products.Clothing;
 import pro.redsoft.clothingstore.service.IClothingService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +29,11 @@ public class SearchController {
 
     @RequestMapping
     @ResponseBody
-    public Map<String,List<Clothing>> search(@RequestParam(value = "title", required = false, defaultValue = "") String title){
+    public Map<String, List<Clothing>> search(@RequestParam(value = "title", required = false, defaultValue = "") String title) {
 
-        Map<String,List<Clothing>> result = new HashMap<String, List<Clothing>>();
-        result.put("clothing",clothingService.findClothingLikeTitle(title));
+        Map<String, List<Clothing>> result = new HashMap<String, List<Clothing>>();
+
+        result.put("clothing", clothingService.findClothingLikeTitle(title));
         return result;
     }
 
@@ -46,6 +45,20 @@ public class SearchController {
         List<String> titles = clothingService.findTitles(title);
         logger.info("List models : " + titles);
         result.put("title", titles);
+        return result;
+    }
+
+    @RequestMapping(value = "/clothing", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, List<Clothing>> findClothingByTitle(@RequestParam(value = "titles[]") String[] titles) {
+
+        Map<String, List<Clothing>> result = new HashMap<String, List<Clothing>>();
+        List<Clothing> clothings = new ArrayList<Clothing>();
+        for (String title : titles) {
+            Clothing clothing = clothingService.findByTitle(title);
+            clothings.add(clothing);
+        }
+        result.put("products",clothings);
         return result;
     }
 

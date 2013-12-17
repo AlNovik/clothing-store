@@ -50,3 +50,7 @@ Handlebars.registerHelper("search-size-checkbox", function () {
     }
     return new Handlebars.SafeString(result);
 });
+
+Handlebars.registerHelper("lengthArray", function (array) {
+    return array.length;
+});

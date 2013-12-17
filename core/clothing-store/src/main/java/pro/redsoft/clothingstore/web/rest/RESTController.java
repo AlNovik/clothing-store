@@ -104,9 +104,9 @@ public class RESTController {
         return listClothinds;
     }
 
-    @RequestMapping(value = "/category",method = RequestMethod.POST)
+    @RequestMapping(value = "/category", method = RequestMethod.POST)
     @ResponseBody
-    public Category createCategory(@RequestBody Category category){
+    public Category createCategory(@RequestBody Category category) {
         logger.info("Creating category: " + category);
         categoryService.save(category);
         logger.info("Category created successfully with info: " + category);

@@ -4,6 +4,7 @@ import pro.redsoft.clothingstore.domain.attributes.Image;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Set;
 
 /**
@@ -20,6 +21,7 @@ public abstract class Product implements Serializable {
     private Double price;
     private String description;
     private Set<Image> images;
+    private Date createDate;
     private Boolean visible;
 
     protected Product() {
@@ -80,6 +82,15 @@ public abstract class Product implements Serializable {
 
     public void setImages(Set<Image> images) {
         this.images = images;
+    }
+
+    @Column(name = "create_date")
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     @Column(name = "visible")

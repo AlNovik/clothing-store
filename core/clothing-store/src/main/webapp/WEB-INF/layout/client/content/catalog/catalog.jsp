@@ -26,7 +26,7 @@
             <span class="badge">{{price}} руб.</span>
             <dl class="dl-horizontal">
                 <dt>Фирма :</dt>
-                <dd>{{#if brand}}<a href="/brand/{{brand.id}}">{{brand.title}}</a>
+                <dd>{{#if brand}}<a href="/catalog/brand/{{brand.id}}">{{brand.title}}</a>
                     {{else}}не указано{{/if}}
                 </dd>
                 <dt>Размер :</dt>

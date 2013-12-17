@@ -36,6 +36,11 @@ public class ClothingService implements IClothingService {
     private ProductRepository productRepository;
 
     @Override
+    public Clothing findByTitle(String title) {
+        return clothingRepository.findByTitle(title);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Clothing> findByCategory(Category category) {
         return clothingRepository.findByCategory(category);

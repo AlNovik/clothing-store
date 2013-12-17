@@ -78,4 +78,9 @@ public class MainController {
     public String search() {
         return "search";
     }
+
+    @RequestMapping("/shopping")
+    public String shopping() {
+        return "shopping";
+    }
 }

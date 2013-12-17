@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface IClothingService extends CRUDService<Clothing> {
 
+    Clothing findByTitle(String title);
+
     List<Clothing> findByCategory(Category category);
 
     List<Clothing> findByBrand(Brand brand);

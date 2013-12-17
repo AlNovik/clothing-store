@@ -15,6 +15,7 @@ public class Orders implements Serializable {
 
     private Integer id;
     private Date date;
+    private OrderStatus status;
     private List<OrderItem> items;
 
     public Orders() {
@@ -38,6 +39,16 @@ public class Orders implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     @ElementCollection
