@@ -4,23 +4,27 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-
+<script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>
+<link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-spinedit.css">
 <h2>Оформление заказа</h2>
 
 <div id="shopping"></div>
 
 <script>
+    var template;
     $(document).ready(function () {
-        var template = Handlebars.compile($("#shopping-table").html());
-        var data = {items: []};
+        template = Handlebars.compile($("#shopping-table").html());
+        initShoppingTable();
+    });
 
+    function initShoppingTable() {
+        var data = {items: []};
         var basketItems = $.evalJSON($.cookie('basketCart'));
         var titles = [];
         $.each(basketItems.items, function () {
             titles.push(this.title);
         });
         $.getJSON(restAPI + '/search/clothing', {titles: titles}, function (json) {
-            console.log(json);
             $.each(json.products, function (i) {
                 var item = {};
                 item.price = this.price;
@@ -33,8 +37,16 @@
             });
             var render = template(data);
             $('#shopping').html(render);
+            $("input[name='quantity']").spinedit();
         });
-    });
+    }
+
+    function deleteItem(index) {
+        var basketItems = $.evalJSON($.cookie('basketCart'));
+        delete basketItems.items[index];
+        $.cookie('basketCart', $.toJSON(basketItems), { expires: 28, path: '/'});
+        initShoppingTable();
+    }
 </script>
 
 <script id="shopping-table" type="text/x-handlebars-template">
@@ -60,7 +72,7 @@
                 Размер : {{size}}<br>
             </td>
             <td>
-                <input type="text" value="{{quantity}}">
+                <input type="text" name="quantity" value="{{quantity}}">
             </td>
             <td>
                 {{price}}
@@ -68,7 +80,9 @@
             <td>
                 {{math quantity "*" price}}
             </td>
-            <td></td>
+            <td>
+                <button class="btn btn-link" data-title="{{title}}" onclick="deleteItem({{@index}})">Удалить</button>
+            </td>
         </tr>
         {{/each}}
         </tbody>

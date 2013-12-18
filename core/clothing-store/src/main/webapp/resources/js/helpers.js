@@ -54,3 +54,23 @@ Handlebars.registerHelper("search-size-checkbox", function () {
 Handlebars.registerHelper("lengthArray", function (array) {
     return array.length;
 });
+
+Handlebars.registerHelper("valuesString", function (values) {
+    var result = '';
+    for (var i = 0; i < values.length; i++) {
+        if (i == (values.length - 1)) {
+            result += values[i] + ';';
+        } else {
+            result += values[i] + ', ';
+        }
+    }
+    return result;
+});
+
+Handlebars.registerHelper("menuList", function (link, data) {
+    var result = '';
+    $.each(data, function () {
+        result += '<li><a href="' + link + this.id + '">' + this.title + '</a></li>'
+    });
+    return new Handlebars.SafeString(result);
+});

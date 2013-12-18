@@ -4,12 +4,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-<link rel="stylesheet" href="/resources/bootstrap/css/fuelux-responsive.css">
-<link rel="stylesheet" href="/resources/bootstrap/css/fuelux.css">
-<link rel="stylesheet" href="/resources/jQuery/css/jquery.jqzoom.css">
-<script src="${staticInTomcat}/resources/bootstrap/js/spinner.js"></script>
+<script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>
+<link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-spinedit.css">
+<link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/jquery.jqzoom.css">
+
 <%--<script src="/resources/jQuery/js/jquery.jqzoom-core.js"></script>--%>
-<script src="http://www.fuelcdn.com/fuelux/2.4.1/loader.min.js"></script>
+
 
 <div id="item"></div>
 
@@ -23,9 +23,8 @@
             itemData = data;
             var renderItem = templateItem(itemData);
             $('#item').html(renderItem);
+            $("input[name='quantity']").spinedit();
         });
-        $('#quantity').spinner();
-//        $('.image-zoom').jqzoom();
     });
 </script>
 
@@ -55,11 +54,11 @@
                             <dt>Брэнд :</dt>
                             <dd>{{brand.title}}</dd>
                             <dt>Рост :</dt>
-                            <dd> {{#if height}}{{#each height}}{{this}}, {{/each}}
+                            <dd> {{#if height}}{{valuesString height}}
                                 {{else}} не указано {{/if}}
                             </dd>
                             <dt>Доступные размеры :</dt>
-                            <dd>{{#if size}}{{#each size}}{{this}}, {{/each}}
+                            <dd>{{#if size}}{{valuesString size}}
                                 {{else}} не указано {{/if}}
                             </dd>
                             <dt>Доступные цвета :</dt>
@@ -88,20 +87,7 @@
                             </select></dd>
                             <dt>Количество:</dt>
                             <dd>
-                                <div class="fuelux">
-                                    <div id="quantity" class="spinner">
-                                        <input type="text" class="input-mini spinner-input">
-
-                                        <div class="spinner-buttons	btn-group btn-group-vertical">
-                                            <button type="button" class="btn spinner-up">
-                                                <i class="icon-chevron-up"></i>
-                                            </button>
-                                            <button type="button" class="btn spinner-down">
-                                                <i class="icon-chevron-down"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <input type="text" name="quantity">
                             </dd>
                         </dl>
                     </div>
@@ -140,7 +126,7 @@
             var inBasket = false;
             $.each(basket.items, function () {
                 if (this.title == $('#product-title').text() && this.size == $('#add-cart-size').val()) {
-                    this.quantity += parseInt($('#quantity input').val(), 10);
+                    this.quantity += parseInt($("input[name='quantity']").val(), 10);
                     inBasket = true;
                 }
             });
@@ -157,7 +143,7 @@
         var item = {};
         item.title = $('#product-title').text();
         item.size = parseInt($('#add-cart-size').val(), 10);
-        item.quantity = parseInt($('#quantity input').val(), 10);
+        item.quantity = parseInt($("input[name='quantity']").val(), 10);
         return item;
     }
 </script>

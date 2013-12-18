@@ -1,8 +1,8 @@
 package pro.redsoft.clothingstore.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import pro.redsoft.clothingstore.domain.order.Orders;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -18,8 +18,11 @@ public class Contact implements Serializable {
     private String name;
     private Address address;
     private Phone phone;
+    private Orders orders;
 
     @Id
+    @GeneratedValue
+    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -28,6 +31,7 @@ public class Contact implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -36,11 +40,30 @@ public class Contact implements Serializable {
         this.name = name;
     }
 
+    @Embedded
     public Address getAddress() {
         return address;
     }
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Embedded
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "contact")
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
     }
 }

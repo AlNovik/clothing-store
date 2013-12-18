@@ -55,7 +55,7 @@ public class RESTController {
 
     @RequestMapping(value = "/clothing", method = RequestMethod.POST)
     @ResponseBody
-    public Clothing createClothing(@RequestBody Clothing clothing) {
+    public Clothing createClothing(Clothing clothing) {
 
         logger.info("Creating clothing: " + clothing);
         clothingService.save(clothing);
@@ -106,8 +106,9 @@ public class RESTController {
 
     @RequestMapping(value = "/category", method = RequestMethod.POST)
     @ResponseBody
-    public Category createCategory(@RequestBody Category category) {
+    public Category createCategory(Category category) {
         logger.info("Creating category: " + category);
+        System.err.println("Creating category: " + category);
         categoryService.save(category);
         logger.info("Category created successfully with info: " + category);
         return category;
@@ -122,6 +123,16 @@ public class RESTController {
         Map<String, List<Brand>> listBrands = new HashMap<String, List<Brand>>();
         listBrands.put("brands", brands);
         return listBrands;
+    }
+
+    @RequestMapping(value = "/brand", method = RequestMethod.POST)
+    @ResponseBody
+    public Brand createBrand(Brand brand) {
+        logger.info("Creating brand: " + brand);
+        System.err.println("Creating brand: " + brand);
+        brandService.save(brand);
+        logger.info("Brand created successfully with info: " + brand);
+        return brand;
     }
 
     @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)

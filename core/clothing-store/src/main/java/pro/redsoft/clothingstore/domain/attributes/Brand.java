@@ -18,8 +18,9 @@ public class Brand implements Serializable {
 
     private Integer id;
     private String title;
-    private String url;
     private List<Clothing> clothings;
+    private String description;
+    private Properties properties;
 
     public Brand() {
     }
@@ -48,15 +49,6 @@ public class Brand implements Serializable {
         this.title = title;
     }
 
-    @Column(name = "url")
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     @OneToMany(mappedBy = "brand")
     @JsonIgnore
     public List<Clothing> getClothings() {
@@ -67,12 +59,29 @@ public class Brand implements Serializable {
         this.clothings = clothings;
     }
 
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Embedded
+    public Properties getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties = properties;
+    }
+
     @Override
     public String toString() {
         return "Brand{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
                 ", clothings=" + clothings +
                 '}';
     }
@@ -87,7 +96,6 @@ public class Brand implements Serializable {
         if (clothings != null ? !clothings.equals(brand.clothings) : brand.clothings != null) return false;
         if (id != null ? !id.equals(brand.id) : brand.id != null) return false;
         if (title != null ? !title.equals(brand.title) : brand.title != null) return false;
-        if (url != null ? !url.equals(brand.url) : brand.url != null) return false;
 
         return true;
     }
@@ -96,7 +104,6 @@ public class Brand implements Serializable {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (clothings != null ? clothings.hashCode() : 0);
         return result;
     }

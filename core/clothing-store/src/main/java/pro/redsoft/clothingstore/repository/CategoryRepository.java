@@ -17,5 +17,6 @@ public interface CategoryRepository extends CrudRepository<Category,Integer> {
     @Query("SELECT c FROM Category c ORDER BY c.title ASC")
     List<Category> findAllOrderByTitleAsc();
 
+    @Query("SELECT c FROM Category c WHERE c.properties.url=:url")
     Category findByUrl(String url);
 }

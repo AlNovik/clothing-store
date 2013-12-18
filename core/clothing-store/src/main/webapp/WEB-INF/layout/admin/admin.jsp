@@ -27,6 +27,7 @@
     <script>
         var appLink = window.location.origin + '${pageContext.request.contextPath}';
         var restLink = window.location.origin + window.location.pathname.replace('${pageContext.request.contextPath}', '${pageContext.request.contextPath}/rest');
+        var restAPI = appLink + '/rest';
     </script>
 </head>
 <body>

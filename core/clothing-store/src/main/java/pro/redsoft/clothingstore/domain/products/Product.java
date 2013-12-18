@@ -1,6 +1,7 @@
 package pro.redsoft.clothingstore.domain.products;
 
 import pro.redsoft.clothingstore.domain.attributes.Image;
+import pro.redsoft.clothingstore.domain.attributes.Properties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,8 +22,8 @@ public abstract class Product implements Serializable {
     private Double price;
     private String description;
     private Set<Image> images;
-    private Date createDate;
-    private Boolean visible;
+    private Properties properties;
+
 
     protected Product() {
     }
@@ -84,22 +85,13 @@ public abstract class Product implements Serializable {
         this.images = images;
     }
 
-    @Column(name = "create_date")
-    public Date getCreateDate() {
-        return createDate;
+    @Embedded
+    public Properties getProperties() {
+        return properties;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    @Column(name = "visible")
-    public Boolean getVisible() {
-        return visible;
-    }
-
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
+    public void setProperties(Properties properties) {
+        this.properties = properties;
     }
 
     @Override
@@ -114,7 +106,6 @@ public abstract class Product implements Serializable {
         if (images != null ? !images.equals(product.images) : product.images != null) return false;
         if (price != null ? !price.equals(product.price) : product.price != null) return false;
         if (title != null ? !title.equals(product.title) : product.title != null) return false;
-        if (visible != null ? !visible.equals(product.visible) : product.visible != null) return false;
 
         return true;
     }
@@ -126,7 +117,6 @@ public abstract class Product implements Serializable {
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (images != null ? images.hashCode() : 0);
-        result = 31 * result + (visible != null ? visible.hashCode() : 0);
         return result;
     }
 
@@ -138,7 +128,6 @@ public abstract class Product implements Serializable {
                 ", price=" + price +
                 ", description='" + description + '\'' +
                 ", images=" + images +
-                ", visible=" + visible +
                 '}';
     }
 }

@@ -1,5 +1,7 @@
 package pro.redsoft.clothingstore.web.rest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,8 @@ import java.util.LinkedList;
 @RequestMapping("/file")
 public class FileController {
 
+    Logger logger = LoggerFactory.getLogger(FileController.class);
+
     LinkedList<FileMeta> files = new LinkedList<FileMeta>();
     FileMeta fileMeta = null;
 
@@ -42,7 +46,7 @@ public class FileController {
 
             //2.1 get next MultipartFile
             mpf = request.getFile(itr.next());
-            System.out.println(mpf.getOriginalFilename() + " uploaded! " + files.size());
+            logger.info(mpf.getOriginalFilename() + " uploaded! " + files.size());
 
             //2.2 if files > 10 remove the first from the list
             if (files.size() >= 10)
@@ -58,7 +62,7 @@ public class FileController {
                 fileMeta.setBytes(mpf.getBytes());
 
                 // copy file to local disk (make sure the path "e.g. D:/temp/files" exists)
-                FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("D:/temp/files/" + mpf.getOriginalFilename()));
+                FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("D:\\Java\\project\\GitHub\\clothing-store\\core\\clothing-store\\src\\main\\webapp\\resources\\img\\" + mpf.getOriginalFilename()));
 
             } catch (IOException e) {
                 // TODO Auto-generated catch block

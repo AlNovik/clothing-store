@@ -1,5 +1,6 @@
 package pro.redsoft.clothingstore.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
@@ -17,6 +18,7 @@ public class Address implements Serializable {
     private Integer building;
     private Integer flat;
 
+    @Column(name = "city")
     public String getCity() {
         return city;
     }
@@ -25,6 +27,7 @@ public class Address implements Serializable {
         this.city = city;
     }
 
+    @Column(name = "street")
     public String getStreet() {
         return street;
     }
@@ -33,6 +36,7 @@ public class Address implements Serializable {
         this.street = street;
     }
 
+    @Column(name = "house")
     public Integer getHouse() {
         return house;
     }
@@ -41,6 +45,7 @@ public class Address implements Serializable {
         this.house = house;
     }
 
+    @Column(name = "building")
     public Integer getBuilding() {
         return building;
     }
@@ -49,6 +54,7 @@ public class Address implements Serializable {
         this.building = building;
     }
 
+    @Column(name = "flat")
     public Integer getFlat() {
         return flat;
     }
