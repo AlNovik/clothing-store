@@ -20,7 +20,7 @@
     <div class="thumbnails" id="items">
         {{#each clothings}}
         <div class="thumbnail span3">
-            <a href="/clothing/{{id}}">
+            <a href="${pageContext.request.contextPath}/clothing/{{id}}">
                 <img src="" alt="images"></a>
             <h6>{{title}}</h6>
             <span class="badge">{{price}} руб.</span>
@@ -100,13 +100,27 @@
         Handlebars.registerPartial("pagination-line", $("#pagination-line").html());
         Handlebars.registerPartial("products-group", $("#products-group").html());
         var data;
-
+        paginationCheck();
         $.getJSON(restLink, $.evalJSON($.cookie('paginationParam')), function (json) {
             data = json;
             var render = template(data);
             $("#products").html(render);
         })
     });
+
+    function paginationCheck() {
+        var paginationParam;
+        if ($.cookie('paginationParam') == null) {
+            paginationParam = {
+                "size": 16,
+                "order": "asc",
+                "sortBy": "price"
+            };
+        } else {
+            paginationParam = $.evalJSON($.cookie('paginationParam'));
+        }
+        $.cookie('paginationParam', $.toJSON(paginationParam), { expires: 28, path: '/'});
+    }
 
     function pagination(param) {
         var paginationParam;
@@ -126,6 +140,32 @@
 
         document.location = window.location.href;
     }
+</script>
+
+<script>
+
+    Handlebars.registerHelper("paginationList", function (totalPages, currentPage) {
+        var result = '<div class="pagination pagination-small"><ul class="nav">';
+        if (currentPage > 1) {
+            result += '<li><a href="${pageContext.request.contextPath}/catalog/page/' + (currentPage - 1) + '">Назад</a></li>';
+        } else {
+            result += '<li class="disabled">Назад</li>';
+        }
+        for (var i = 1; i <= totalPages; i++) {
+            if (i != currentPage) {
+                result += '<li><a href="/catalog/page/' + i + '">' + i + '</a></li>';
+            } else {
+                result += '<li class="active"><a href="/catalog/page/' + i + '">' + i + '</a></li>';
+            }
+        }
+        if (currentPage != totalPages) {
+            result += '<li><a href="/catalog/page/' + (currentPage + 1) + '">Вперед</a></li>';
+        } else {
+            result += '<li class="disabled">Вперед</li>';
+        }
+        result += '</ul></div>';
+        return new Handlebars.SafeString(result);
+    });
 </script>
 
 

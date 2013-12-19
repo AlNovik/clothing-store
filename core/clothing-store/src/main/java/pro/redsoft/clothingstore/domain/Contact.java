@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "Contact")
+@Table(name = "contact")
 public class Contact implements Serializable {
 
     private Integer id;

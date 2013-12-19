@@ -2,6 +2,7 @@ package pro.redsoft.clothingstore.domain.attributes;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import pro.redsoft.clothingstore.domain.products.Clothing;
+import pro.redsoft.clothingstore.domain.properties.Properties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "Brand")
+@Table(name = "brand")
 public class Brand implements Serializable {
 
     private Integer id;
@@ -40,7 +41,7 @@ public class Brand implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "title")
+    @Column(name = "title", unique = true, nullable = false)
     public String getTitle() {
         return title;
     }

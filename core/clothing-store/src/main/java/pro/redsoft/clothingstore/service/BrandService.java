@@ -39,8 +39,8 @@ public class BrandService implements IBrandService {
     }
 
     @Override
-    public void save(Brand manufacturer) {
-        brandRepository.save(manufacturer);
+    public Brand save(Brand manufacturer) {
+        return brandRepository.save(manufacturer);
     }
 
     @Override

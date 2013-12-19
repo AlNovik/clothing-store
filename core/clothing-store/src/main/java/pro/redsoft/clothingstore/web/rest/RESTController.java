@@ -109,9 +109,9 @@ public class RESTController {
     public Category createCategory(Category category) {
         logger.info("Creating category: " + category);
         System.err.println("Creating category: " + category);
-        categoryService.save(category);
-        logger.info("Category created successfully with info: " + category);
-        return category;
+        Category created = categoryService.save(category);
+        logger.info("Category created successfully with info: " + created);
+        return created;
     }
 
     @RequestMapping(value = "/brand", method = RequestMethod.GET)

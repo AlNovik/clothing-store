@@ -4,16 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-<link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-wysihtml5.css">
-
-<script src="${staticInTomcat}/resources/js/wysihtml5-0.3.0.js"></script>
-<script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-wysihtml5.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.ui.widget.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.iframe-transport.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.fileupload.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.synctranslit.min.js"></script>
-
-<a href="/admin/products" class="btn"> << Назад</a>
+<a href="${pageContext.request.contextPath}/admin/products" class="btn"> << Назад</a>
 <%--<div class="row-fluid">--%>
 <%--<div class="span8 offset2">--%>
 <form class="form-horizontal well" id="newCategory">
@@ -31,7 +22,7 @@
         <div class="offset1 span2">
             <div class="control-group">
                 <label class="checkbox">
-                    <input type="checkbox" id="visible" value="true">Отображать
+                    <input type="checkbox" id="visible" value="true" name="properties.visible">Отображать
                 </label>
             </div>
         </div>
@@ -45,7 +36,7 @@
 
                 <div class="controls">
                     <label class="span3">/category/</label>
-                    <input type="text" class="offset3 span9" id="url" name="url">
+                    <input type="text" class="offset3 span9" id="url" name="properties.url">
                 </div>
             </div>
             <div class="control-group">
@@ -99,12 +90,12 @@
 
     <div class="control-group">
         <h4>Описание</h4>
-        <textarea class="span10" id="description" placeholder="Описание..." style="height: 200px"></textarea>
+        <textarea class="span10" id="description" placeholder="Описание..." style="height: 200px"
+                  name="description"></textarea>
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-        <button type="button" class="btn">Отменить</button>
+        <button type="submit" class="btn btn-primary">Добавить</button>
     </div>
 </form>
 <%--</div>--%>
@@ -119,14 +110,17 @@
         // Save Person AJAX Form Submit
         $('#newCategory').submit(function (e) {
             // will pass the form data using the jQuery serialize function
+
+            var formData = form2js('newCategory', '.', true);
+
             $.post(restAPI + '/category', $(this).serialize(),function (response) {
-                alert(response);
-//                $('#personFormResponse').text(response);
+
             }).success(function () {
+                        $('#newCategory').trigger('reset');
                         alert("Успешное выполнение");
                     })
-                    .error(function () {
-                        alert("Ошибка выполнения");
+                    .error(function (data, status, er) {
+                        console.log("error: " + data + " status: " + status + " er:" + er);
                     })
                     .complete(function () {
                         alert("Завершение выполнения");

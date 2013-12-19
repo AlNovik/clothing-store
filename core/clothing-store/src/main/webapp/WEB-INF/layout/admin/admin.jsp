@@ -5,6 +5,9 @@
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
+<c:set var="staticInApache" value="http://${pageContext.request.serverName}"/>
+<c:set var="staticInTomcat" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,11 +22,21 @@
           href="${staticInTomcat}/resources/bootstrap/css/bootstrap-responsive.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/jquery.dataTables.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/css/style.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-wysihtml5.css">
 
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.json-2.4.min.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/form2js.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.dataTables.min.js"></script>
+    <script src="${staticInTomcat}/resources/js/wysihtml5-0.3.0.js"></script>
+    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-wysihtml5.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.ui.widget.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.iframe-transport.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.fileupload.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.synctranslit.min.js"></script>
     <script src="${staticInTomcat}/resources/js/script.js"></script>
+    <script src="${staticInTomcat}/resources/js/rest.js"></script>
     <script>
         var appLink = window.location.origin + '${pageContext.request.contextPath}';
         var restLink = window.location.origin + window.location.pathname.replace('${pageContext.request.contextPath}', '${pageContext.request.contextPath}/rest');

@@ -5,8 +5,8 @@
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<c:set var="staticInApache" value="http://${pageContext.request.serverName}"/>
-<c:set var="staticInTomcat" value="${pageContext.request.contextPath}"/>
+<c:set var="staticInApache" value="http://${pageContext.request.serverName}" scope="application"/>
+<c:set var="staticInTomcat" value="${pageContext.request.contextPath}" scope="application"/>
 
 <!DOCTYPE html>
 <html>
@@ -21,6 +21,8 @@
     <link rel="stylesheet"
           href="${staticInTomcat}/resources/bootstrap/css/bootstrap-responsive.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/css/style.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-spinedit.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/jquery.jqzoom.css">
 
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>
@@ -29,6 +31,7 @@
     <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
     <script src="${staticInTomcat}/resources/js/helpers.js"></script>
     <script src="${staticInTomcat}/resources/js/script.js"></script>
+    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>
     <script>
         var appLink = window.location.origin + '${pageContext.request.contextPath}';
         var restLink = window.location.href.replace(window.location.origin + '${pageContext.request.contextPath}', window.location.origin + '${pageContext.request.contextPath}/rest');

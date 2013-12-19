@@ -14,5 +14,5 @@ public interface CRUDService<T> {
 
     void delete(Integer id);
 
-    void save(T t);
+    T save(T t);
 }

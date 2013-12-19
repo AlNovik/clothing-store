@@ -12,7 +12,7 @@ import java.util.List;
  *         Date: 28.11.13
  */
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Orders implements Serializable {
 
     private Integer id;
@@ -112,5 +112,14 @@ public class Orders implements Serializable {
                 ", items=" + items +
                 ", contact=" + contact +
                 '}';
+    }
+
+    public enum OrderStatus {
+
+        NEW, PROCESSED, CLOSED;
+
+        private OrderStatus() {
+        }
+
     }
 }

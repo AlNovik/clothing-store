@@ -1,11 +1,10 @@
 package pro.redsoft.clothingstore.domain.products;
 
 import pro.redsoft.clothingstore.domain.attributes.Image;
-import pro.redsoft.clothingstore.domain.attributes.Properties;
+import pro.redsoft.clothingstore.domain.properties.Properties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Set;
 
 /**

@@ -96,7 +96,7 @@ public class ClothingService implements IClothingService {
     }
 
     @Override
-    public void save(Clothing clothing) {
-        clothingRepository.save(clothing);
+    public Clothing save(Clothing clothing) {
+        return clothingRepository.save(clothing);
     }
 }

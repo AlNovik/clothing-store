@@ -4,25 +4,17 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-<link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-wysihtml5.css">
-
-<script src="${staticInTomcat}/resources/js/wysihtml5-0.3.0.js"></script>
-<script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-wysihtml5.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.ui.widget.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.iframe-transport.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.fileupload.js"></script>
-
-<a href="/admin/products" class="btn"> << Назад</a>
+<a href="${pageContext.request.contextPath}/admin/products" class="btn"> << Назад</a>
 <%--<div class="row-fluid">--%>
 <%--<div class="span8 offset2">--%>
-<form class="form-horizontal well">
+<form class="form-horizontal well" id="newBrand">
     <legend>
         Новый брэнд
     </legend>
     <div class="row-fluid">
         <div class="span9">
             <div class="control-group">
-                <input class="span12" type="text" id="title" placeholder="Название">
+                <input class="span12" type="text" id="title" placeholder="Название" name="title">
                 <span class="help-block"></span>
             </div>
         </div>
@@ -30,7 +22,7 @@
         <div class="offset1 span2">
             <div class="control-group">
                 <label class="checkbox">
-                    <input type="checkbox" id="visible" value="true">Отображать
+                    <input type="checkbox" id="visible" value="true" name="properties.visible">Отображать
                 </label>
             </div>
         </div>
@@ -38,27 +30,32 @@
     <div class="row-fluid">
         <div class="span6">
             <h4>Свойства страницы</h4>
+
             <div class="control-group">
                 <label class="control-label">URL</label>
+
                 <div class="controls">
                     <label class="span3">/brand/</label>
-                    <input type="text" class="offset3 span9" id="url">
+                    <input type="text" class="offset3 span9" id="url" name="properties.url">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">Title</label>
+
                 <div class="controls">
                     <input type="text" id="title-page">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">Keywords</label>
+
                 <div class="controls">
                     <input type="text" id="keywords">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">Описание</label>
+
                 <div class="controls">
                     <input type="text" id="properties-page">
                 </div>
@@ -66,6 +63,7 @@
         </div>
         <div class="span6">
             <h4>Картинки</h4>
+
             <div style="padding:20px">
 
                 <input id="fileupload" type="file" name="files[]" data-url="rest/file/upload" multiple>
@@ -92,12 +90,12 @@
 
     <div class="control-group">
         <h4>Описание</h4>
-        <textarea class="span10" id="properties" placeholder="Описание..." style="height: 200px"></textarea>
+        <textarea class="span10" id="description" placeholder="Описание..." style="height: 200px"
+                  name="description"></textarea>
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-        <button type="button" class="btn">Отменить</button>
+        <button type="submit" class="btn btn-primary">Добавить</button>
     </div>
 </form>
 <%--</div>--%>
@@ -105,6 +103,28 @@
 
 
 <script>
+
+    $(document).ready(function () {
+        $("#title").syncTranslit({destination: "url"});
+
+        // Save Person AJAX Form Submit
+        $('#newBrand').submit(function (e) {
+            $.post(restAPI + '/brand', $(this).serialize(),function (response) {
+            }).success(function () {
+                        $('#newBrand').trigger('reset');
+                        alert("Успешное выполнение");
+                    })
+                    .error(function (data, status, er) {
+                        console.log("error: " + data + " status: " + status + " er:" + er);
+                    })
+                    .complete(function () {
+                        alert("Завершение выполнения");
+                    });
+
+            e.preventDefault(); // prevent actual form submit and page reload
+        });
+    });
+
     $('#description').wysihtml5({
         "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
         "emphasis": true, //Italics, bold, etc. Default true
@@ -114,8 +134,7 @@
         "image": true, //Button to insert an image. Default true,
         "color": true //Button to change color of font
     });
-</script>
-<script>
+
     $(function () {
         $('#fileupload').fileupload({
             dataType: 'json',
@@ -129,7 +148,7 @@
                                     .append($('<td/>').text(file.fileName))
                                     .append($('<td/>').text(file.fileSize))
                                     .append($('<td/>').text(file.fileType))
-                                    .append($('<td/>').html("<a href='rest/controller/get/"+index+"'>Click</a>"))
+                                    .append($('<td/>').html("<a href='rest/controller/get/" + index + "'>Click</a>"))
                     )//end $("#uploaded-files").append()
                 });
             },
@@ -155,15 +174,18 @@
         text-align: center;
         font-weight: bold;
     }
+
     #dropzone.in {
         width: 600px;
         height: 200px;
         line-height: 200px;
         font-size: larger;
     }
+
     #dropzone.hover {
         background: lawngreen;
     }
+
     #dropzone.fade {
         -webkit-transition: all 0.3s ease-out;
         -moz-transition: all 0.3s ease-out;

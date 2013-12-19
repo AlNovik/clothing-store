@@ -1,7 +1,8 @@
-package pro.redsoft.clothingstore.domain.attributes;
+package pro.redsoft.clothingstore.domain.properties;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.sql.Date;
  */
 
 @Embeddable
-public class Properties {
+public class Properties implements Serializable {
 
     private Date createDate;
     private Date lastModify;

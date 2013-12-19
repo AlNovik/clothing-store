@@ -4,16 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-<link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-wysihtml5.css">
-
-<script src="${staticInTomcat}/resources/js/wysihtml5-0.3.0.js"></script>
-<script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-wysihtml5.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.ui.widget.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.iframe-transport.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.fileupload.js"></script>
-<script src="${staticInTomcat}/resources/jQuery/js/jquery.synctranslit.min.js"></script>
-
-<a href="/admin/products" class="btn"> << Назад</a>
+<a href="${pageContext.request.contextPath}/admin/products" class="btn"> << Назад</a>
 <%--<div class="row-fluid">--%>
 <%--<div class="span8 offset2">--%>
 <form class="form-horizontal well" id="newProduct">
@@ -207,8 +198,7 @@
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-        <button type="button" class="btn">Отменить</button>
+        <button type="submit" class="btn btn-primary">Добавить</button>
     </div>
 </form>
 <%--</div>--%>
@@ -224,7 +214,6 @@
         $('#newProduct').submit(function (e) {
             // will pass the form data using the jQuery serialize function
             $.post(restAPI + '/clothing', $(this).serialize(),function (response) {
-                alert(response);
 //                $('#personFormResponse').text(response);
             }).success(function () {
                         alert("Успешное выполнение");

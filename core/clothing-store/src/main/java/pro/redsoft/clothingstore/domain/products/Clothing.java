@@ -15,7 +15,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "Clothing")
+@Table(name = "clothing")
 public class Clothing extends Product implements Serializable {
 
     private List<Short> height;
@@ -35,6 +35,7 @@ public class Clothing extends Product implements Serializable {
     }
 
     @ElementCollection
+    @CollectionTable(name = "clothing_height", joinColumns = @JoinColumn(name = "clothing_id"))
     public List<Short> getHeight() {
         return height;
     }
@@ -44,6 +45,7 @@ public class Clothing extends Product implements Serializable {
     }
 
     @ElementCollection
+    @CollectionTable(name = "clothing_size", joinColumns = @JoinColumn(name = "clothing_id"))
     public List<Short> getSize() {
         return size;
     }
@@ -52,7 +54,7 @@ public class Clothing extends Product implements Serializable {
         this.size = size;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "category")
     public Category getCategory() {
         return category;
@@ -62,7 +64,7 @@ public class Clothing extends Product implements Serializable {
         this.category = category;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "brand")
     public Brand getBrand() {
         return brand;

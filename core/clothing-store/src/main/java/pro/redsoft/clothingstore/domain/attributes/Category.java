@@ -2,6 +2,7 @@ package pro.redsoft.clothingstore.domain.attributes;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import pro.redsoft.clothingstore.domain.products.Clothing;
+import pro.redsoft.clothingstore.domain.properties.Properties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.util.List;
  *         Date: 28.11.13
  */
 @Entity
-@Table(name = "Category")
+@Table(name = "category")
 public class Category implements Serializable {
 
     private Integer id;
@@ -39,7 +40,7 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "title")
+    @Column(name = "title", unique = true, nullable = false)
     public String getTitle() {
         return title;
     }
@@ -83,18 +84,18 @@ public class Category implements Serializable {
 
         Category category = (Category) o;
 
-        if (clothings != null ? !clothings.equals(category.clothings) : category.clothings != null) return false;
-        if (id != null ? !id.equals(category.id) : category.id != null) return false;
-        if (title != null ? !title.equals(category.title) : category.title != null) return false;
+        if (!id.equals(category.id)) return false;
+        if (properties != null ? !properties.equals(category.properties) : category.properties != null) return false;
+        if (!title.equals(category.title)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (clothings != null ? clothings.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + title.hashCode();
+        result = 31 * result + (properties != null ? properties.hashCode() : 0);
         return result;
     }
 
@@ -103,7 +104,8 @@ public class Category implements Serializable {
         return "Category{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", clothings=" + clothings +
+                ", description='" + description + '\'' +
+                ", properties=" + properties +
                 '}';
     }
 }

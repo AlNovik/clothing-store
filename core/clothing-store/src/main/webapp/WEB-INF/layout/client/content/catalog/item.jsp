@@ -4,9 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-<script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>
-<link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-spinedit.css">
-<link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/jquery.jqzoom.css">
+
 
 <%--<script src="/resources/jQuery/js/jquery.jqzoom-core.js"></script>--%>
 
@@ -41,7 +39,7 @@
     <div class="thumbnail item">
         <div class="row-fluid">
             <div class="span4">
-                <img class="product-photo" src="/resources/img/80137.jpg" alt="{{title}}">
+                <img class="product-photo" src="${pageContext.request.contextPath}/resources/img/80137.jpg" alt="{{title}}">
             </div>
             <div class="span8">
                 <div class="row-fluid">
@@ -107,8 +105,8 @@
     <h3> Все фотографии :</h3>
 
     <div class="pdoduct-allphoto">
-        <a href="/resources/img/80137.jpg" class="image-zoom" title="MYTITLE">
-            <img src="/resources/img/assets_images_FANTAZIA_57_1.jpg.ce19723794696a7d450fc4850919c696.jpg"
+        <a href="${pageContext.request.contextPath}/resources/img/80137.jpg" class="image-zoom" title="MYTITLE">
+            <img src="${pageContext.request.contextPath}/resources/img/assets_images_FANTAZIA_57_1.jpg.ce19723794696a7d450fc4850919c696.jpg"
                  title="IMAGE TITLE">
         </a>
     </div>
