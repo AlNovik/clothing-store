@@ -29,13 +29,18 @@ public class ContactService implements IContactService {
 
     @Override
     @Transactional(readOnly = true)
-    public Contact findById(Integer id) {
+    public Contact findById(Long id) {
         return contactRepository.findOne(id);
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         contactRepository.delete(id);
+    }
+
+    @Override
+    public void delete(Contact contact) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

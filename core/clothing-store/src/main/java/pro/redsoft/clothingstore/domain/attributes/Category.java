@@ -16,7 +16,9 @@ import java.util.List;
 @Table(name = "category")
 public class Category implements Serializable {
 
-    private Integer id;
+    private static final long serialVersionUID = 9061366754793151468L;
+
+    private Long id;
     private String title;
     private List<Clothing> clothings;
     private String description;
@@ -32,11 +34,11 @@ public class Category implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

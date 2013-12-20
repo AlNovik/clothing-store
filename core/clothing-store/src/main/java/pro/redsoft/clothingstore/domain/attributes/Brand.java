@@ -17,7 +17,9 @@ import java.util.List;
 @Table(name = "brand")
 public class Brand implements Serializable {
 
-    private Integer id;
+    private static final long serialVersionUID = -6455343988949202689L;
+
+    private Long id;
     private String title;
     private List<Clothing> clothings;
     private String description;
@@ -33,11 +35,11 @@ public class Brand implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -79,15 +81,6 @@ public class Brand implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Brand{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", clothings=" + clothings +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -107,5 +100,15 @@ public class Brand implements Serializable {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (clothings != null ? clothings.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", properties=" + properties +
+                '}';
     }
 }

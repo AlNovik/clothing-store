@@ -16,10 +16,15 @@ import java.util.Set;
 
 @Entity
 @Table(name = "clothing")
-public class Clothing extends Product implements Serializable {
+public class Clothing extends Product {
+
+    private static final long serialVersionUID = 8682446347509462415L;
 
     private List<Short> height;
     private List<Short> size;
+    private Set<String> cloth;
+    private Set<String> color;
+    private Set<String> season;
     private Category category;
     private Brand brand;
 
@@ -52,6 +57,36 @@ public class Clothing extends Product implements Serializable {
 
     public void setSize(List<Short> size) {
         this.size = size;
+    }
+
+    @ElementCollection
+    @CollectionTable(name = "clothing_cloth", joinColumns = @JoinColumn(name = "clothing_id"))
+    public Set<String> getCloth() {
+        return cloth;
+    }
+
+    public void setCloth(Set<String> cloth) {
+        this.cloth = cloth;
+    }
+
+    @ElementCollection
+    @CollectionTable(name = "clothing_color", joinColumns = @JoinColumn(name = "clothing_id"))
+    public Set<String> getColor() {
+        return color;
+    }
+
+    public void setColor(Set<String> color) {
+        this.color = color;
+    }
+
+    @ElementCollection
+    @CollectionTable(name = "clothing_season", joinColumns = @JoinColumn(name = "clothing_id"))
+    public Set<String> getSeason() {
+        return season;
+    }
+
+    public void setSeason(Set<String> season) {
+        this.season = season;
     }
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
@@ -101,7 +136,8 @@ public class Clothing extends Product implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "Clothing{" +
                 "height=" + height +
                 ", size=" + size +

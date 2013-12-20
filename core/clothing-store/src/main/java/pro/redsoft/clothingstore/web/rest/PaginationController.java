@@ -108,7 +108,7 @@ public class PaginationController {
 
     @RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ProductPage productCategory(@PathVariable(value = "id") Integer id,
+    public ProductPage productCategory(@PathVariable(value = "id") Long id,
                                        @RequestParam(value = "size", required = false) Integer size,
                                        @RequestParam(value = "sortBy", required = false) String sortBy,
                                        @RequestParam(value = "order", required = false) String order) {
@@ -146,7 +146,7 @@ public class PaginationController {
 
     @RequestMapping(value = "/category/{id}/page/{pageNumber}", method = RequestMethod.GET)
     @ResponseBody
-    public ProductPage productCategoryByPage(@PathVariable(value = "id") Integer id,
+    public ProductPage productCategoryByPage(@PathVariable(value = "id") Long id,
                                              @PathVariable(value = "pageNumber") Integer pageNUmber,
                                              @RequestParam(value = "size", required = false) Integer size,
                                              @RequestParam(value = "sortBy", required = false) String sortBy,
@@ -185,7 +185,7 @@ public class PaginationController {
 
     @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ProductPage productBrand(@PathVariable(value = "id") Integer id,
+    public ProductPage productBrand(@PathVariable(value = "id") Long id,
                                     @RequestParam(value = "size", required = false) Integer size,
                                     @RequestParam(value = "sortBy", required = false) String sortBy,
                                     @RequestParam(value = "order", required = false) String order) {
@@ -223,7 +223,7 @@ public class PaginationController {
 
     @RequestMapping(value = "/brand/{id}/page/{pageNumber}", method = RequestMethod.GET)
     @ResponseBody
-    public ProductPage productBrandByPage(@PathVariable(value = "id") Integer id,
+    public ProductPage productBrandByPage(@PathVariable(value = "id") Long id,
                                           @PathVariable(value = "pageNumber") Integer pageNumber,
                                           @RequestParam(value = "size", required = false) Integer size,
                                           @RequestParam(value = "sortBy", required = false) String sortBy,

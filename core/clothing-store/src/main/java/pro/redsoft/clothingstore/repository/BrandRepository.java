@@ -10,7 +10,7 @@ import java.util.List;
  * @author Alexander Novik
  *         Date: 30.11.13
  */
-public interface BrandRepository extends CrudRepository<Brand, Integer> {
+public interface BrandRepository extends CrudRepository<Brand, Long> {
 
     Brand findByTitle(String title);
 

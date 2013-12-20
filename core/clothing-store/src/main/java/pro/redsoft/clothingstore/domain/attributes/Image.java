@@ -1,5 +1,7 @@
 package pro.redsoft.clothingstore.domain.attributes;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -10,10 +12,17 @@ import java.io.Serializable;
  */
 
 @Embeddable
+@JsonIgnoreProperties({"bytes"})
 public class Image implements Serializable {
 
+    private static final long serialVersionUID = 5970534188521154392L;
+
+    private String fileName;
+    private String fileSize;
+    private String fileType;
     private String link;
     private String title;
+//    private byte[] bytes;
 
     public Image() {
     }
@@ -39,6 +48,38 @@ public class Image implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+//    public byte[] getBytes() {
+//        return bytes;
+//    }
+//
+//    public void setBytes(byte[] bytes) {
+//        this.bytes = bytes;
+//    }
 
     @Override
     public boolean equals(Object o) {

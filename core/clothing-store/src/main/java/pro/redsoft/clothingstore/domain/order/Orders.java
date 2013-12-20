@@ -15,7 +15,9 @@ import java.util.List;
 @Table(name = "orders")
 public class Orders implements Serializable {
 
-    private Integer id;
+    private static final long serialVersionUID = 8729276045907878723L;
+
+    private Long id;
     private Date date;
     private OrderStatus status;
     private List<OrderItem> items;
@@ -27,11 +29,11 @@ public class Orders implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

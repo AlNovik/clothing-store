@@ -29,13 +29,18 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public Category findById(Integer id) {
+    public Category findById(Long id) {
         return categoryRepository.findOne(id);
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         categoryRepository.delete(id);
+    }
+
+    @Override
+    public void delete(Category category) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

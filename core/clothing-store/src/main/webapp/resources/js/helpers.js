@@ -41,11 +41,11 @@ Handlebars.registerHelper("math", function (lvalue, operator, rvalue, options) {
 //    return new Handlebars.SafeString(result);
 //});
 
-Handlebars.registerHelper("search-size-checkbox", function () {
+Handlebars.registerHelper("select-size-checkbox", function () {
     var result = '';
     for (var i = 36; i <= 72; i += 2) {
         result += '<label class="checkbox inline search-size-item">' +
-            '<input class="size_ch" type="checkbox" value="size_' + i + '" name="size_' + i + '">' + i +
+            '<input class="size_ch" type="checkbox" value="' + i + '" name="size">' + i +
             '</label>';
     }
     return new Handlebars.SafeString(result);

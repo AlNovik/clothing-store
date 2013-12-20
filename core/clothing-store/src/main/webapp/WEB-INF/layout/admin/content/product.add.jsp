@@ -4,6 +4,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
+<script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-tagsinput.js"></script>
+
 <a href="${pageContext.request.contextPath}/admin/products" class="btn"> << Назад</a>
 <%--<div class="row-fluid">--%>
 <%--<div class="span8 offset2">--%>
@@ -22,52 +24,34 @@
         <div class="offset1 span2">
             <div class="control-group">
                 <label class="checkbox">
-                    <input type="checkbox" id="visible" value="true" name="visible">Отображать
+                    <input type="checkbox" id="visible" value="true" name="properties.visible">Отображать
                 </label>
             </div>
         </div>
     </div>
     <div class="row-fluid">
-        <div class="span5">
+        <div class="span5" id="select-brand">
             <div class="control-group">
                 <label class="control-label" for="brand">Брэнд</label>
 
                 <div class="controls">
-                    <select class="span12" id="brand" name="brand">
-                        <option>Выбрать</option>
-                        <option value="1">Первый</option>
-                    </select>
-                    <span class="help-block"></span>
                 </div>
             </div>
         </div>
-        <div class="span5">
+        <div class="span5" id="select-category">
             <div class="control-group">
                 <label class="control-label" for="category">Категория</label>
 
                 <div class="controls">
-                    <select class="span12" id="category" name="category">
-                        <option>Выбрать</option>
-                        <option value="1">Первый</option>
-                    </select>
-                    <span class="help-block"></span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="control-group">
+    <div class="control-group" id="select-size">
         <label class="control-label">Размеры</label>
 
         <div class="controls">
-            <label class="checkbox inline">
-                <input type="checkbox" id="size_36" value="36" name="size"> 36
-            </label>
-            <label class="checkbox inline">
-                <input type="checkbox" id="size_38" value="38" name="size"> 38
-            </label>
-            <label class="checkbox inline">
-                <input type="checkbox" id="size_40" value="40" name="size"> 40
-            </label>
+
         </div>
     </div>
     <div class="control-group">
@@ -75,49 +59,34 @@
 
         <div class="controls">
             <label class="checkbox inline">
-                <input type="checkbox" id="height_162" value="162" name="height"> 162
+                <input type="checkbox" value="162" name="height"> 162
             </label>
             <label class="checkbox inline">
-                <input type="checkbox" id="height_170" value="170" name="height"> 170
+                <input type="checkbox" value="170" name="height"> 170
             </label>
         </div>
     </div>
+    <h4>Другие характеристики</h4>
+
     <div class="control-group">
-        <label class="control-label">Другие характеристики</label>
+        <label class="control-label">Цвет</label>
 
         <div class="controls">
-            <div class="row-fluid">
-                <div class="span4">
-                    <h5>Цвет</h5>
-                    <select multiple="multiple">
-                        <option>красный</option>
-                        <option>синий</option>
-                        <option>черный</option>
-                        <option>коричневый</option>
-                        <option>желтый</option>
-                    </select>
-                </div>
-                <div class="span4">
-                    <h5>Ткань</h5>
-                    <select multiple="multiple">
-                        <option>хлопок</option>
-                        <option>сатин</option>
-                        <option>кружева на сатине</option>
-                        <option>шерсть</option>
-                        <option>трикотаж</option>
-                    </select>
-                </div>
-                <div class="span4">
-                    <h5>Сезонность</h5>
-                    <select multiple="multiple">
-                        <option>нарядное</option>
-                        <option>зима</option>
-                        <option>лето</option>
-                        <option>осень-зима</option>
-                        <option>5</option>
-                    </select>
-                </div>
-            </div>
+            <input type="text" value="" data-role="tagsinput" name="color" placeholder="Введите доступные цвета..."/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Ткань</label>
+
+        <div class="controls">
+            <input type="text" value="" data-role="tagsinput" name="cloth" placeholder="Введите доступные ткани..."/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Сезонность</label>
+
+        <div class="controls">
+            <input type="text" value="" data-role="tagsinput" name="season" placeholder="Сезонность..."/>
         </div>
     </div>
     <div class="control-group">
@@ -140,7 +109,7 @@
 
                 <div class="controls">
                     <label class="span3">/clothing/</label>
-                    <input type="text" class="offset3 span9" id="url" name="url">
+                    <input type="text" class="offset3 span9" id="url" name="properties.url">
                 </div>
             </div>
             <div class="control-group">
@@ -194,7 +163,8 @@
 
     <div class="control-group">
         <h4>Описание</h4>
-        <textarea class="span10" placeholder="Описание..." style="height: 200px" id="description" name="description"></textarea>
+        <textarea class="span10" placeholder="Описание..." style="height: 200px" id="description"
+                  name="description"></textarea>
     </div>
 
     <div class="form-actions">
@@ -208,6 +178,7 @@
 <script>
 
     $(document).ready(function () {
+        initTemplate();
         $("#title").syncTranslit({destination: "url"});
 
         // Save Person AJAX Form Submit
@@ -263,11 +234,48 @@
                         progress + '%'
                 );
             },
-
             dropZone: $('#dropzone')
         });
     });
+
+    function initTemplate() {
+        var selectBrand = Handlebars.compile($('#selected-brand').html());
+        var selectCategory = Handlebars.compile($('#selected-category').html());
+        var selectSize = Handlebars.compile($('#selected-size').html());
+        $('#select-size .controls').html(selectSize);
+        $.getJSON(restAPI + '/brand', function (data) {
+            $('#select-brand .controls').html(selectBrand(data));
+        });
+        $.getJSON(restAPI + '/category', function (data) {
+            $('#select-category .controls').html(selectCategory(data));
+        });
+    }
 </script>
+
+
+<script id="selected-brand" type="text/x-handlebars-template">
+    <select class="span12" id="brand" name="brand.id">
+        <option disabled>Выбрать</option>
+        {{#each brands}}
+        <option value="{{id}}">{{title}}</option>
+        {{/each}}
+    </select>
+    <span class="help-block"></span>
+</script>
+<script id="selected-category" type="text/x-handlebars-template">
+    <select class="span12" id="category" name="category.id">
+        <option disabled>Выбрать</option>
+        {{#each categories}}
+        <option value="{{id}}">{{title}}</option>
+        {{/each}}
+    </select>
+    <span class="help-block"></span>
+</script>
+<script id="selected-size" type="text/x-handlebars-template">
+    {{select-size-checkbox}}
+</script>
+
+
 <style>
     #dropzone {
         background: #ccc;

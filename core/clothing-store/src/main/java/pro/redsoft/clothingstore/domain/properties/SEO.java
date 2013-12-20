@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Embeddable
 public class SEO implements Serializable {
 
+    private static final long serialVersionUID = -1775154505711633056L;
+
     private String title;
     private String keywords;
     private String description;

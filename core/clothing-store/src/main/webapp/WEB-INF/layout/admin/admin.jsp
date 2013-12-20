@@ -29,6 +29,8 @@
     <script src="${staticInTomcat}/resources/jQuery/js/form2js.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.dataTables.min.js"></script>
+    <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
+    <script src="${staticInTomcat}/resources/js/helpers.js"></script>
     <script src="${staticInTomcat}/resources/js/wysihtml5-0.3.0.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-wysihtml5.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.ui.widget.js"></script>

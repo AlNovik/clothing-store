@@ -2,6 +2,7 @@ package pro.redsoft.clothingstore.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
  * @author Alexander Novik
@@ -9,7 +10,9 @@ import javax.persistence.Embeddable;
  */
 
 @Embeddable
-public class Phone {
+public class Phone implements Serializable {
+
+    private static final long serialVersionUID = -7125966782368127575L;
 
     private String title;
     private String number;

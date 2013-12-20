@@ -153,7 +153,7 @@
 <%-- Шаблоны --%>
 <script id="search-size-checkbox-block" type="text/x-handlebars-template">
     <div class="controls">
-        {{search-size-checkbox}}
+        {{select-size-checkbox}}
     </div>
 </script>
 

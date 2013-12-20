@@ -10,9 +10,11 @@ public interface CRUDService<T> {
 
     List<T> findAll();
 
-    T findById(Integer id);
+    T findById(Long id);
 
-    void delete(Integer id);
+    void delete(Long id);
+
+    void delete(T t);
 
     T save(T t);
 }

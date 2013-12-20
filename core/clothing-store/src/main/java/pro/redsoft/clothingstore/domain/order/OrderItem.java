@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Embeddable
 public class OrderItem implements Serializable {
 
+    private static final long serialVersionUID = 6754228556131749399L;
+
     private Integer quantity;
 //    private Product product;
 

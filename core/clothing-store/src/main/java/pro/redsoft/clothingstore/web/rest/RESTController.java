@@ -48,7 +48,7 @@ public class RESTController {
 
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Clothing findClothingById(@PathVariable Integer id) {
+    public Clothing findClothingById(@PathVariable Long id) {
         Clothing clothing = clothingService.findById(id);
         return clothing;
     }
@@ -74,7 +74,7 @@ public class RESTController {
 
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteClothing(@PathVariable Integer id) {
+    public void deleteClothing(@PathVariable Long id) {
 
         logger.info("Deleting clothing with id: " + id);
         clothingService.delete(id);
@@ -94,7 +94,7 @@ public class RESTController {
 
     @RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, List<Clothing>> findClothingByCategory(@PathVariable Integer id) {
+    public Map<String, List<Clothing>> findClothingByCategory(@PathVariable Long id) {
 
         Category category = categoryService.findById(id);
         List<Clothing> clothings = clothingService.findByCategory(category);
@@ -112,6 +112,15 @@ public class RESTController {
         Category created = categoryService.save(category);
         logger.info("Category created successfully with info: " + created);
         return created;
+    }
+
+    @RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteCategory(@PathVariable Long id) {
+
+        logger.info("Deleting category with id: " + id);
+        categoryService.delete(id);
+        logger.info("Category deleted successfully");
     }
 
     @RequestMapping(value = "/brand", method = RequestMethod.GET)
@@ -137,13 +146,22 @@ public class RESTController {
 
     @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, List<Clothing>> findClothingByBrand(@PathVariable Integer id) {
+    public Map<String, List<Clothing>> findClothingByBrand(@PathVariable Long id) {
 
         Brand brand = brandService.findById(id);
         List<Clothing> clothings = clothingService.findByBrand(brand);
-        logger.info("Found " + clothings.size() + " clothings");
+        logger.info("Found " + clothings.size() + " clothing");
         Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
         listClothinds.put("clothings", clothings);
         return listClothinds;
+    }
+
+    @RequestMapping(value = "/brand/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteBrand(@PathVariable Long id) {
+
+        logger.info("Deleting brand with id: " + id);
+        brandService.delete(id);
+        logger.info("Brand deleted successfully");
     }
 }

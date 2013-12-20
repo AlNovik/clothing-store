@@ -29,13 +29,18 @@ public class BrandService implements IBrandService {
 
     @Override
     @Transactional(readOnly = true)
-    public Brand findById(Integer id) {
+    public Brand findById(Long id) {
         return brandRepository.findOne(id);
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         brandRepository.delete(id);
+    }
+
+    @Override
+    public void delete(Brand brand) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

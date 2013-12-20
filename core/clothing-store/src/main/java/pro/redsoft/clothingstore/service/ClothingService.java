@@ -1,6 +1,7 @@
 package pro.redsoft.clothingstore.service;
 
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,8 @@ import pro.redsoft.clothingstore.domain.attributes.Brand;
 import pro.redsoft.clothingstore.domain.attributes.Category;
 import pro.redsoft.clothingstore.domain.products.Clothing;
 import pro.redsoft.clothingstore.domain.products.Product;
+import pro.redsoft.clothingstore.repository.BrandRepository;
+import pro.redsoft.clothingstore.repository.CategoryRepository;
 import pro.redsoft.clothingstore.repository.ClothingRepository;
 import pro.redsoft.clothingstore.repository.ProductRepository;
 
@@ -31,6 +34,12 @@ public class ClothingService implements IClothingService {
 
     @Autowired
     private ClothingRepository clothingRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private BrandRepository brandRepository;
 
     @Autowired
     private ProductRepository productRepository;
@@ -86,17 +95,36 @@ public class ClothingService implements IClothingService {
 
     @Override
     @Transactional(readOnly = true)
-    public Clothing findById(Integer id) {
+    public Clothing findById(Long id) {
         return (Clothing) productRepository.findOne(id);
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         clothingRepository.delete(id);
     }
 
     @Override
+    public void delete(Clothing clothing) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
     public Clothing save(Clothing clothing) {
+
+        DateTime currentDate = new DateTime();
+
+        if (clothing.getId() == null) {
+            clothing.getProperties().setCreated(currentDate);
+            clothing.getProperties().setUpdated(currentDate);
+            clothing.getProperties().setModify(1);
+        } else {
+            clothing.getProperties().setUpdated(currentDate);
+            clothing.getProperties().setModify(clothing.getProperties().getModify() + 1);
+        }
+        clothing.setBrand(brandRepository.findOne(clothing.getBrand().getId()));
+        clothing.setCategory(categoryRepository.findOne(clothing.getCategory().getId()));
+
         return clothingRepository.save(clothing);
     }
 }

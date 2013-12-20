@@ -1,9 +1,11 @@
 package pro.redsoft.clothingstore.domain.properties;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.sql.Date;
 
 /**
  * @author Alexander Novik
@@ -13,28 +15,32 @@ import java.sql.Date;
 @Embeddable
 public class Properties implements Serializable {
 
-    private Date createDate;
-    private Date lastModify;
+    private static final long serialVersionUID = -6072799079178219591L;
+
+    private DateTime created;
+    private DateTime updated;
     private Integer modify;
-    private Boolean visible;
+    private Boolean visible = false;
     private String url;
 
-    @Column(name = "createDate")
-    public Date getCreateDate() {
-        return createDate;
+    @Column(name = "created")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getCreated() {
+        return created;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreated(DateTime created) {
+        this.created = created;
     }
 
-    @Column(name = "lastModify")
-    public Date getLastModify() {
-        return lastModify;
+    @Column(name = "updated")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getUpdated() {
+        return updated;
     }
 
-    public void setLastModify(Date lastModify) {
-        this.lastModify = lastModify;
+    public void setUpdated(DateTime updated) {
+        this.updated = updated;
     }
 
     @Column(name = "modify")
@@ -47,7 +53,7 @@ public class Properties implements Serializable {
     }
 
     @Column(name = "visible")
-    public Boolean getVisible() {
+    public Boolean isVisible() {
         return visible;
     }
 
@@ -71,8 +77,8 @@ public class Properties implements Serializable {
 
         Properties that = (Properties) o;
 
-        if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
-        if (lastModify != null ? !lastModify.equals(that.lastModify) : that.lastModify != null) return false;
+        if (created != null ? !created.equals(that.created) : that.created != null) return false;
+        if (updated != null ? !updated.equals(that.updated) : that.updated != null) return false;
         if (modify != null ? !modify.equals(that.modify) : that.modify != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (visible != null ? !visible.equals(that.visible) : that.visible != null) return false;
@@ -82,8 +88,8 @@ public class Properties implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = createDate != null ? createDate.hashCode() : 0;
-        result = 31 * result + (lastModify != null ? lastModify.hashCode() : 0);
+        int result = created != null ? created.hashCode() : 0;
+        result = 31 * result + (updated != null ? updated.hashCode() : 0);
         result = 31 * result + (modify != null ? modify.hashCode() : 0);
         result = 31 * result + (visible != null ? visible.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
@@ -93,8 +99,8 @@ public class Properties implements Serializable {
     @Override
     public String toString() {
         return "Properties{" +
-                "createDate=" + createDate +
-                ", lastModify=" + lastModify +
+                "created=" + created +
+                ", updated=" + updated +
                 ", modify=" + modify +
                 ", visible=" + visible +
                 ", url='" + url + '\'' +

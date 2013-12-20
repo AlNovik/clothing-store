@@ -14,7 +14,7 @@ import java.util.List;
  * @author Alexander Novik
  *         Date: 28.11.13
  */
-public interface ClothingRepository extends ProductRepository<Clothing,Integer> {
+public interface ClothingRepository extends ProductRepository<Clothing,Long> {
 
     List<Clothing> findByCategory(Category category);
 

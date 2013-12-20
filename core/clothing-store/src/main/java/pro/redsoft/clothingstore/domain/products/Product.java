@@ -16,13 +16,14 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Product implements Serializable {
 
-    private Integer id;
+    private static final long serialVersionUID = 6906437706286113838L;
+
+    private Long id;
     private String title;
     private Double price;
     private String description;
     private Set<Image> images;
     private Properties properties;
-
 
     protected Product() {
     }
@@ -36,11 +37,11 @@ public abstract class Product implements Serializable {
     @Id
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.TABLE)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

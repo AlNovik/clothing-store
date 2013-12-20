@@ -10,7 +10,7 @@ import java.util.List;
  * @author Alexander Novik
  *         Date: 30.11.13
  */
-public interface CategoryRepository extends CrudRepository<Category,Integer> {
+public interface CategoryRepository extends CrudRepository<Category,Long> {
 
     Category findByTitle(String title);
 
