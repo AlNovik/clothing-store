@@ -15,7 +15,7 @@
         </ul>
         <ul class="nav pull-right">
             <li><a href="${pageContext.request.contextPath}/admin/products">Админка</a></li>
-            <li><a href="${pageContext.request.contextPath}/shopping">Корзина</a></li>
+            <li><a href="${pageContext.request.contextPath}/shopping">Корзина <span class="badge badge-info"></span></a></li>
         </ul>
 
     </div>

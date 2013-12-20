@@ -5,7 +5,6 @@
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
 
-
 <%--<script src="/resources/jQuery/js/jquery.jqzoom-core.js"></script>--%>
 
 
@@ -39,7 +38,8 @@
     <div class="thumbnail item">
         <div class="row-fluid">
             <div class="span4">
-                <img class="product-photo" src="${pageContext.request.contextPath}/resources/img/80137.jpg" alt="{{title}}">
+                <img class="product-photo" src="${pageContext.request.contextPath}/resources/img/80137.jpg"
+                     alt="{{title}}">
             </div>
             <div class="span8">
                 <div class="row-fluid">
@@ -90,7 +90,7 @@
                         </dl>
                     </div>
                     <div class="span4">
-                        <button id="add-cart-btn" class="btn btn-block span4" onclick="addCart()"><i
+                        <button id="add-cart-btn" class="btn btn-block span4" onclick="javascript:addCart()"><i
                                 class="icon-shopping-cart"></i><br>В
                             корзину
                         </button>
@@ -110,38 +110,4 @@
                  title="IMAGE TITLE">
         </a>
     </div>
-</script>
-
-<script>
-    function addCart() {
-        var basket;
-        if ($.cookie('basketCart') == null) {
-            basket = {items: []};
-        } else {
-            basket = $.evalJSON($.cookie('basketCart'));
-        }
-        if (basket.items.length > 0) {
-            var inBasket = false;
-            $.each(basket.items, function () {
-                if (this.title == $('#product-title').text() && this.size == $('#add-cart-size').val()) {
-                    this.quantity += parseInt($("input[name='quantity']").val(), 10);
-                    inBasket = true;
-                }
-            });
-            if (!inBasket) {
-                basket.items.push(addItemToCart());
-            }
-        } else {
-            basket.items.push(addItemToCart());
-        }
-        $.cookie('basketCart', $.toJSON(basket), { expires: 28, path: '/'});
-    }
-
-    function addItemToCart() {
-        var item = {};
-        item.title = $('#product-title').text();
-        item.size = parseInt($('#add-cart-size').val(), 10);
-        item.quantity = parseInt($("input[name='quantity']").val(), 10);
-        return item;
-    }
 </script>

@@ -16,41 +16,10 @@
         template = Handlebars.compile($("#shopping-table").html());
         initShoppingTable();
     });
-
-    function initShoppingTable() {
-        var data = {items: []};
-        var basketItems = $.evalJSON($.cookie('basketCart'));
-        var titles = [];
-        $.each(basketItems.items, function () {
-            titles.push(this.title);
-        });
-        $.getJSON(restAPI + '/search/clothing', {titles: titles}, function (json) {
-            $.each(json.products, function (i) {
-                var item = {};
-                item.price = this.price;
-                item.brand = this.brand.title;
-                item.category = this.category.title;
-                item.title = basketItems.items[i].title;
-                item.size = basketItems.items[i].size;
-                item.quantity = basketItems.items[i].quantity;
-                data.items.push(item);
-            });
-            var render = template(data);
-            $('#shopping').html(render);
-            $("input[name='quantity']").spinedit();
-        });
-    }
-
-    function deleteItem(index) {
-        var basketItems = $.evalJSON($.cookie('basketCart'));
-        delete basketItems.items[index];
-        $.cookie('basketCart', $.toJSON(basketItems), { expires: 28, path: '/'});
-        initShoppingTable();
-    }
 </script>
 
 <script id="shopping-table" type="text/x-handlebars-template">
-    <table class="table table-condensed table-striped table-hover table-bordered">
+    <table class="table table-condensed table-striped table-hover table-bordered" id="shopcart">
         <thead>
         <tr>
             <th>#</th>
@@ -67,9 +36,9 @@
             <td>{{math @index 1}}</td>
             <td>
                 <strong>{{category}}, {{brand}}</strong><br>
-                Модель : {{title}} <br>
+                Модель : <span class="item-title">{{title}}</span> <br>
                 Цвет : <br>
-                Размер : {{size}}<br>
+                Размер : <span class="item-size">{{size}}</span><br>
             </td>
             <td>
                 <input type="text" name="quantity" value="{{quantity}}">
@@ -78,10 +47,10 @@
                 {{price}}
             </td>
             <td>
-                {{math quantity "*" price}}
+                <span class="item-sum">{{math quantity "*" price}}</span>
             </td>
             <td>
-                <button class="btn btn-link" data-title="{{title}}" onclick="deleteItem({{@index}})">Удалить</button>
+                <button class="btn btn-link delete">Удалить</button>
             </td>
         </tr>
         {{/each}}
@@ -89,9 +58,8 @@
         <tfoot>
         <tr>
             <th colspan="3">В корзине {{lengthArray items}} товаров</th>
-            <th colspan="3">Итого:</th>
+            <th colspan="3">Итого: <span id="total-price"></span></th>
         </tr>
         </tfoot>
     </table>
-
 </script>

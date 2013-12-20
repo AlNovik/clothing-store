@@ -3,7 +3,12 @@ package pro.redsoft.clothingstore.web.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import pro.redsoft.clothingstore.domain.attributes.Brand;
 import pro.redsoft.clothingstore.domain.attributes.Category;
@@ -12,6 +17,8 @@ import pro.redsoft.clothingstore.service.IBrandService;
 import pro.redsoft.clothingstore.service.ICategoryService;
 import pro.redsoft.clothingstore.service.IClothingService;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +62,7 @@ public class RESTController {
 
     @RequestMapping(value = "/clothing", method = RequestMethod.POST)
     @ResponseBody
-    public Clothing createClothing(Clothing clothing) {
+    public Clothing createClothing(@Valid Clothing clothing, BindingResult result) {
 
         logger.info("Creating clothing: " + clothing);
         clothingService.save(clothing);
@@ -106,7 +113,7 @@ public class RESTController {
 
     @RequestMapping(value = "/category", method = RequestMethod.POST)
     @ResponseBody
-    public Category createCategory(Category category) {
+    public Category createCategory(@Valid Category category) {
         logger.info("Creating category: " + category);
         System.err.println("Creating category: " + category);
         Category created = categoryService.save(category);
@@ -163,5 +170,24 @@ public class RESTController {
         logger.info("Deleting brand with id: " + id);
         brandService.delete(id);
         logger.info("Brand deleted successfully");
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public List<String> handleValidationError(MethodArgumentNotValidException e) {
+        List<String> errorMessages = new ArrayList<String>();
+        for (ObjectError objectError : e.getBindingResult().getAllErrors()) {
+            errorMessages.add(buildMessage(objectError));
+        }
+        return errorMessages;
+    }
+
+    private String buildMessage(ObjectError objectError) {
+        if (objectError instanceof FieldError) {
+            return ((FieldError) objectError).getField() + ": " + objectError.getDefaultMessage();
+        } else {
+            return objectError.getDefaultMessage();
+        }
     }
 }

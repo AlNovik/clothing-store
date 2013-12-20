@@ -1,6 +1,7 @@
 package pro.redsoft.clothingstore.domain.attributes;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 import pro.redsoft.clothingstore.domain.products.Clothing;
 import pro.redsoft.clothingstore.domain.properties.Properties;
 
@@ -43,6 +44,7 @@ public class Category implements Serializable {
     }
 
     @Column(name = "title", unique = true, nullable = false)
+    @NotEmpty(message = "Заполните поле")
     public String getTitle() {
         return title;
     }
@@ -86,17 +88,20 @@ public class Category implements Serializable {
 
         Category category = (Category) o;
 
-        if (!id.equals(category.id)) return false;
+        if (description != null ? !description.equals(category.description) : category.description != null)
+            return false;
+        if (id != null ? !id.equals(category.id) : category.id != null) return false;
         if (properties != null ? !properties.equals(category.properties) : category.properties != null) return false;
-        if (!title.equals(category.title)) return false;
+        if (title != null ? !title.equals(category.title) : category.title != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + title.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (properties != null ? properties.hashCode() : 0);
         return result;
     }

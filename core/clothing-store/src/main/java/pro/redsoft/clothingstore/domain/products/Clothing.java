@@ -119,7 +119,10 @@ public class Clothing extends Product {
 
         if (brand != null ? !brand.equals(clothing.brand) : clothing.brand != null) return false;
         if (category != null ? !category.equals(clothing.category) : clothing.category != null) return false;
+        if (cloth != null ? !cloth.equals(clothing.cloth) : clothing.cloth != null) return false;
+        if (color != null ? !color.equals(clothing.color) : clothing.color != null) return false;
         if (height != null ? !height.equals(clothing.height) : clothing.height != null) return false;
+        if (season != null ? !season.equals(clothing.season) : clothing.season != null) return false;
         if (size != null ? !size.equals(clothing.size) : clothing.size != null) return false;
 
         return true;
@@ -130,6 +133,9 @@ public class Clothing extends Product {
         int result = super.hashCode();
         result = 31 * result + (height != null ? height.hashCode() : 0);
         result = 31 * result + (size != null ? size.hashCode() : 0);
+        result = 31 * result + (cloth != null ? cloth.hashCode() : 0);
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + (season != null ? season.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (brand != null ? brand.hashCode() : 0);
         return result;

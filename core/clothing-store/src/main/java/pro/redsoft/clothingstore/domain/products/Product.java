@@ -1,9 +1,12 @@
 package pro.redsoft.clothingstore.domain.products;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import pro.redsoft.clothingstore.domain.attributes.Image;
 import pro.redsoft.clothingstore.domain.properties.Properties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -46,6 +49,7 @@ public abstract class Product implements Serializable {
     }
 
     @Column(name = "title", unique = true)
+    @NotEmpty(message = "Заполните поле")
     public String getTitle() {
         return title;
     }
@@ -55,6 +59,7 @@ public abstract class Product implements Serializable {
     }
 
     @Column(name = "price")
+    @Min(value = 0, message ="Неверное значение")
     public Double getPrice() {
         return price;
     }
