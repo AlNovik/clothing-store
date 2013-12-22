@@ -1,6 +1,8 @@
 package pro.redsoft.clothingstore.domain.order;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 import pro.redsoft.clothingstore.domain.Contact;
 
 import javax.persistence.*;
@@ -40,6 +42,8 @@ public class Orders implements Serializable {
     }
 
     @Column(name = "date_create")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     public DateTime getDateCreate() {
         return dateCreate;
     }

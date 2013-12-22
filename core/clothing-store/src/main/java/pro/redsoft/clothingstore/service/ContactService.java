@@ -44,7 +44,12 @@ public class ContactService implements IContactService {
     }
 
     @Override
-    public Contact save(Contact contact) {
+    public Contact create(Contact contact) {
         return contactRepository.save(contact);
+    }
+
+    @Override
+    public Contact modify(Contact contact) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

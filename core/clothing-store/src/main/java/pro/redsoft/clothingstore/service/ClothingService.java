@@ -115,7 +115,7 @@ public class ClothingService implements IClothingService {
     }
 
     @Override
-    public Clothing save(Clothing clothing) {
+    public Clothing create(Clothing clothing) {
 
         DateTime currentDate = new DateTime();
 
@@ -140,5 +140,10 @@ public class ClothingService implements IClothingService {
             clothing.setCategory(categoryRepository.findOne(clothing.getCategory().getId()));
         }
         return clothingRepository.save(clothing);
+    }
+
+    @Override
+    public Clothing modify(Clothing clothing) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

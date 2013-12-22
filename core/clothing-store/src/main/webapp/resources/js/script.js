@@ -3,7 +3,17 @@
 var App = {
     link: appLink,
     Templates: {},
-    Rest: {link: restAPI}
+    Rest: {link: restAPI},
+    Storage: {
+        save: function (key, data) {
+            $.cookie(key, data, { expires: 28, path: '/'});
+        },
+        get: function (key) {
+            return $.cookie(key);
+        },
+        delete: function (key) {
+            $.cookie(key, null, {path: '/'});
+        }}
 };
 
 $(document).ready(function () {
@@ -12,10 +22,10 @@ $(document).ready(function () {
 
 function addCart() {
     var basket;
-    if ($.cookie('basketCart') == null) {
+    if (App.Storage.get('basketCart') == null) {
         basket = {items: []};
     } else {
-        basket = $.evalJSON($.cookie('basketCart'));
+        basket = $.evalJSON(App.Storage.get('basketCart'));
     }
     if (basket.items.length > 0) {
         var inBasket = false;
@@ -31,7 +41,7 @@ function addCart() {
     } else {
         basket.items.push(addItemToCart());
     }
-    $.cookie('basketCart', $.toJSON(basket), { expires: 28, path: '/'});
+    App.Storage.save('basketCart',$.toJSON(basket));
     basketCount();
 }
 
@@ -45,7 +55,7 @@ function addItemToCart() {
 
 function initShoppingTable() {
     var data = {items: []};
-    var basketItems = $.evalJSON($.cookie('basketCart'));
+    var basketItems = $.evalJSON(App.Storage.get('basketCart'));
     var titles = [];
     $.each(basketItems.items, function () {
         titles.push(this.title);
@@ -55,7 +65,7 @@ function initShoppingTable() {
             var item = {};
             item.price = this.price;
             item.brand = this.brand.title;
-            item.category = this.category.title;
+            item.category = this.categories.title;
             item.title = basketItems.items[i].title;
             item.size = basketItems.items[i].size;
             item.quantity = basketItems.items[i].quantity;
@@ -76,13 +86,13 @@ function editQuantity() {
         var tr = $(this).closest("tr");
         var title = tr.find('.item-title').html();
         var size = tr.find('.item-size').html();
-        var basket = $.evalJSON($.cookie('basketCart'));
+        var basket = $.evalJSON(App.Storage.get('basketCart'));
         $.each(basket.items, function () {
             if (this.title == title && this.size == size) {
                 this.quantity = newQuantity;
             }
         });
-        $.cookie('basketCart', $.toJSON(basket), { expires: 28, path: '/'});
+        App.Storage.save('basketCart',$.toJSON(basket));
         initShoppingTable();
     });
     $('.spinedit i').click(function () {
@@ -101,17 +111,19 @@ function totalPrice() {
 function deleteItem() {
     $('#shopcart .delete').click(function () {
         var ind = $(this).closest("tr")[0].rowIndex;
-        var basket = $.evalJSON($.cookie('basketCart'));
+        var basket = $.evalJSON(App.Storage.get('basketCart'));
         basket.items.splice(ind - 1, 1);
-        $.cookie('basketCart', $.toJSON(basket), { expires: 28, path: '/'});
+        App.Storage.save('basketCart',$.toJSON(basket));
         initShoppingTable();
         basketCount();
     })
 }
 
 function basketCount() {
-    if ($.evalJSON($.cookie('basketCart') != null)) {
-        var basket = $.evalJSON($.cookie('basketCart'));
+    if ($.evalJSON(App.Storage.get('basketCart') != null)) {
+        var basket = $.evalJSON(App.Storage.get('basketCart'));
         $('.navbar .badge-info').html(basket.items.length);
+    } else {
+        $('.navbar .badge-info').empty();
     }
 }

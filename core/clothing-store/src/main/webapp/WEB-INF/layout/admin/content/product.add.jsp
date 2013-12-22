@@ -4,179 +4,179 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-<script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-tagsinput.js"></script>
 
-<a href="${pageContext.request.contextPath}/admin/products" class="btn"> << Назад</a>
-<%--<div class="row-fluid">--%>
-<%--<div class="span8 offset2">--%>
-<form class="form-horizontal well" id="newProduct">
-    <legend>
-        Новый товар
-    </legend>
-    <div class="row-fluid">
-        <div class="span9">
-            <div class="control-group">
-                <input class="span12" type="text" id="title" name="title" placeholder="Название">
-                <span class="help-block"></span>
+<div class="modal hide fade modal-admin" id="modal-product-add" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Добавить товый товар</h3>
+    </div>
+    <form class="form-horizontal" id="newProduct">
+        <div class="modal-body well">
+
+            <div class="row-fluid">
+                <div class="span9">
+                    <div class="control-group">
+                        <input class="span12" type="text" id="title" name="title" placeholder="Название">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="offset1 span2">
+                    <div class="control-group">
+                        <label class="checkbox">
+                            <input type="checkbox" id="visible" value="true" name="properties.visible">Отображать
+                        </label>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="row-fluid">
+                <div class="span4" id="select-brand">
+                    <div class="control-group">
+                        <label class="control-label" for="brand">Брэнд</label>
 
-        <div class="offset1 span2">
+                        <div class="controls">
+                        </div>
+                    </div>
+                </div>
+                <div class="span4" id="select-category">
+                    <div class="control-group">
+                        <label class="control-label" for="category">Категория</label>
+
+                        <div class="controls">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group" id="select-size">
+                <label class="control-label">Размеры</label>
+
+                <div class="controls">
+
+                </div>
+            </div>
             <div class="control-group">
-                <label class="checkbox">
-                    <input type="checkbox" id="visible" value="true" name="properties.visible">Отображать
+                <label class="control-label">Рост</label>
+
+                <div class="controls">
+                    <label class="checkbox inline">
+                        <input type="checkbox" value="162" name="height"> 162
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" value="170" name="height"> 170
+                    </label>
+                </div>
+            </div>
+            <h4>Другие характеристики</h4>
+
+            <div class="control-group">
+                <label class="control-label">Цвет</label>
+
+                <div class="controls">
+                    <input type="text" value="" data-role="tagsinput" name="color"
+                           placeholder="Введите доступные цвета..."/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Ткань</label>
+
+                <div class="controls">
+                    <input type="text" value="" data-role="tagsinput" name="cloth"
+                           placeholder="Введите доступные ткани..."/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Сезонность</label>
+
+                <div class="controls">
+                    <input type="text" value="" data-role="tagsinput" name="season" placeholder="Сезонность..."/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="price">
+                    Цена
                 </label>
-            </div>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span5" id="select-brand">
-            <div class="control-group">
-                <label class="control-label" for="brand">Брэнд</label>
 
                 <div class="controls">
+                    <div class="input-append">
+                        <input class="span10" id="price" size="16" type="number" name="price"><span
+                            class="add-on">.руб</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="span5" id="select-category">
-            <div class="control-group">
-                <label class="control-label" for="category">Категория</label>
+            <div class="row-fluid">
+                <div class="span6">
+                    <h4>Свойства страницы</h4>
 
-                <div class="controls">
+                    <div class="control-group">
+                        <label class="control-label">URL</label>
+
+                        <div class="controls">
+                            <label class="span3">/clothing/</label>
+                            <input type="text" class="offset3 span9" id="url" name="properties.url">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Title</label>
+
+                        <div class="controls">
+                            <input type="text" id="title-page">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Keywords</label>
+
+                        <div class="controls">
+                            <input type="text" id="keywords">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Описание</label>
+
+                        <div class="controls">
+                            <input type="text" id="properties-page">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="control-group" id="select-size">
-        <label class="control-label">Размеры</label>
+                <div class="span6">
+                    <h4>Картинки</h4>
 
-        <div class="controls">
+                    <div style="padding:20px">
 
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label">Рост</label>
+                        <input id="fileupload" type="file" name="files[]" data-url="/rest/file/upload" multiple>
 
-        <div class="controls">
-            <label class="checkbox inline">
-                <input type="checkbox" value="162" name="height"> 162
-            </label>
-            <label class="checkbox inline">
-                <input type="checkbox" value="170" name="height"> 170
-            </label>
-        </div>
-    </div>
-    <h4>Другие характеристики</h4>
+                        <div id="dropzone">Drop files here</div>
 
-    <div class="control-group">
-        <label class="control-label">Цвет</label>
+                        <div id="progress">
+                            <div style="width: 0%;"></div>
+                        </div>
 
-        <div class="controls">
-            <input type="text" value="" data-role="tagsinput" name="color" placeholder="Введите доступные цвета..."/>
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label">Ткань</label>
-
-        <div class="controls">
-            <input type="text" value="" data-role="tagsinput" name="cloth" placeholder="Введите доступные ткани..."/>
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label">Сезонность</label>
-
-        <div class="controls">
-            <input type="text" value="" data-role="tagsinput" name="season" placeholder="Сезонность..."/>
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="price">
-            Цена
-        </label>
-
-        <div class="controls">
-            <div class="input-append">
-                <input class="span10" id="price" size="16" type="number" name="price"><span class="add-on">.руб</span>
-            </div>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span6">
-            <h4>Свойства страницы</h4>
-
-            <div class="control-group">
-                <label class="control-label">URL</label>
-
-                <div class="controls">
-                    <label class="span3">/clothing/</label>
-                    <input type="text" class="offset3 span9" id="url" name="properties.url">
+                        <table id="uploaded-files">
+                            <tr>
+                                <th>File Name</th>
+                                <th>File Size</th>
+                                <th>File Type</th>
+                                <th>Download</th>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">Title</label>
-
-                <div class="controls">
-                    <input type="text" id="title-page">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Keywords</label>
-
-                <div class="controls">
-                    <input type="text" id="keywords">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Описание</label>
-
-                <div class="controls">
-                    <input type="text" id="properties-page">
-                </div>
+                <h4>Описание</h4>
+                <textarea class="span10" placeholder="Описание..." style="height: 200px" id="description"
+                          name="description"></textarea>
             </div>
         </div>
-        <div class="span6">
-            <h4>Картинки</h4>
-
-            <div style="padding:20px">
-
-                <input id="fileupload" type="file" name="files[]" data-url="/rest/file/upload" multiple>
-
-                <div id="dropzone">Drop files here</div>
-
-                <div id="progress">
-                    <div style="width: 0%;"></div>
-                </div>
-
-                <table id="uploaded-files">
-                    <tr>
-                        <th>File Name</th>
-                        <th>File Size</th>
-                        <th>File Type</th>
-                        <th>Download</th>
-                    </tr>
-                </table>
-
-            </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+            <button class="btn btn-success" type="submit">Добавить</button>
         </div>
-    </div>
-
-
-    <div class="control-group">
-        <h4>Описание</h4>
-        <textarea class="span10" placeholder="Описание..." style="height: 200px" id="description"
-                  name="description"></textarea>
-    </div>
-
-    <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Добавить</button>
-    </div>
-</form>
-<%--</div>--%>
-<%--</div>--%>
+    </form>
+</div>
 
 
 <script>
-
     $(document).ready(function () {
         initTemplate();
         $("#title").syncTranslit({destination: "url"});

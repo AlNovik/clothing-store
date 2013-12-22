@@ -13,51 +13,35 @@
     <div class="tab-content">
         <%-- Вкладка товаров --%>
         <div class="tab-pane fade active in" id="catalog">
-            <h3>В каталоге всего N товаров</h3>
 
-            <p><a href="${pageContext.request.contextPath}/admin/product/add" class="btn btn-success"
-                  data-toggle="modal"><i class="icon-plus icon-white"></i> Новый товар</a></p>
+            <p>
+                <a href="${pageContext.request.contextPath}/admin/product/add" class="btn btn-success">
+                    <i class="icon-plus icon-white"></i> Новый товар
+                </a>
+                <a href="#modal-product-add" class="btn btn-success" data-toggle="modal">
+                    <i class="icon-plus icon-white"></i> Новый товар
+                </a>
+            </p>
 
-            <div class="modal hide fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="myModalLabel">Новый товар</h3>
+            <div class="row-fluid">
+                <div class="span8">
+                    <table class="table table-condensed table-striped table-hover table-bordered" id="table_catalog">
+                    </table>
                 </div>
-                <div class="modal-body">
+                <div class="span4">
+                    <div>
+                        <h4>Категории</h4>
+                        <select size="10" id="admin-select-category">
 
+                        </select>
+                    </div>
+                    <div>
+                        <h4>Брэнды</h4>
+                        <select size="10" id="admin-select-brand">
+
+                        </select>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Отменить</button>
-                    <button class="btn btn-primary">Сохранить</button>
-                </div>
-            </div>
-
-            <div class="span8">
-                <table id="table_catalog">
-                </table>
-
-                <table class="table table-condensed table-striped table-hover table-bordered">
-                    <thead>
-                    <tr>
-                        <th width="30%">ID</th>
-                        <th width="20%">Модель</th>
-                        <th width="18%">Брэнд</th>
-                        <th width="20%">Категория</th>
-                        <th width="12%">Опции</th>
-                    </tr>
-                    </thead>
-
-                    <tfoot>
-                    <tr>
-                        <th width="30%">ID</th>
-                        <th width="20%">Модель</th>
-                        <th width="18%">Брэнд</th>
-                        <th width="20%">Категория</th>
-                        <th width="12%">Опции</th>
-                    </tr>
-                    </tfoot>
-                </table>
             </div>
         </div>
 
@@ -121,7 +105,7 @@
 </div>
 
 <script id="admin-table-category" type="text/x-handlebars-template">
-    <table class="table table-bordered table-striped span8">
+    <table class="table table-condensed table-striped table-hover table-bordered span8">
         <thead>
         <tr>
             <th class="span10">Категория</th>
@@ -142,3 +126,24 @@
         </tbody>
     </table>
 </script>
+
+
+<%--Всплывающее окно подтверждения удаления--%>
+<div class="modal hide fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Удаление</h3>
+    </div>
+    <div class="modal-body">
+        <p>Вы действительно хотите удалить этот товар?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+        <button class="btn btn-danger delete-item">Удалить</button>
+    </div>
+</div>
+
+
+<%-- Модаьное окно добавления нового товара --%>
+<jsp:include page="product.add.jsp"/>

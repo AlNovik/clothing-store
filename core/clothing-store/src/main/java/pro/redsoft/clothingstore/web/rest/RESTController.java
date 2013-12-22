@@ -68,6 +68,7 @@ public class RESTController {
 
     @RequestMapping(value = "/clothing", method = RequestMethod.POST)
     @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
     public Clothing createClothing(@Valid @RequestBody String clothing) {
 
         logger.info("Creating clothing: " + clothing);
@@ -78,26 +79,31 @@ public class RESTController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return clothingService.save(created);
+        return clothingService.create(created);
 
 
 //        logger.info("Creating clothing: " + clothing);
-//        clothingService.save(clothing);
+//        clothingService.create(clothing);
 //        logger.info("Clothing created successfully with info: " + clothing);
 //        return clothing;
     }
 
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public void updateClothing(@RequestBody Clothing clothing, @PathVariable Integer id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateClothing(@Valid @RequestBody String clothing, @PathVariable Integer id) {
 
-        logger.info("Updating clothing: " + clothing);
-        clothingService.save(clothing);
-        logger.info("Clothing updated successfully with info: " + clothing);
+        ObjectMapper mapper = new ObjectMapper();
+        Clothing modify = null;
+        try {
+            modify = mapper.readValue(clothing, Clothing.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        clothingService.create(modify);
     }
 
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteClothing(@PathVariable Long id) {
 
         logger.info("Deleting clothing with id: " + id);
@@ -141,12 +147,12 @@ public class RESTController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return categoryService.save(created);
+        return categoryService.create(created);
 
 
 //        logger.info("Creating category: " + category);
 //        System.err.println("Creating category: " + category);
-//        Category created = categoryService.save(category);
+//        Category created = categoryService.create(category);
 //        logger.info("Category created successfully with info: " + created);
 //        return created;
     }
@@ -173,6 +179,7 @@ public class RESTController {
 
     @RequestMapping(value = "/brand", method = RequestMethod.POST)
     @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
     public Brand createBrand(@Valid @RequestBody String brand) {
 
         logger.info("Creating brand: " + brand);
@@ -183,11 +190,11 @@ public class RESTController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return brandService.save(created);
+        return brandService.create(created);
 
 //        logger.info("Creating brand: " + brand);
 //        System.err.println("Creating brand: " + brand);
-//        brandService.save(brand);
+//        brandService.create(brand);
 //        logger.info("Brand created successfully with info: " + brand);
 //        return brand;
     }
@@ -226,9 +233,9 @@ public class RESTController {
 
     @RequestMapping(value = "/order",method = RequestMethod.POST)
     @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
     public Orders createOrder(@Valid @RequestBody String orders){
 
-        System.err.println("Creating order: " + orders);
         ObjectMapper mapper = new ObjectMapper();
         Orders created = null;
         try {
@@ -237,6 +244,21 @@ public class RESTController {
             e.printStackTrace();
         }
         return orderService.createOrder(created);
+    }
+
+    @RequestMapping(value = "/order",method = RequestMethod.PUT)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void editOrder(@Valid @RequestBody String orders){
+
+        ObjectMapper mapper = new ObjectMapper();
+        Orders created = null;
+        try {
+            created = mapper.readValue(orders, Orders.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        orderService.create(created);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

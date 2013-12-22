@@ -15,7 +15,7 @@
 //
 //    // put(odeshda, odeshdaService)
 //
-//    void save(Product product){
-//        map.get(product.getClass()).save()
+//    void create(Product product){
+//        map.get(product.getClass()).create()
 //    }
 //}

@@ -16,5 +16,7 @@ public interface CRUDService<T> {
 
     void delete(T t);
 
-    T save(T t);
+    T create(T t);
+
+    T modify(T t);
 }

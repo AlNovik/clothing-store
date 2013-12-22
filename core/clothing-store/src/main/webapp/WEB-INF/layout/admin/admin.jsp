@@ -26,24 +26,26 @@
     <link rel="stylesheet"
           href="${staticInTomcat}/resources/bootstrap/css/bootstrap-responsive.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-wysihtml5.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/jquery.dataTables.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/css/style.css">
-    <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-wysihtml5.css">
 
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.json-2.4.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/form2js.js"></script>
-    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${staticInTomcat}/resources/jQuery/js/jquery.dataTables.min.js"></script>
-    <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
-    <script src="${staticInTomcat}/resources/js/helpers.js"></script>
-    <script src="${staticInTomcat}/resources/js/wysihtml5-0.3.0.js"></script>
-    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-wysihtml5.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.ui.widget.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.iframe-transport.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.fileupload.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.synctranslit.min.js"></script>
-    <%--<script src="${staticInTomcat}/resources/js/script.js"></script>--%>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.dataTables.min.js"></script>
+    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${staticInTomcat}/resources/js/wysihtml5-0.3.0.js"></script>
+    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-wysihtml5.js"></script>
+    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-tagsinput.js"></script>
+    <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
+    <script src="${staticInTomcat}/resources/js/helpers.js"></script>
+    <script src="${staticInTomcat}/resources/js/script.js"></script>
     <script src="${staticInTomcat}/resources/js/rest.js"></script>
     <script src="${staticInTomcat}/resources/js/admin.js"></script>
 

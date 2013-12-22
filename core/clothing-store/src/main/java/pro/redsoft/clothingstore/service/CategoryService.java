@@ -44,8 +44,13 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Category save(Category category) {
+    public Category create(Category category) {
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public Category modify(Category category) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

@@ -44,8 +44,13 @@ public class BrandService implements IBrandService {
     }
 
     @Override
-    public Brand save(Brand manufacturer) {
+    public Brand create(Brand manufacturer) {
         return brandRepository.save(manufacturer);
+    }
+
+    @Override
+    public Brand modify(Brand brand) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

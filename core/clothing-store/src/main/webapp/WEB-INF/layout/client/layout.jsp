@@ -33,13 +33,14 @@
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.json-2.4.min.js"></script>
-    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/form2js.js"></script>
+    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>
     <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
     <script src="${staticInTomcat}/resources/js/helpers.js"></script>
     <script src="${staticInTomcat}/resources/js/script.js"></script>
     <script src="${staticInTomcat}/resources/js/rest.js"></script>
-    <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>
+
 </head>
 <body>
 

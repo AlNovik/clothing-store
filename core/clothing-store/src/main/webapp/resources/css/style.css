@@ -80,7 +80,8 @@ html, body {
     line-height: 25px;
     font-size: 12px;
 }
-#add-cart-btn{
+
+#add-cart-btn {
     position: absolute;
     bottom: 30px;
 }
@@ -90,9 +91,6 @@ html, body {
     top: 10px;
     right: 10px;
 }
-
-
-
 
 .bootstrap-tagsinput {
     background-color: #FFFFFF;
@@ -107,6 +105,7 @@ html, body {
     padding: 4px 6px;
     vertical-align: middle;
 }
+
 .bootstrap-tagsinput input {
     background-color: rgba(0, 0, 0, 0);
     border: medium none;
@@ -117,25 +116,47 @@ html, body {
     padding: 0;
     width: auto !important;
 }
+
 .bootstrap-tagsinput input:focus {
     border: medium none;
     box-shadow: none;
 }
+
 .bootstrap-tagsinput .tag {
     color: #FFFFFF;
     margin-right: 2px;
 }
+
 .bootstrap-tagsinput .tag [data-role="remove"] {
     cursor: pointer;
     margin-left: 8px;
 }
+
 .bootstrap-tagsinput .tag [data-role="remove"]:after {
     content: "x";
     padding: 0 2px;
 }
+
 .bootstrap-tagsinput .tag [data-role="remove"]:hover {
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
 }
+
 .bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
+}
+
+.modal-admin{
+    width: 960px;
+    margin-left: -480px;
+}
+.modal-admin .form-horizontal .control-label {
+    width: 80px;
+}
+
+.modal-admin .form-horizontal .controls {
+    margin-left: 100px;
+}
+
+.modal-admin .form-horizontal .control-group{
+    margin-bottom: 10px;
 }

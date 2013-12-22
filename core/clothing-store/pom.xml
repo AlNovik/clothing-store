@@ -47,7 +47,7 @@
     </repositories>
 
     <build>
-        <finalName>${project.name}-${buildNumber}</finalName>
+        <finalName>${project.name}-${project.version}</finalName>
 
         <plugins>
             <plugin>

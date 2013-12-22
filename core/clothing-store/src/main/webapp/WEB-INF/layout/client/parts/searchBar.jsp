@@ -93,7 +93,7 @@
         $('#search-size-checkbox').html(App.Templates.searchSizeBlock);
         <%-- Блок выбора категорий --%>
         App.Templates.searchCategoryBlock = Handlebars.compile($('#search-category-checkbox-block').html());
-        App.Rest.category.done(function (data) {
+        App.Rest.categories.done(function (data) {
             $('#search-category-checkbox').html(App.Templates.searchCategoryBlock(data));
         });
         <%-- Блок выбора производителя --%>
