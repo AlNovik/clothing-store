@@ -1,23 +1,26 @@
 package pro.redsoft.clothingstore.web.rest;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import pro.redsoft.clothingstore.domain.attributes.Brand;
 import pro.redsoft.clothingstore.domain.attributes.Category;
+import pro.redsoft.clothingstore.domain.order.Orders;
 import pro.redsoft.clothingstore.domain.products.Clothing;
 import pro.redsoft.clothingstore.service.IBrandService;
 import pro.redsoft.clothingstore.service.ICategoryService;
 import pro.redsoft.clothingstore.service.IClothingService;
+import pro.redsoft.clothingstore.service.IOrderService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +45,9 @@ public class RESTController {
     @Autowired
     private ICategoryService categoryService;
 
+    @Autowired
+    private IOrderService orderService;
+
     @RequestMapping(value = "/clothing", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, List<Clothing>> findAllClothings() {
@@ -62,12 +68,23 @@ public class RESTController {
 
     @RequestMapping(value = "/clothing", method = RequestMethod.POST)
     @ResponseBody
-    public Clothing createClothing(@Valid Clothing clothing, BindingResult result) {
+    public Clothing createClothing(@Valid @RequestBody String clothing) {
 
         logger.info("Creating clothing: " + clothing);
-        clothingService.save(clothing);
-        logger.info("Clothing created successfully with info: " + clothing);
-        return clothing;
+        ObjectMapper mapper = new ObjectMapper();
+        Clothing created = null;
+        try {
+            created = mapper.readValue(clothing, Clothing.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return clothingService.save(created);
+
+
+//        logger.info("Creating clothing: " + clothing);
+//        clothingService.save(clothing);
+//        logger.info("Clothing created successfully with info: " + clothing);
+//        return clothing;
     }
 
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.PUT)
@@ -111,14 +128,27 @@ public class RESTController {
         return listClothinds;
     }
 
-    @RequestMapping(value = "/category", method = RequestMethod.POST)
+    @RequestMapping(value = "/category", method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
-    public Category createCategory(@Valid Category category) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category createCategory(@Valid @RequestBody String category) {
+
         logger.info("Creating category: " + category);
-        System.err.println("Creating category: " + category);
-        Category created = categoryService.save(category);
-        logger.info("Category created successfully with info: " + created);
-        return created;
+        ObjectMapper mapper = new ObjectMapper();
+        Category created = null;
+        try {
+            created = mapper.readValue(category, Category.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return categoryService.save(created);
+
+
+//        logger.info("Creating category: " + category);
+//        System.err.println("Creating category: " + category);
+//        Category created = categoryService.save(category);
+//        logger.info("Category created successfully with info: " + created);
+//        return created;
     }
 
     @RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE)
@@ -143,12 +173,23 @@ public class RESTController {
 
     @RequestMapping(value = "/brand", method = RequestMethod.POST)
     @ResponseBody
-    public Brand createBrand(Brand brand) {
+    public Brand createBrand(@Valid @RequestBody String brand) {
+
         logger.info("Creating brand: " + brand);
-        System.err.println("Creating brand: " + brand);
-        brandService.save(brand);
-        logger.info("Brand created successfully with info: " + brand);
-        return brand;
+        ObjectMapper mapper = new ObjectMapper();
+        Brand created = null;
+        try {
+            created = mapper.readValue(brand, Brand.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return brandService.save(created);
+
+//        logger.info("Creating brand: " + brand);
+//        System.err.println("Creating brand: " + brand);
+//        brandService.save(brand);
+//        logger.info("Brand created successfully with info: " + brand);
+//        return brand;
     }
 
     @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
@@ -170,6 +211,32 @@ public class RESTController {
         logger.info("Deleting brand with id: " + id);
         brandService.delete(id);
         logger.info("Brand deleted successfully");
+    }
+
+    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, List<Orders>> orders() {
+
+        List<Orders> orders = orderService.findAll();
+        logger.info("Found " + orders.size() + " orders");
+        Map<String, List<Orders>> result = new HashMap<String, List<Orders>>();
+        result.put("orders", orders);
+        return result;
+    }
+
+    @RequestMapping(value = "/order",method = RequestMethod.POST)
+    @ResponseBody
+    public Orders createOrder(@Valid @RequestBody String orders){
+
+        System.err.println("Creating order: " + orders);
+        ObjectMapper mapper = new ObjectMapper();
+        Orders created = null;
+        try {
+            created = mapper.readValue(orders, Orders.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return orderService.createOrder(created);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

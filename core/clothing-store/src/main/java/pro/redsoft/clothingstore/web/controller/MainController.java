@@ -1,8 +1,10 @@
 package pro.redsoft.clothingstore.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pro.redsoft.clothingstore.service.IClothingService;
 
 /**
  * @author Alexander Novik
@@ -11,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    private IClothingService clothingService;
+
 
     @RequestMapping("/")
     public String home() {
@@ -82,5 +88,10 @@ public class MainController {
     @RequestMapping("/shopping")
     public String shopping() {
         return "shopping";
+    }
+
+    @RequestMapping("/shopping/send")
+    public String shoppingSend() {
+        return "shopping.send";
     }
 }

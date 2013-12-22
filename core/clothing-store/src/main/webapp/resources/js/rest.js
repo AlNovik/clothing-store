@@ -19,3 +19,10 @@ $.postJSON = function (url, data, callback) {
         'success': callback
     });
 };
+
+App.Rest.category = $.getJSON(App.Rest.link + '/category');
+App.Rest.brand = $.getJSON(App.Rest.link + '/brand');
+App.Rest.clothing = $.getJSON(App.Rest.link + '/clothing');
+App.Rest.clothing = function (id) {
+    $.getJSON(App.Rest.link + '/clothing/' + id)
+};

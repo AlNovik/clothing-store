@@ -13,7 +13,27 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active fade in" id="new">
-            <p>Новые, неподтвержденные заказы</p>
+            <table class="table table-condensed table-striped table-hover table-bordered" id="order-new">
+                <thead>
+                <tr>
+                    <th width="30%">#</th>
+                    <th width="20%">Номер заказа</th>
+                    <th width="18%">Создан</th>
+                    <th width="20%">Телефон</th>
+                    <th width="12%">Сумма</th>
+                </tr>
+                </thead>
+
+                <tfoot>
+                <tr>
+                    <th width="30%">#</th>
+                    <th width="20%">Номер заказа</th>
+                    <th width="18%">Создан</th>
+                    <th width="20%">Телефон</th>
+                    <th width="12%">Сумма</th>
+                </tr>
+                </tfoot>
+            </table>
         </div>
         <div class="tab-pane fade" id="accepted">
             <p>Подтвержденные, недоставленные</p>

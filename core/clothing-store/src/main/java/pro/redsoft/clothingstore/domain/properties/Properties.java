@@ -2,6 +2,7 @@ package pro.redsoft.clothingstore.domain.properties;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -25,6 +26,7 @@ public class Properties implements Serializable {
 
     @Column(name = "created")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     public DateTime getCreated() {
         return created;
     }
@@ -35,6 +37,7 @@ public class Properties implements Serializable {
 
     @Column(name = "updated")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     public DateTime getUpdated() {
         return updated;
     }

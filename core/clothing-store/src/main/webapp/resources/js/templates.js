@@ -1,0 +1,1 @@
+Clothing.template.catalogPage = null;

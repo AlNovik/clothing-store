@@ -88,6 +88,11 @@ public class ClothingService implements IClothingService {
     }
 
     @Override
+    public List<Clothing> search(Clothing clothing) {
+        return null;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Clothing> findAll() {
         return Lists.newArrayList(productRepository.findAll());
@@ -117,14 +122,23 @@ public class ClothingService implements IClothingService {
         if (clothing.getId() == null) {
             clothing.getProperties().setCreated(currentDate);
             clothing.getProperties().setUpdated(currentDate);
-            clothing.getProperties().setModify(1);
+            clothing.getProperties().setModify(0);
         } else {
             clothing.getProperties().setUpdated(currentDate);
             clothing.getProperties().setModify(clothing.getProperties().getModify() + 1);
         }
-        clothing.setBrand(brandRepository.findOne(clothing.getBrand().getId()));
-        clothing.setCategory(categoryRepository.findOne(clothing.getCategory().getId()));
-
+//        if(brandRepository.findByTitle(clothing.getBrand().getTitle()) != null){
+//            clothing.setBrand(brandRepository.findByTitle(clothing.getBrand().getTitle()));
+//        }
+//        if(categoryRepository.findByTitle(clothing.getCategory().getTitle()) != null){
+//            clothing.setCategory(categoryRepository.findByTitle(clothing.getCategory().getTitle()));
+//        }
+        if (clothing.getBrand().getId() != null) {
+            clothing.setBrand(brandRepository.findOne(clothing.getBrand().getId()));
+        }
+        if (clothing.getCategory().getId() != null) {
+            clothing.setCategory(categoryRepository.findOne(clothing.getCategory().getId()));
+        }
         return clothingRepository.save(clothing);
     }
 }

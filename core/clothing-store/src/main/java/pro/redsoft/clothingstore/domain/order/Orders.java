@@ -1,5 +1,6 @@
 package pro.redsoft.clothingstore.domain.order;
 
+import org.joda.time.DateTime;
 import pro.redsoft.clothingstore.domain.Contact;
 
 import javax.persistence.*;
@@ -18,10 +19,11 @@ public class Orders implements Serializable {
     private static final long serialVersionUID = 8729276045907878723L;
 
     private Long id;
-    private Date date;
+    private DateTime dateCreate;
     private OrderStatus status;
     private List<OrderItem> items;
     private Contact contact;
+    private String note;
 
     public Orders() {
     }
@@ -37,13 +39,13 @@ public class Orders implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "date")
-    public Date getDate() {
-        return date;
+    @Column(name = "date_create")
+    public DateTime getDateCreate() {
+        return dateCreate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateCreate(DateTime dateCreate) {
+        this.dateCreate = dateCreate;
     }
 
     @Column(name = "status")
@@ -69,7 +71,7 @@ public class Orders implements Serializable {
         this.items = items;
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "contact_id")
     public Contact getContact() {
         return contact;
@@ -77,6 +79,15 @@ public class Orders implements Serializable {
 
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+    @Column(name = "note")
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Override
@@ -87,7 +98,7 @@ public class Orders implements Serializable {
         Orders orders = (Orders) o;
 
         if (contact != null ? !contact.equals(orders.contact) : orders.contact != null) return false;
-        if (date != null ? !date.equals(orders.date) : orders.date != null) return false;
+        if (dateCreate != null ? !dateCreate.equals(orders.dateCreate) : orders.dateCreate != null) return false;
         if (id != null ? !id.equals(orders.id) : orders.id != null) return false;
         if (items != null ? !items.equals(orders.items) : orders.items != null) return false;
         if (status != orders.status) return false;
@@ -98,7 +109,7 @@ public class Orders implements Serializable {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (dateCreate != null ? dateCreate.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (items != null ? items.hashCode() : 0);
         result = 31 * result + (contact != null ? contact.hashCode() : 0);
@@ -109,7 +120,7 @@ public class Orders implements Serializable {
     public String toString() {
         return "Orders{" +
                 "id=" + id +
-                ", date=" + date +
+                ", dateCreate=" + dateCreate +
                 ", status=" + status +
                 ", items=" + items +
                 ", contact=" + contact +

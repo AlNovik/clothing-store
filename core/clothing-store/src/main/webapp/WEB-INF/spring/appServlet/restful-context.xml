@@ -9,11 +9,15 @@
 
     <mvc:annotation-driven>
         <mvc:message-converters>
-            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="application/json"/>
+            </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <bean id="jsonViewResolver" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" />
 
     <context:component-scan base-package="pro.redsoft.clothingstore.web.rest"/>
 

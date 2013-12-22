@@ -1,5 +1,6 @@
 package pro.redsoft.clothingstore.web.rest;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pro.redsoft.clothingstore.domain.products.Clothing;
 import pro.redsoft.clothingstore.service.IClothingService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +28,24 @@ public class SearchController {
 
     @Autowired
     private IClothingService clothingService;
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public Map<String, List<Clothing>> searchtest(@RequestBody String query) {
+
+        Map<String, List<Clothing>> result = new HashMap<String, List<Clothing>>();
+        ObjectMapper mapper = new ObjectMapper();
+        Clothing search = null;
+        try {
+            search = mapper.readValue(query, Clothing.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<Clothing> clothings = clothingService.search(search);
+        result.put("clothings", clothings);
+
+        return result;
+    }
 
     @RequestMapping
     @ResponseBody
@@ -58,7 +78,7 @@ public class SearchController {
             Clothing clothing = clothingService.findByTitle(title);
             clothings.add(clothing);
         }
-        result.put("products",clothings);
+        result.put("products", clothings);
         return result;
     }
 

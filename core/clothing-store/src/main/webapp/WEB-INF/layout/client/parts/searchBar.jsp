@@ -89,17 +89,12 @@
 
     function searchBar() {
         <%-- Блок выбора размеров--%>
-        var sizeBlock = $("#search-size-checkbox-block").html();
-        var templateSizeBlock = Handlebars.compile(sizeBlock);
-        $('#search-size-checkbox').html(templateSizeBlock);
+        App.Templates.searchSizeBlock = Handlebars.compile($("#search-size-checkbox-block").html());
+        $('#search-size-checkbox').html(App.Templates.searchSizeBlock);
         <%-- Блок выбора категорий --%>
-        var categoryBlock = $('#search-category-checkbox-block').html();
-        var templateCategoryBlock = Handlebars.compile(categoryBlock);
-        var categoryData;
-        $.getJSON(appLink + '/rest/category', function (data) {
-            categoryData = data;
-            var renderCategory = templateCategoryBlock(categoryData);
-            $('#search-category-checkbox').html(renderCategory);
+        App.Templates.searchCategoryBlock = Handlebars.compile($('#search-category-checkbox-block').html());
+        App.Rest.category.done(function (data) {
+            $('#search-category-checkbox').html(App.Templates.searchCategoryBlock(data));
         });
         <%-- Блок выбора производителя --%>
         var brandBlock = $('#search-brand-checkbox-block').html();
@@ -119,7 +114,7 @@
         };
         $("#search-title").submit(function () {
             var param = $('#search-title').serialize();
-            var url = '${pageContext.request.contextPath}/rest/search';
+            var url = restAPI + '/search';
             $.get(url, param,
                     function (items) {
                         alert(items.clothing.length);

@@ -17,6 +17,12 @@
     <meta name="author" content="">
     <meta charset="utf-8">
 
+    <script>
+        var appLink = window.location.origin + '${pageContext.request.contextPath}';
+        var restLink = window.location.href.replace(window.location.origin + '${pageContext.request.contextPath}', window.location.origin + '${pageContext.request.contextPath}/rest');
+        var restAPI = appLink + '/rest';
+    </script>
+
     <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap.css">
     <link rel="stylesheet"
           href="${staticInTomcat}/resources/bootstrap/css/bootstrap-responsive.css">
@@ -28,15 +34,12 @@
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.json-2.4.min.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/form2js.js"></script>
     <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
     <script src="${staticInTomcat}/resources/js/helpers.js"></script>
     <script src="${staticInTomcat}/resources/js/script.js"></script>
+    <script src="${staticInTomcat}/resources/js/rest.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>
-    <script>
-        var appLink = window.location.origin + '${pageContext.request.contextPath}';
-        var restLink = window.location.href.replace(window.location.origin + '${pageContext.request.contextPath}', window.location.origin + '${pageContext.request.contextPath}/rest');
-        var restAPI = appLink + '/rest';
-    </script>
 </head>
 <body>
 

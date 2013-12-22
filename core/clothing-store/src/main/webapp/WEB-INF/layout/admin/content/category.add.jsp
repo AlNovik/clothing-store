@@ -107,14 +107,15 @@
     $(document).ready(function () {
         $("#title").syncTranslit({destination: "url"});
 
-        // Save Person AJAX Form Submit
         $('#newCategory').submit(function (e) {
-            // will pass the form data using the jQuery serialize function
-
             var formData = form2js('newCategory', '.', true);
-
-            $.post(restAPI + '/category', $(this).serialize(),function (response) {
-
+            delete formData._wysihtml5_mode;
+            console.log('formData - ' + formData);
+            console.log(formData);
+            var send = $.toJSON(formData);
+            console.log('send - ' + send);
+            console.log(send);
+            $.postJSON(restAPI + '/category', send,function (response) {
             }).success(function () {
                         $('#newCategory').trigger('reset');
                         alert("Успешное выполнение");

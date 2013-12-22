@@ -17,9 +17,15 @@
     <meta name="author" content="">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap.css">
+    <script>
+        var appLink = window.location.origin + '${pageContext.request.contextPath}';
+        var restLink = window.location.origin + window.location.pathname.replace('${pageContext.request.contextPath}', '${pageContext.request.contextPath}/rest');
+        var restAPI = appLink + '/rest';
+    </script>
+
     <link rel="stylesheet"
           href="${staticInTomcat}/resources/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/jquery.dataTables.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/css/style.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-wysihtml5.css">
@@ -37,13 +43,10 @@
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.iframe-transport.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.fileupload.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.synctranslit.min.js"></script>
-    <script src="${staticInTomcat}/resources/js/script.js"></script>
+    <%--<script src="${staticInTomcat}/resources/js/script.js"></script>--%>
     <script src="${staticInTomcat}/resources/js/rest.js"></script>
-    <script>
-        var appLink = window.location.origin + '${pageContext.request.contextPath}';
-        var restLink = window.location.origin + window.location.pathname.replace('${pageContext.request.contextPath}', '${pageContext.request.contextPath}/rest');
-        var restAPI = appLink + '/rest';
-    </script>
+    <script src="${staticInTomcat}/resources/js/admin.js"></script>
+
 </head>
 <body>
 

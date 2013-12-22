@@ -30,4 +30,6 @@ public interface IClothingService extends CRUDService<Clothing> {
     Page<Clothing> findPageByCategory(Category category, Pageable pageable);
 
     Page<Clothing> findPageByBrand(Brand brand, Pageable pageable);
+
+    List<Clothing> search(Clothing clothing);
 }

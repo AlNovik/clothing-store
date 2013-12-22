@@ -1,5 +1,11 @@
 // Корзина покупок
 
+var App = {
+    link: appLink,
+    Templates: {},
+    Rest: {link: restAPI}
+};
+
 $(document).ready(function () {
     basketCount();
 });
@@ -104,6 +110,8 @@ function deleteItem() {
 }
 
 function basketCount() {
-    var basket = $.evalJSON($.cookie('basketCart'));
-    $('.navbar .badge-info').html(basket.items.length);
+    if ($.evalJSON($.cookie('basketCart') != null)) {
+        var basket = $.evalJSON($.cookie('basketCart'));
+        $('.navbar .badge-info').html(basket.items.length);
+    }
 }

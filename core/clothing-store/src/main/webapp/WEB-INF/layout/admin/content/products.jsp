@@ -14,8 +14,12 @@
         <%-- Вкладка товаров --%>
         <div class="tab-pane fade active in" id="catalog">
             <h3>В каталоге всего N товаров</h3>
-            <p><a href="${pageContext.request.contextPath}/admin/product/add" class="btn btn-success" data-toggle="modal"><i class="icon-plus icon-white"></i> Новый товар</a></p>
-            <div class="modal hide fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+            <p><a href="${pageContext.request.contextPath}/admin/product/add" class="btn btn-success"
+                  data-toggle="modal"><i class="icon-plus icon-white"></i> Новый товар</a></p>
+
+            <div class="modal hide fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h3 id="myModalLabel">Новый товар</h3>
@@ -31,17 +35,28 @@
 
             <div class="span8">
                 <table id="table_catalog">
-                    <%--<thead>--%>
-                    <%--<tr>--%>
-                        <%--<th>Id</th>--%>
-                        <%--<th>Модель</th>--%>
-                        <%--<th>Производитель</th>--%>
-                        <%--<th>Категория</th>--%>
-                        <%--<th>Опции</th>--%>
-                    <%--</tr>--%>
-                    <%--</thead>--%>
-                    <%--<tbody>--%>
-                    <%--</tbody>--%>
+                </table>
+
+                <table class="table table-condensed table-striped table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th width="30%">ID</th>
+                        <th width="20%">Модель</th>
+                        <th width="18%">Брэнд</th>
+                        <th width="20%">Категория</th>
+                        <th width="12%">Опции</th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th width="30%">ID</th>
+                        <th width="20%">Модель</th>
+                        <th width="18%">Брэнд</th>
+                        <th width="20%">Категория</th>
+                        <th width="12%">Опции</th>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -49,22 +64,19 @@
         <%-- Вкладкв категорий --%>
         <div class="tab-pane fade" id="category">
             <h3>Категории </h3>
-            <p><a href="${pageContext.request.contextPath}/admin/category/add" class="btn btn-success" data-toggle="modal"><i class="icon-plus icon-white"></i> Новая категория</a></p>
-            <table id="table_category" class="table table-bordered table-striped span8">
-                <thead>
-                <tr>
-                    <th class="span10">Категория</th>
-                    <th class="span2">Опции</th>
-                </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+
+            <p><a href="${pageContext.request.contextPath}/admin/category/add" class="btn btn-success"
+                  data-toggle="modal"><i class="icon-plus icon-white"></i> Новая категория</a></p>
+
+            <div id="table_category"></div>
         </div>
 
         <%-- Вкаладка брэндов --%>
         <div class="tab-pane fade" id="brand">
             <h3>Брэнды </h3>
-            <p><a href="${pageContext.request.contextPath}/admin/brand/add" class="btn btn-success"><i class="icon-plus icon-white"></i> Новый производитель</a></p>
+
+            <p><a href="${pageContext.request.contextPath}/admin/brand/add" class="btn btn-success"><i
+                    class="icon-plus icon-white"></i> Новый производитель</a></p>
             <table id="table_brand" class="table table-bordered table-striped span8">
                 <thead>
                 <tr>
@@ -78,76 +90,6 @@
     </div>
 </div>
 
-<script>
-    var data_catalog_table = [];
-    var table_catalog;
-    var table_catalog_params = {
-//        "sDom": "Iftrip",
-        "aoColumns": [
-            {
-                "sTitle":"Id",
-                "bSearchable": false,
-                "bSortable": true
-            },
-            {
-                "sTitle":"Модель",
-                "bSearchable": true,
-                "bSortable": true
-            },
-            {
-                "sTitle":"Брэнд",
-                "bSearchable": true,
-                "bSortable": true
-            },
-            {
-                "sTitle":"Категория",
-                "bSearchable": true,
-                "bSortable": true
-            },
-            {
-                "sTitle":"Опции",
-                "bSearchable": false,
-                "bSortable": false
-            }
-        ],
-        "aaData": data_catalog_table,
-//        "bProcessing": true,
-//        "bServerSide": true,
-//        "sAjaxSource": appLink + "/rest/tables/clothing",
-        "sPaginationType": "full_numbers"
-    };
-    $(document).ready(function () {
-        ititTables();
-
-    });
-
-
-    function ititTables() {
-        <%--Таблица товаров--%>
-        $.getJSON(appLink + '/rest/clothing', function (json) {
-            $.each(json.clothings, function () {
-                var item = [];
-                item.push(this.id, this.title, this.brand.title, this.category.title, '<i class="icon-eye-open"></i> <i class="icon-search"></i> <i class="icon-remove"></i>');
-                data_catalog_table.push(item);
-//                $('#table_catalog tbody').append('<tr><td>' + this.id + '</td>' +
-//                        '<td>' + this.model + '</td>' +
-//                        '<td>' + this.brand.title + '</td>' +
-//                        '<td>' + this.category.title + '</td>' +
-//                        '<td><i class="icon-eye-open"></i> <i class="icon-search"></i> <i class="icon-remove"></i></td></tr>')
-            });
-            table_catalog = $('#table_catalog').dataTable(table_catalog_params);
-        });
-
-        <%-- Таблица категорий--%>
-        $.getJSON(appLink + '/rest/category', function (json) {
-            $.each(json.categories, function () {
-                $('#table_category tbody').append('<tr><td>' + this.title + '</td><td><i class="icon-eye-open"></i> <i class="icon-search"></i> <i class="icon-remove"></i></td></tr>');
-            });
-        });
-    }
-</script>
-
-
 
 <%--Модальное окно создания категории--%>
 <div id="createCategory" class="modal hide fade" tabindex="-1" role="dialog"
@@ -160,7 +102,7 @@
             <div class="modal-body">
                 <div class="control-group">
                     <label class="control-label" for="category_title">
-                             Название
+                        Название
                     </label>
 
                     <div class="controls">
@@ -177,3 +119,26 @@
         </fieldset>
     </form>
 </div>
+
+<script id="admin-table-category" type="text/x-handlebars-template">
+    <table class="table table-bordered table-striped span8">
+        <thead>
+        <tr>
+            <th class="span10">Категория</th>
+            <th class="span2">Опции</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each categories}}
+        <tr>
+            <td>{{title}}</td>
+            <td>
+                <i class="icon-eye-open"></i>
+                <i class="icon-search"></i>
+                <i class="icon-remove"></i>
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</script>

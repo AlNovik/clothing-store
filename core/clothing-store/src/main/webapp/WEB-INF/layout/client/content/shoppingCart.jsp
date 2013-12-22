@@ -9,6 +9,9 @@
 <h2>Оформление заказа</h2>
 
 <div id="shopping"></div>
+<div class="pull-right">
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/shopping/send">Оформить заказ</a>
+</div>
 
 <script>
     var template;
