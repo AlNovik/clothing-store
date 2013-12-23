@@ -47,28 +47,10 @@ public class PaginationController {
                                @RequestParam(value = "sortBy", required = false) String sortBy,
                                @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = null;
-        if (sortBy != null && order != null) {
-            if (order.equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, sortBy);
-            } else {
-                sort = new Sort(Sort.Direction.ASC, sortBy);
-            }
-        }
-
-        PageRequest pageRequest = null;
-        if (sort != null) {
-            pageRequest = new PageRequest(1 - 1, size, sort);
-        } else {
-            pageRequest = new PageRequest(1 - 1, size);
-        }
-
+        Sort sort = getSort(sortBy, order);
+        PageRequest pageRequest = getPageRequest(sort, 1, size);
         Page<? extends Product> page = clothingService.findAllByPage(pageRequest);
-
-        ProductPage productPage = new ProductPage();
-        productPage.setCurrentPage(page.getNumber() + 1);
-        productPage.setTotalPages(page.getTotalPages());
-        productPage.setTotalRecords(page.getTotalElements());
+        ProductPage productPage = getProductPage(page);
         productPage.setClothings(Lists.newArrayList(page.iterator()));
         return productPage;
     }
@@ -80,28 +62,10 @@ public class PaginationController {
                                      @RequestParam(value = "sortBy", required = false) String sortBy,
                                      @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = null;
-        if (sortBy != null && order != null) {
-            if (order.equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, sortBy);
-            } else {
-                sort = new Sort(Sort.Direction.ASC, sortBy);
-            }
-        }
-
-        PageRequest pageRequest = null;
-        if (sort != null) {
-            pageRequest = new PageRequest(pageNumber - 1, size, sort);
-        } else {
-            pageRequest = new PageRequest(pageNumber - 1, size);
-        }
-
+        Sort sort = getSort(sortBy, order);
+        PageRequest pageRequest = getPageRequest(sort,pageNumber,size);
         Page<? extends Product> page = clothingService.findAllByPage(pageRequest);
-
-        ProductPage productPage = new ProductPage();
-        productPage.setCurrentPage(page.getNumber() + 1);
-        productPage.setTotalPages(page.getTotalPages());
-        productPage.setTotalRecords(page.getTotalElements());
+        ProductPage productPage = getProductPage(page);
         productPage.setClothings(Lists.newArrayList(page.iterator()));
         return productPage;
     }
@@ -113,32 +77,14 @@ public class PaginationController {
                                        @RequestParam(value = "sortBy", required = false) String sortBy,
                                        @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = null;
-        if (sortBy != null && order != null) {
-            if (order.equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, sortBy);
-            } else {
-                sort = new Sort(Sort.Direction.ASC, sortBy);
-            }
-        }
-
-        PageRequest pageRequest = null;
-        if (sort != null) {
-            pageRequest = new PageRequest(1 - 1, size, sort);
-        } else {
-            pageRequest = new PageRequest(1 - 1, size);
-        }
-
+        Sort sort = getSort(sortBy, order);
+        PageRequest pageRequest = getPageRequest(sort, 1, size);
         Category category = categoryService.findById(id);
         Page<Clothing> page = clothingService.findPageByCategory(category, pageRequest);
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.put("type", "Категория");
         properties.put("description", category);
-
-        ProductPage productPage = new ProductPage();
-        productPage.setCurrentPage(page.getNumber() + 1);
-        productPage.setTotalPages(page.getTotalPages());
-        productPage.setTotalRecords(page.getTotalElements());
+        ProductPage productPage = getProductPage(page);
         productPage.setClothings(Lists.newArrayList(page.iterator()));
         productPage.setProperties(properties);
         return productPage;
@@ -147,37 +93,19 @@ public class PaginationController {
     @RequestMapping(value = "/category/{id}/page/{pageNumber}", method = RequestMethod.GET)
     @ResponseBody
     public ProductPage productCategoryByPage(@PathVariable(value = "id") Long id,
-                                             @PathVariable(value = "pageNumber") Integer pageNUmber,
+                                             @PathVariable(value = "pageNumber") Integer pageNumber,
                                              @RequestParam(value = "size", required = false) Integer size,
                                              @RequestParam(value = "sortBy", required = false) String sortBy,
                                              @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = null;
-        if (sortBy != null && order != null) {
-            if (order.equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, sortBy);
-            } else {
-                sort = new Sort(Sort.Direction.ASC, sortBy);
-            }
-        }
-
-        PageRequest pageRequest = null;
-        if (sort != null) {
-            pageRequest = new PageRequest(pageNUmber - 1, size, sort);
-        } else {
-            pageRequest = new PageRequest(pageNUmber - 1, size);
-        }
-
+        Sort sort = getSort(sortBy, order);
+        PageRequest pageRequest = getPageRequest(sort,pageNumber,size);
         Category category = categoryService.findById(id);
         Page<Clothing> page = clothingService.findPageByCategory(category, pageRequest);
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.put("type", "Категория");
         properties.put("description", category);
-
-        ProductPage productPage = new ProductPage();
-        productPage.setCurrentPage(page.getNumber() + 1);
-        productPage.setTotalPages(page.getTotalPages());
-        productPage.setTotalRecords(page.getTotalElements());
+        ProductPage productPage = getProductPage(page);
         productPage.setClothings(Lists.newArrayList(page.iterator()));
         productPage.setProperties(properties);
         return productPage;
@@ -190,32 +118,14 @@ public class PaginationController {
                                     @RequestParam(value = "sortBy", required = false) String sortBy,
                                     @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = null;
-        if (sortBy != null && order != null) {
-            if (order.equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, sortBy);
-            } else {
-                sort = new Sort(Sort.Direction.ASC, sortBy);
-            }
-        }
-
-        PageRequest pageRequest = null;
-        if (sort != null) {
-            pageRequest = new PageRequest(1 - 1, size, sort);
-        } else {
-            pageRequest = new PageRequest(1 - 1, size);
-        }
-
+        Sort sort = getSort(sortBy, order);
+        PageRequest pageRequest = getPageRequest(sort,1,size);
         Brand brand = brandService.findById(id);
         Page<Clothing> page = clothingService.findPageByBrand(brand, pageRequest);
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.put("type", "Брэнд");
         properties.put("description", brand);
-
-        ProductPage productPage = new ProductPage();
-        productPage.setCurrentPage(page.getNumber() + 1);
-        productPage.setTotalPages(page.getTotalPages());
-        productPage.setTotalRecords(page.getTotalElements());
+        ProductPage productPage = getProductPage(page);
         productPage.setClothings(Lists.newArrayList(page.iterator()));
         productPage.setProperties(properties);
         return productPage;
@@ -229,6 +139,21 @@ public class PaginationController {
                                           @RequestParam(value = "sortBy", required = false) String sortBy,
                                           @RequestParam(value = "order", required = false) String order) {
 
+        Sort sort = getSort(sortBy, order);
+        PageRequest pageRequest = getPageRequest(sort,pageNumber,size);
+        Brand brand = brandService.findById(id);
+        Page<Clothing> page = clothingService.findPageByBrand(brand, pageRequest);
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.put("type", "Брэнд");
+        properties.put("description", brand);
+        ProductPage productPage = getProductPage(page);
+        productPage.setClothings(Lists.newArrayList(page.iterator()));
+        productPage.setProperties(properties);
+        return productPage;
+    }
+
+    private Sort getSort(String sortBy, String order) {
+
         Sort sort = null;
         if (sortBy != null && order != null) {
             if (order.equals("desc")) {
@@ -237,26 +162,24 @@ public class PaginationController {
                 sort = new Sort(Sort.Direction.ASC, sortBy);
             }
         }
+        return sort;
+    }
 
+    private PageRequest getPageRequest(Sort sort, Integer pageNumber, Integer size) {
         PageRequest pageRequest = null;
         if (sort != null) {
             pageRequest = new PageRequest(pageNumber - 1, size, sort);
         } else {
             pageRequest = new PageRequest(pageNumber - 1, size);
         }
+        return pageRequest;
+    }
 
-        Brand brand = brandService.findById(id);
-        Page<Clothing> page = clothingService.findPageByBrand(brand, pageRequest);
-        Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put("type", "Брэнд");
-        properties.put("description", brand);
-
+    private ProductPage getProductPage(Page<?> page){
         ProductPage productPage = new ProductPage();
         productPage.setCurrentPage(page.getNumber() + 1);
         productPage.setTotalPages(page.getTotalPages());
         productPage.setTotalRecords(page.getTotalElements());
-        productPage.setClothings(Lists.newArrayList(page.iterator()));
-        productPage.setProperties(properties);
         return productPage;
     }
 }

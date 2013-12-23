@@ -65,7 +65,7 @@ function initShoppingTable() {
             var item = {};
             item.price = this.price;
             item.brand = this.brand.title;
-            item.category = this.categories.title;
+            item.category = this.category.title;
             item.title = basketItems.items[i].title;
             item.size = basketItems.items[i].size;
             item.quantity = basketItems.items[i].quantity;

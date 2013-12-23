@@ -24,6 +24,7 @@ import java.util.Map;
  */
 
 @Controller
+@RequestMapping("/tables")
 public class DataTableController {
 
     Logger logger = LoggerFactory.getLogger(DataTableController.class);
@@ -38,13 +39,13 @@ public class DataTableController {
     private ICategoryService categoryService;
 
 
-    @RequestMapping(value = "/tables/clothing", method = RequestMethod.GET)
+    @RequestMapping(value = "/clothing", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> catalogTable(@RequestParam(value = "sEcho", required = false) Integer sEcho,
-                                            @RequestParam(value = "iDisplayLength",required = false) Integer iDisplayLength,
-                                            @RequestParam(value = "iDisplayStart",required = false) Integer iDisplayStart,
-                                            @RequestParam(value = "iSortCol_0",required = false) Integer iSortCol_0,
-                                            @RequestParam(value = "sSortDir_0",required = false) String sSortDir_0 ) {
+                                            @RequestParam(value = "iDisplayLength", required = false) Integer iDisplayLength,
+                                            @RequestParam(value = "iDisplayStart", required = false) Integer iDisplayStart,
+                                            @RequestParam(value = "iSortCol_0", required = false) Integer iSortCol_0,
+                                            @RequestParam(value = "sSortDir_0", required = false) String sSortDir_0) {
 
         Map<String, Object> response = new HashMap<String, Object>();
         List<Clothing> clothings = clothingService.findAll();
@@ -55,7 +56,6 @@ public class DataTableController {
             item.put("1", clothing.getTitle());
             item.put("2", clothing.getBrand().getTitle());
             item.put("3", clothing.getCategory().getTitle());
-            item.put("4", "test");
             tableData.add(item);
         }
         response.put("aaData", tableData);

@@ -15,9 +15,9 @@
         <div class="modal-body well">
 
             <div class="row-fluid">
-                <div class="span9">
+                <div class="span6" style="margin-left: 100px">
                     <div class="control-group">
-                        <input class="span12" type="text" id="title" name="title" placeholder="Название">
+                        <input class="span12" type="text" name="title" placeholder="Название">
                         <span class="help-block"></span>
                     </div>
                 </div>
@@ -51,8 +51,10 @@
             <div class="control-group" id="select-size">
                 <label class="control-label">Размеры</label>
 
-                <div class="controls">
+                <div class="span6">
+                    <div class="controls">
 
+                    </div>
                 </div>
             </div>
             <div class="control-group">
@@ -73,7 +75,7 @@
                 <label class="control-label">Цвет</label>
 
                 <div class="controls">
-                    <input type="text" value="" data-role="tagsinput" name="color"
+                    <input type="text" value="" data-role="tagsinput" name="color" class="span6"
                            placeholder="Введите доступные цвета..."/>
                 </div>
             </div>
@@ -81,7 +83,7 @@
                 <label class="control-label">Ткань</label>
 
                 <div class="controls">
-                    <input type="text" value="" data-role="tagsinput" name="cloth"
+                    <input type="text" value="" data-role="tagsinput" name="cloth" class="span6"
                            placeholder="Введите доступные ткани..."/>
                 </div>
             </div>
@@ -89,7 +91,8 @@
                 <label class="control-label">Сезонность</label>
 
                 <div class="controls">
-                    <input type="text" value="" data-role="tagsinput" name="season" placeholder="Сезонность..."/>
+                    <input type="text" value="" data-role="tagsinput" name="season" class="span6"
+                           placeholder="Сезонность..."/>
                 </div>
             </div>
             <div class="control-group">
@@ -113,7 +116,7 @@
 
                         <div class="controls">
                             <label class="span3">/clothing/</label>
-                            <input type="text" class="offset3 span9" id="url" name="properties.url">
+                            <input type="text" class="offset3 span9" id="url-product" name="properties.url">
                         </div>
                     </div>
                     <div class="control-group">
@@ -164,7 +167,7 @@
             </div>
             <div class="control-group">
                 <h4>Описание</h4>
-                <textarea class="span10" placeholder="Описание..." style="height: 200px" id="description"
+                <textarea class="span10" placeholder="Описание..." style="height: 200px"
                           name="description"></textarea>
             </div>
         </div>
@@ -174,83 +177,6 @@
         </div>
     </form>
 </div>
-
-
-<script>
-    $(document).ready(function () {
-        initTemplate();
-        $("#title").syncTranslit({destination: "url"});
-
-        // Save Person AJAX Form Submit
-        $('#newProduct').submit(function (e) {
-            // will pass the form data using the jQuery serialize function
-            $.post(restAPI + '/clothing', $(this).serialize(),function (response) {
-//                $('#personFormResponse').text(response);
-            }).success(function () {
-                        alert("Успешное выполнение");
-                    })
-                    .error(function () {
-                        alert("Ошибка выполнения");
-                    })
-                    .complete(function () {
-                        alert("Завершение выполнения");
-                    });
-
-            e.preventDefault(); // prevent actual form submit and page reload
-        });
-    });
-    $('#description').wysihtml5({
-        "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-        "emphasis": true, //Italics, bold, etc. Default true
-        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-        "html": true, //Button which allows you to edit the generated HTML. Default false
-        "link": true, //Button to insert a link. Default true
-        "image": true, //Button to insert an image. Default true,
-        "color": true //Button to change color of font
-    });
-
-    $(function () {
-        $('#fileupload').fileupload({
-            dataType: 'json',
-
-            done: function (e, data) {
-                $("tr:has(td)").remove();
-                $.each(data.result, function (index, file) {
-
-                    $("#uploaded-files").append(
-                            $('<tr/>')
-                                    .append($('<td/>').text(file.fileName))
-                                    .append($('<td/>').text(file.fileSize))
-                                    .append($('<td/>').text(file.fileType))
-                                    .append($('<td/>').html("<a href='/rest/file/get/" + index + "'>Click</a>"))
-                    )//end $("#uploaded-files").append()
-                });
-            },
-
-            progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress .bar').css(
-                        'width',
-                        progress + '%'
-                );
-            },
-            dropZone: $('#dropzone')
-        });
-    });
-
-    function initTemplate() {
-        var selectBrand = Handlebars.compile($('#selected-brand').html());
-        var selectCategory = Handlebars.compile($('#selected-category').html());
-        var selectSize = Handlebars.compile($('#selected-size').html());
-        $('#select-size .controls').html(selectSize);
-        $.getJSON(restAPI + '/brand', function (data) {
-            $('#select-brand .controls').html(selectBrand(data));
-        });
-        $.getJSON(restAPI + '/category', function (data) {
-            $('#select-category .controls').html(selectCategory(data));
-        });
-    }
-</script>
 
 
 <script id="selected-brand" type="text/x-handlebars-template">
@@ -274,35 +200,3 @@
 <script id="selected-size" type="text/x-handlebars-template">
     {{select-size-checkbox}}
 </script>
-
-
-<style>
-    #dropzone {
-        background: #ccc;
-        width: 150px;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    #dropzone.in {
-        width: 600px;
-        height: 200px;
-        line-height: 200px;
-        font-size: larger;
-    }
-
-    #dropzone.hover {
-        background: lawngreen;
-    }
-
-    #dropzone.fade {
-        -webkit-transition: all 0.3s ease-out;
-        -moz-transition: all 0.3s ease-out;
-        -ms-transition: all 0.3s ease-out;
-        -o-transition: all 0.3s ease-out;
-        transition: all 0.3s ease-out;
-        opacity: 1;
-    }
-</style>

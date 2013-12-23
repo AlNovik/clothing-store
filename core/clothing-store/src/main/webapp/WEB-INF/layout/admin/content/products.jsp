@@ -13,11 +13,7 @@
     <div class="tab-content">
         <%-- Вкладка товаров --%>
         <div class="tab-pane fade active in" id="catalog">
-
             <p>
-                <a href="${pageContext.request.contextPath}/admin/product/add" class="btn btn-success">
-                    <i class="icon-plus icon-white"></i> Новый товар
-                </a>
                 <a href="#modal-product-add" class="btn btn-success" data-toggle="modal">
                     <i class="icon-plus icon-white"></i> Новый товар
                 </a>
@@ -28,11 +24,10 @@
                     <table class="table table-condensed table-striped table-hover table-bordered" id="table_catalog">
                     </table>
                 </div>
-                <div class="span4">
+                <div class="span4" id="admin-select-table">
                     <div>
                         <h4>Категории</h4>
                         <select size="10" id="admin-select-category">
-
                         </select>
                     </div>
                     <div>
@@ -49,8 +44,11 @@
         <div class="tab-pane fade" id="category">
             <h3>Категории </h3>
 
-            <p><a href="${pageContext.request.contextPath}/admin/category/add" class="btn btn-success"
-                  data-toggle="modal"><i class="icon-plus icon-white"></i> Новая категория</a></p>
+            <p>
+                <a href="#modal-category-add" class="btn btn-success" data-toggle="modal">
+                    <i class="icon-plus icon-white"></i> Новая категория
+                </a>
+            </p>
 
             <div id="table_category"></div>
         </div>
@@ -59,9 +57,12 @@
         <div class="tab-pane fade" id="brand">
             <h3>Брэнды </h3>
 
-            <p><a href="${pageContext.request.contextPath}/admin/brand/add" class="btn btn-success"><i
-                    class="icon-plus icon-white"></i> Новый производитель</a></p>
-            <table id="table_brand" class="table table-bordered table-striped span8">
+            <p>
+                <a href="#modal-brand-add" class="btn btn-success" data-toggle="modal">
+                    <i class="icon-plus icon-white"></i> Новый производитель
+                </a>
+            </p>
+            <table id="table_brand" class="table table-condensed table-striped table-hover table-bordered">
                 <thead>
                 <tr>
                     <th class="span10">Брэнд</th>
@@ -72,36 +73,6 @@
             </table>
         </div>
     </div>
-</div>
-
-
-<%--Модальное окно создания категории--%>
-<div id="createCategory" class="modal hide fade" tabindex="-1" role="dialog"
-     aria-labelledby="addCategoryLabel" aria-hidden="true">
-    <div class="modal-header">
-        <h3 id="addCategoryLabel">Добавить категорию</h3>
-    </div>
-    <form id="newCategoryForm">
-        <fieldset>
-            <div class="modal-body">
-                <div class="control-group">
-                    <label class="control-label" for="category_title">
-                        Название
-                    </label>
-
-                    <div class="controls">
-                        <input id="category_title"
-                               class="input-block-level span10" type="text">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input class="btn btn-success" type="submit" tdata-dismiss="modal"
-                       value="Добавить">
-                <input class="btn btn-warning" data-dismiss="modal" value="Отменить">
-            </div>
-        </fieldset>
-    </form>
 </div>
 
 <script id="admin-table-category" type="text/x-handlebars-template">
@@ -127,7 +98,6 @@
     </table>
 </script>
 
-
 <%--Всплывающее окно подтверждения удаления--%>
 <div class="modal hide fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -144,6 +114,11 @@
     </div>
 </div>
 
-
 <%-- Модаьное окно добавления нового товара --%>
 <jsp:include page="product.add.jsp"/>
+
+<%-- Модальное окно добавления новой категории --%>
+<jsp:include page="category.add.jsp"/>
+
+<%-- Модальное окно добавления нового брэнда --%>
+<jsp:include page="brand.add.jsp"/>

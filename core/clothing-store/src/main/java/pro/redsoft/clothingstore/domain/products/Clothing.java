@@ -89,7 +89,7 @@ public class Clothing extends Product {
         this.season = season;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "category")
     public Category getCategory() {
         return category;
@@ -99,7 +99,7 @@ public class Clothing extends Product {
         this.category = category;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "brand")
     public Brand getBrand() {
         return brand;

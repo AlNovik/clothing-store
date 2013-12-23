@@ -53,7 +53,7 @@ public class Category implements Serializable {
         this.title = title;
     }
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonIgnore
     public List<Clothing> getClothings() {
         return clothings;

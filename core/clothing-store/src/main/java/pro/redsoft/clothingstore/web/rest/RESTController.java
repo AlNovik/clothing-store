@@ -66,7 +66,7 @@ public class RESTController {
         return clothing;
     }
 
-    @RequestMapping(value = "/clothing", method = RequestMethod.POST)
+    @RequestMapping(value = "/clothing", method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public Clothing createClothing(@Valid @RequestBody String clothing) {
@@ -88,7 +88,7 @@ public class RESTController {
 //        return clothing;
     }
 
-    @RequestMapping(value = "/clothing/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/clothing/{id}", method = RequestMethod.PUT, headers = {"content-type=application/json"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateClothing(@Valid @RequestBody String clothing, @PathVariable Integer id) {
 
@@ -177,7 +177,7 @@ public class RESTController {
         return listBrands;
     }
 
-    @RequestMapping(value = "/brand", method = RequestMethod.POST)
+    @RequestMapping(value = "/brand", method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public Brand createBrand(@Valid @RequestBody String brand) {
@@ -231,7 +231,7 @@ public class RESTController {
         return result;
     }
 
-    @RequestMapping(value = "/order",method = RequestMethod.POST)
+    @RequestMapping(value = "/order",method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public Orders createOrder(@Valid @RequestBody String orders){
@@ -246,7 +246,7 @@ public class RESTController {
         return orderService.createOrder(created);
     }
 
-    @RequestMapping(value = "/order",method = RequestMethod.PUT)
+    @RequestMapping(value = "/order",method = RequestMethod.PUT, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void editOrder(@Valid @RequestBody String orders){

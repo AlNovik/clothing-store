@@ -52,7 +52,7 @@ public class Brand implements Serializable {
         this.title = title;
     }
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     @JsonIgnore
     public List<Clothing> getClothings() {
         return clothings;
