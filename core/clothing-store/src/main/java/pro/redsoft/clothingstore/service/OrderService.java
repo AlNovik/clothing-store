@@ -44,19 +44,13 @@ public class OrderService implements IOrderService {
 
     @Override
     public Orders create(Orders orders) {
-        return orderRepository.save(orders);
-    }
-
-    @Override
-    public Orders modify(Orders orders) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public Orders createOrder(Orders orders) {
-
-        orders.setDateCreate(new DateTime());
+        orders.setCreate(new DateTime());
         orders.setStatus(Orders.OrderStatus.NEW);
         return orderRepository.save(orders);
+    }
+
+    @Override
+    public void modify(Orders orders) {
+        orderRepository.save(orders);
     }
 }

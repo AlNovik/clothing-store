@@ -1,7 +1,9 @@
 package pro.redsoft.clothingstore.service;
 
 import com.google.common.collect.Lists;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pro.redsoft.clothingstore.domain.attributes.Category;
@@ -40,21 +42,32 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public void delete(Category category) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        categoryRepository.delete(category);
     }
 
     @Override
     public Category create(Category category) {
+        DateTime currentDate = new DateTime();
+        category.getProperties().setCreated(currentDate);
+        category.getProperties().setUpdated(currentDate);
+        category.getProperties().setModify(0);
         return categoryRepository.save(category);
     }
 
     @Override
-    public Category modify(Category category) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public void modify(Category category) {
+        category.getProperties().setUpdated(new DateTime());
+        category.getProperties().setModify(category.getProperties().getModify() + 1);
+        categoryRepository.save(category);
     }
 
     @Override
     public List<Category> findAllOrderByTitleAsc() {
         return categoryRepository.findAllOrderByTitleAsc();
+    }
+
+    @Override
+    public List<Category> findSortDatatables(String query, Sort sort) {
+        return categoryRepository.findSortDataTables("%" + query + "%", sort);
     }
 }

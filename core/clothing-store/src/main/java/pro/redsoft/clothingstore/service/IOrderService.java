@@ -8,5 +8,4 @@ import pro.redsoft.clothingstore.domain.order.Orders;
  */
 public interface IOrderService extends CRUDService<Orders> {
 
-    Orders createOrder(Orders orders);
 }

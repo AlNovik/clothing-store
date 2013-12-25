@@ -2,6 +2,7 @@ package pro.redsoft.clothingstore.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import pro.redsoft.clothingstore.domain.attributes.Brand;
 import pro.redsoft.clothingstore.domain.attributes.Category;
 import pro.redsoft.clothingstore.domain.products.Clothing;
@@ -30,6 +31,8 @@ public interface IClothingService extends CRUDService<Clothing> {
     Page<Clothing> findPageByCategory(Category category, Pageable pageable);
 
     Page<Clothing> findPageByBrand(Brand brand, Pageable pageable);
+
+    List<Clothing> findSortDataTables(String query, Sort sort);
 
     List<Clothing> search(Clothing clothing);
 }

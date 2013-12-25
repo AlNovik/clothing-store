@@ -40,7 +40,7 @@ public class ContactService implements IContactService {
 
     @Override
     public void delete(Contact contact) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        contactRepository.delete(contact);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ContactService implements IContactService {
     }
 
     @Override
-    public Contact modify(Contact contact) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public void modify(Contact contact) {
+        contactRepository.save(contact);
     }
 }

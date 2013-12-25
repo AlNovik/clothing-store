@@ -1,6 +1,5 @@
 package pro.redsoft.clothingstore.web.rest;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import pro.redsoft.clothingstore.service.IClothingService;
 import pro.redsoft.clothingstore.service.IOrderService;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,16 +75,9 @@ public class RESTController {
 
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.PUT, headers = {"content-type=application/json"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateClothing(@Valid @RequestBody String clothing, @PathVariable Integer id) {
+    public void updateClothing(@Valid @RequestBody Clothing clothing, @PathVariable Integer id) {
 
-        ObjectMapper mapper = new ObjectMapper();
-        Clothing modify = null;
-        try {
-            modify = mapper.readValue(clothing, Clothing.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        clothingService.create(modify);
+        clothingService.modify(clothing);
     }
 
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.DELETE)
@@ -196,22 +187,15 @@ public class RESTController {
     @ResponseStatus(HttpStatus.CREATED)
     public Orders createOrder(@Valid @RequestBody Orders orders){
 
-        return orderService.createOrder(orders);
+        return orderService.create(orders);
     }
 
     @RequestMapping(value = "/order",method = RequestMethod.PUT, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void editOrder(@Valid @RequestBody String orders){
+    public void editOrder(@Valid @RequestBody Orders orders){
 
-        ObjectMapper mapper = new ObjectMapper();
-        Orders created = null;
-        try {
-            created = mapper.readValue(orders, Orders.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        orderService.create(created);
+        orderService.modify(orders);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

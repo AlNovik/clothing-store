@@ -18,5 +18,5 @@ public interface CRUDService<T> {
 
     T create(T t);
 
-    T modify(T t);
+    void modify(T t);
 }

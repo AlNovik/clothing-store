@@ -56,6 +56,7 @@ function ititTables() {
             } else {
                 $(nRow).find('td:last').html('<i class="icon-eye-close"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
             }
+            $(nRow).find('td:last').attr("data-id", aData.id);
         },
         "fnInitComplete": function (oSettings, json) {
             $('#table_catalog').find('.icon-eye-open').tooltip({title: 'Скрыть'});
@@ -96,6 +97,8 @@ function ititTables() {
             } else {
                 $(nRow).find('td:last').html('<i class="icon-eye-close"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
             }
+            $(nRow).find('td:last').attr("data-id", aData.id);
+
         },
         "fnInitComplete": function (oSettings, json) {
             $('#table_category .icon-eye-open').tooltip({title: 'Скрыть'});
@@ -136,6 +139,7 @@ function ititTables() {
             } else {
                 $(nRow).find('td:last').html('<i class="icon-eye-close"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
             }
+            $(nRow).find('td:last').attr("data-id", aData.id);
         },
         "fnInitComplete": function (oSettings, json) {
             $('#table_brand .icon-eye-open').tooltip({title: 'Скрыть'});
@@ -145,38 +149,25 @@ function ititTables() {
         },
         "sPaginationType": "bootstrap"
     };
-    $('#table_category').dataTable(table_category_params);
-    $('#table_brand').dataTable(table_brand_params);
 
-//    Строим таблицу и навешиваем события на колонку опций
+    //    Строим таблицу и навешиваем события на колонку опций
     $('#table_catalog').dataTable(table_catalog_params).click(function (e) {
         var clicked = $(e.target);
         var id = clicked.closest('tr').find('td:first').html();
-        switch (true) {
-            case clicked.hasClass('icon-eye-open'):
-                $.getJSON(App.Rest.link + '/clothing/' + id, function (data) {
-                    data.properties.visible = false;
-                    $.putJSON(App.Rest.link + '/clothing/' + id, $.toJSON(data));
-                });
-                clicked.removeClass('icon-eye-open');
-                clicked.addClass('icon-eye-close');
-                break;
-            case clicked.hasClass('icon-eye-close'):
-                $.getJSON(App.Rest.link + '/clothing/' + id, function (data) {
-                    data.properties.visible = true;
-                    $.putJSON(App.Rest.link + '/clothing/' + id, $.toJSON(data));
-                });
-                clicked.removeClass('icon-eye-close');
-                clicked.addClass('icon-eye-open');
-                break;
-            case clicked.hasClass('icon-remove'):
-                $('#modal-delete').modal();
-                $("#modal-delete .delete-item").click(function () {
-                    $.deleteItem(App.Rest.link + '/clothing/' + id);
-                    $('#modal-delete').modal('hide');
-                });
-                break;
-        }
+        var link = App.Rest.link + '/clothing/';
+        tableEventHandler(clicked, id, link);
+    });
+    $('#table_category').dataTable(table_category_params).click(function (e) {
+        var clicked = $(e.target);
+        var id = clicked.closest('tr').find('td:last').data('id');
+        var link = App.Rest.link + '/category/';
+        tableEventHandler(clicked, id, link);
+    });
+    $('#table_brand').dataTable(table_brand_params).click(function (e) {
+        var clicked = $(e.target);
+        var id = clicked.closest('tr').find('td:last').data('id');
+        var link = App.Rest.link + '/brand/';
+        tableEventHandler(clicked, id, link);
     });
 
     $('#admin-select-table').click(function (e) {
@@ -199,7 +190,6 @@ function ititTables() {
     $.getJSON(App.Rest.link + '/category', function (data) {
         var categories = '';
         $.each(data.categories, function () {
-            $('#table_category tbody').append('<tr><td>' + this.title + '</td><td><i class="icon-eye-open"></i> <i class="icon-edit"></i> <i class="icon-remove"></i></td></tr>');
             categories += '<option class="option">' + this.title + '</option>';
         });
         $('#admin-select-category').html(categories);
@@ -213,6 +203,34 @@ function ititTables() {
         });
         $('#admin-select-brand').html(brands);
     });
+}
+
+function tableEventHandler(clicked, id, link) {
+    switch (true) {
+        case clicked.hasClass('icon-eye-open'):
+            $.getJSON(link + id, function (data) {
+                data.properties.visible = false;
+                $.putJSON(link + id, data);
+            });
+            clicked.removeClass('icon-eye-open');
+            clicked.addClass('icon-eye-close');
+            break;
+        case clicked.hasClass('icon-eye-close'):
+            $.getJSON(link + id, function (data) {
+                data.properties.visible = true;
+                $.putJSON(link + id, data);
+            });
+            clicked.removeClass('icon-eye-close');
+            clicked.addClass('icon-eye-open');
+            break;
+        case clicked.hasClass('icon-remove'):
+            $('#modal-delete').modal();
+            $("#modal-delete .delete-item").click(function () {
+                $.deleteItem(link + id);
+                $('#modal-delete').modal('hide');
+            });
+            break;
+    }
 }
 
 function submitForm() {

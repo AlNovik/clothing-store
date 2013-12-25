@@ -8,7 +8,6 @@ import pro.redsoft.clothingstore.domain.DomainObject;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -22,7 +21,8 @@ public class Orders extends DomainObject implements Serializable {
     private static final long serialVersionUID = 8729276045907878723L;
 
     private Long id;
-    private DateTime dateCreate;
+    private DateTime create;
+    private DateTime updated;
     private OrderStatus status;
     private List<OrderItem> items;
     private Contact contact;
@@ -45,12 +45,23 @@ public class Orders extends DomainObject implements Serializable {
     @Column(name = "date_create")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    public DateTime getDateCreate() {
-        return dateCreate;
+    public DateTime getCreate() {
+        return create;
     }
 
-    public void setDateCreate(DateTime dateCreate) {
-        this.dateCreate = dateCreate;
+    public void setCreate(DateTime create) {
+        this.create = create;
+    }
+
+    @Column(name = "date_update")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    public DateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(DateTime updated) {
+        this.updated = updated;
     }
 
     @Column(name = "status")
@@ -103,7 +114,7 @@ public class Orders extends DomainObject implements Serializable {
         Orders orders = (Orders) o;
 
         if (contact != null ? !contact.equals(orders.contact) : orders.contact != null) return false;
-        if (dateCreate != null ? !dateCreate.equals(orders.dateCreate) : orders.dateCreate != null) return false;
+        if (create != null ? !create.equals(orders.create) : orders.create != null) return false;
         if (id != null ? !id.equals(orders.id) : orders.id != null) return false;
         if (items != null ? !items.equals(orders.items) : orders.items != null) return false;
         if (status != orders.status) return false;
@@ -114,7 +125,7 @@ public class Orders extends DomainObject implements Serializable {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (dateCreate != null ? dateCreate.hashCode() : 0);
+        result = 31 * result + (create != null ? create.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (items != null ? items.hashCode() : 0);
         result = 31 * result + (contact != null ? contact.hashCode() : 0);
@@ -125,7 +136,7 @@ public class Orders extends DomainObject implements Serializable {
     public String toString() {
         return "Orders{" +
                 "id=" + id +
-                ", dateCreate=" + dateCreate +
+                ", create=" + create +
                 ", status=" + status +
                 ", items=" + items +
                 ", contact=" + contact +
@@ -134,7 +145,7 @@ public class Orders extends DomainObject implements Serializable {
 
     public enum OrderStatus {
 
-        NEW, PROCESSED, CLOSED;
+        NEW, PROCESSED, CLOSED, CANCELED;
 
         private OrderStatus() {
         }

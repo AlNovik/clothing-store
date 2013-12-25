@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pro.redsoft.clothingstore.domain.attributes.Brand;
@@ -88,6 +89,11 @@ public class ClothingService implements IClothingService {
     }
 
     @Override
+    public List<Clothing> findSortDataTables(String query, Sort sort) {
+        return Lists.newArrayList(clothingRepository.findDataTables("%" + query + "%", sort));
+    }
+
+    @Override
     public List<Clothing> search(Clothing clothing) {
         return null;
     }
@@ -111,39 +117,24 @@ public class ClothingService implements IClothingService {
 
     @Override
     public void delete(Clothing clothing) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        clothingRepository.delete(clothing);
     }
 
     @Override
     public Clothing create(Clothing clothing) {
-
         DateTime currentDate = new DateTime();
-
-        if (clothing.getId() == null) {
-            clothing.getProperties().setCreated(currentDate);
-            clothing.getProperties().setUpdated(currentDate);
-            clothing.getProperties().setModify(0);
-        } else {
-            clothing.getProperties().setUpdated(currentDate);
-            clothing.getProperties().setModify(clothing.getProperties().getModify() + 1);
-        }
-//        if(brandRepository.findByTitle(clothing.getBrand().getTitle()) != null){
-//            clothing.setBrand(brandRepository.findByTitle(clothing.getBrand().getTitle()));
-//        }
-//        if(categoryRepository.findByTitle(clothing.getCategory().getTitle()) != null){
-//            clothing.setCategory(categoryRepository.findByTitle(clothing.getCategory().getTitle()));
-//        }
-        if (clothing.getBrand().getId() != null) {
-            clothing.setBrand(brandRepository.findOne(clothing.getBrand().getId()));
-        }
-        if (clothing.getCategory().getId() != null) {
-            clothing.setCategory(categoryRepository.findOne(clothing.getCategory().getId()));
-        }
+        clothing.getProperties().setCreated(currentDate);
+        clothing.getProperties().setUpdated(currentDate);
+        clothing.getProperties().setModify(0);
+        clothing.setBrand(brandRepository.findOne(clothing.getBrand().getId()));
+        clothing.setCategory(categoryRepository.findOne(clothing.getCategory().getId()));
         return clothingRepository.save(clothing);
     }
 
     @Override
-    public Clothing modify(Clothing clothing) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public void modify(Clothing clothing) {
+        clothing.getProperties().setUpdated(new DateTime());
+        clothing.getProperties().setModify(clothing.getProperties().getModify() + 1);
+        clothingRepository.save(clothing);
     }
 }

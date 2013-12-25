@@ -1,5 +1,6 @@
 package pro.redsoft.clothingstore.service;
 
+import org.springframework.data.domain.Sort;
 import pro.redsoft.clothingstore.domain.attributes.Brand;
 
 import java.util.List;
@@ -11,4 +12,6 @@ import java.util.List;
 public interface IBrandService extends CRUDService<Brand> {
 
     List<Brand> findAllOrderByTitleAsc();
+
+    List<Brand> findSortDatatables(String query,Sort sort);
 }

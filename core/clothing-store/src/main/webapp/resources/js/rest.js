@@ -26,12 +26,12 @@ $.putJSON = function (url, data) {
         'url': url,
         'contentType': 'application/json; charset=utf-8',
         'mimeType': 'application/json',
-        'data': $.toJSON(data),
+        'data': JSON.stringify(data),
         'dataType': 'json'
     });
 };
 
-$.deleteItem = function(url){
+$.deleteItem = function (url) {
     return $.ajax({
         'type': 'DELETE',
         'url': url

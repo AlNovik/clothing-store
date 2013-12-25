@@ -1,7 +1,9 @@
 package pro.redsoft.clothingstore.repository;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import pro.redsoft.clothingstore.domain.attributes.Brand;
 
 import java.util.List;
@@ -19,4 +21,7 @@ public interface BrandRepository extends CrudRepository<Brand, Long> {
 
     @Query("SELECT b FROM Brand b WHERE b.properties.url=:url")
     Brand findByUrl(String url);
+
+    @Query("SELECT b FROM Brand b WHERE b.title LIKE :query")
+    List<Brand> findSortDataTables(@Param("query")String query,Sort sort);
 }
