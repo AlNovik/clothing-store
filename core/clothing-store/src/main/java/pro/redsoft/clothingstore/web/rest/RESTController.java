@@ -69,23 +69,10 @@ public class RESTController {
     @RequestMapping(value = "/clothing", method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Clothing createClothing(@Valid @RequestBody String clothing) {
+    public Clothing createClothing(@Valid @RequestBody Clothing clothing) {
 
         logger.info("Creating clothing: " + clothing);
-        ObjectMapper mapper = new ObjectMapper();
-        Clothing created = null;
-        try {
-            created = mapper.readValue(clothing, Clothing.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return clothingService.create(created);
-
-
-//        logger.info("Creating clothing: " + clothing);
-//        clothingService.create(clothing);
-//        logger.info("Clothing created successfully with info: " + clothing);
-//        return clothing;
+        return clothingService.create(clothing);
     }
 
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.PUT, headers = {"content-type=application/json"})
@@ -137,24 +124,10 @@ public class RESTController {
     @RequestMapping(value = "/category", method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Category createCategory(@Valid @RequestBody String category) {
+    public Category createCategory(@Valid @RequestBody Category category) {
 
         logger.info("Creating category: " + category);
-        ObjectMapper mapper = new ObjectMapper();
-        Category created = null;
-        try {
-            created = mapper.readValue(category, Category.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return categoryService.create(created);
-
-
-//        logger.info("Creating category: " + category);
-//        System.err.println("Creating category: " + category);
-//        Category created = categoryService.create(category);
-//        logger.info("Category created successfully with info: " + created);
-//        return created;
+        return categoryService.create(category);
     }
 
     @RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE)
@@ -180,23 +153,10 @@ public class RESTController {
     @RequestMapping(value = "/brand", method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Brand createBrand(@Valid @RequestBody String brand) {
+    public Brand createBrand(@Valid @RequestBody Brand brand) {
 
         logger.info("Creating brand: " + brand);
-        ObjectMapper mapper = new ObjectMapper();
-        Brand created = null;
-        try {
-            created = mapper.readValue(brand, Brand.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return brandService.create(created);
-
-//        logger.info("Creating brand: " + brand);
-//        System.err.println("Creating brand: " + brand);
-//        brandService.create(brand);
-//        logger.info("Brand created successfully with info: " + brand);
-//        return brand;
+        return brandService.create(brand);
     }
 
     @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
@@ -234,16 +194,9 @@ public class RESTController {
     @RequestMapping(value = "/order",method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Orders createOrder(@Valid @RequestBody String orders){
+    public Orders createOrder(@Valid @RequestBody Orders orders){
 
-        ObjectMapper mapper = new ObjectMapper();
-        Orders created = null;
-        try {
-            created = mapper.readValue(orders, Orders.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return orderService.createOrder(created);
+        return orderService.createOrder(orders);
     }
 
     @RequestMapping(value = "/order",method = RequestMethod.PUT, headers = {"content-type=application/json"})

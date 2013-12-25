@@ -145,10 +145,11 @@ html, body {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
 }
 
-.modal-admin{
+.modal-admin {
     width: 960px;
     margin-left: -480px;
 }
+
 .modal-admin .form-horizontal .control-label {
     width: 80px;
 }
@@ -157,7 +158,7 @@ html, body {
     margin-left: 100px;
 }
 
-.modal-admin .form-horizontal .control-group{
+.modal-admin .form-horizontal .control-group {
     margin-bottom: 10px;
 }
 
@@ -170,15 +171,18 @@ html, body {
     text-align: center;
     font-weight: bold;
 }
+
 #dropzone.in {
     width: 600px;
     height: 200px;
     line-height: 200px;
     font-size: larger;
 }
+
 #dropzone.hover {
     background: lawngreen;
 }
+
 #dropzone.fade {
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
@@ -186,4 +190,12 @@ html, body {
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
     opacity: 1;
+}
+
+#shopping-send .form-horizontal .control-label {
+    width: 80px;
+}
+
+#shopping-send .form-horizontal .controls {
+    margin-left: 100px;
 }

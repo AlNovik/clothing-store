@@ -62,10 +62,10 @@
 
                 <div class="controls">
                     <label class="checkbox inline">
-                        <input type="checkbox" value="162" name="height"> 162
+                        <input type="checkbox" value="162" name="height[]"> 162
                     </label>
                     <label class="checkbox inline">
-                        <input type="checkbox" value="170" name="height"> 170
+                        <input type="checkbox" value="170" name="height[]"> 170
                     </label>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 <label class="control-label">Цвет</label>
 
                 <div class="controls">
-                    <input type="text" value="" data-role="tagsinput" name="color" class="span6"
+                    <input type="text" value="" data-role="tagsinput" name="color[]" class="span6"
                            placeholder="Введите доступные цвета..."/>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 <label class="control-label">Ткань</label>
 
                 <div class="controls">
-                    <input type="text" value="" data-role="tagsinput" name="cloth" class="span6"
+                    <input type="text" value="" data-role="tagsinput" name="cloth[]" class="span6"
                            placeholder="Введите доступные ткани..."/>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                 <label class="control-label">Сезонность</label>
 
                 <div class="controls">
-                    <input type="text" value="" data-role="tagsinput" name="season" class="span6"
+                    <input type="text" value="" data-role="tagsinput" name="season[]" class="span6"
                            placeholder="Сезонность..."/>
                 </div>
             </div>

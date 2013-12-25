@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import pro.redsoft.clothingstore.domain.Contact;
+import pro.redsoft.clothingstore.domain.DomainObject;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "orders")
-public class Orders implements Serializable {
+public class Orders extends DomainObject implements Serializable {
 
     private static final long serialVersionUID = 8729276045907878723L;
 

@@ -13,7 +13,7 @@
     </div>
 </form>
 
-<form method="POST">
+<form method="POST" id="search-param">
     <div class="breadcrumb"><span>Расширенный поиск</span></div>
     <div class="search-box">
 
@@ -37,10 +37,10 @@
             </div>
             <div class="height-checkbox checkbox-block">
                 <label class="checkbox inline">
-                    <input class="height_ch" type="checkbox" value="height_164" name="height_164">164
+                    <input class="height_ch" type="checkbox" value="164" name="height[]">164
                 </label>
                 <label class="checkbox inline">
-                    <input class="height_ch" type="checkbox" value="height_170" name="height_170">170
+                    <input class="height_ch" type="checkbox" value="170" name="height[]">170
                 </label>
             </div>
         </div>
@@ -87,22 +87,40 @@
         searchModel();
     });
 
+    $('#search-param').submit(function (e) {
+        var formData = form2js('search-param', '.', true);
+//        delete formData._wysihtml5_mode;
+        $.postJSON(App.Rest.link + '/clothing', formData)
+                .success(function () {
+                    $('#newProduct').trigger('reset');
+                    $('#modal-product-add').modal('hide');
+                    alert("Успешное выполнение");
+                })
+                .error(function () {
+                    alert("Ошибка выполнения");
+                })
+                .complete(function () {
+                    alert("Завершение выполнения");
+                });
+
+        e.preventDefault(); // prevent actual form submit and page reload
+    });
+
     function searchBar() {
         <%-- Блок выбора размеров--%>
         App.Templates.searchSizeBlock = Handlebars.compile($("#search-size-checkbox-block").html());
         $('#search-size-checkbox').html(App.Templates.searchSizeBlock);
         <%-- Блок выбора категорий --%>
         App.Templates.searchCategoryBlock = Handlebars.compile($('#search-category-checkbox-block').html());
-        App.Rest.categories.done(function (data) {
+        $.getJSON(App.Rest.link + '/category',function(data){
             $('#search-category-checkbox').html(App.Templates.searchCategoryBlock(data));
         });
         <%-- Блок выбора производителя --%>
         var brandBlock = $('#search-brand-checkbox-block').html();
         var templateBrandBlock = Handlebars.compile(brandBlock);
         var brandData;
-        $.getJSON(appLink + '/rest/brand', function (data) {
-            brandData = data;
-            var renderBrand = templateBrandBlock(brandData);
+        $.getJSON(App.Rest.link + '/brand', function (data) {
+            var renderBrand = templateBrandBlock(data);
             $('#search-brand-checkbox').html(renderBrand);
         });
     }
@@ -155,7 +173,7 @@
 <script id="search-category-checkbox-block" type="text/x-handlebars-template">
     {{#each categories}}
     <label class="checkbox check-item">
-        <input class="category_ch" type="checkbox" value="category_{{id}}" name="category_{{id}}">{{title}}
+        <input class="category_ch" type="checkbox" value="{{id}}" name="category[]">{{title}}
     </label>
     {{/each}}
     <div class="clearfix"></div>
@@ -164,7 +182,7 @@
 <script id="search-brand-checkbox-block" type="text/x-handlebars-template">
     {{#each brands}}
     <label class="check-item">
-        <input class="brand_ch" type="checkbox" value="brand_{{id}}" name="brand_{{id}}"> {{title}}
+        <input class="brand_ch" type="checkbox" value="{{id}}" name="brand[]"> {{title}}
     </label>
     {{/each}}
     <div class="clearfix"></div>

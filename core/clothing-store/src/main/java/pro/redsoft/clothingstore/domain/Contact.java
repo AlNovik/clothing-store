@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "contact")
-public class Contact implements Serializable {
+public class Contact extends DomainObject implements Serializable {
 
     private static final long serialVersionUID = -7214090087585999345L;
 

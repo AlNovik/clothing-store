@@ -1,6 +1,7 @@
 package pro.redsoft.clothingstore.domain.products;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import pro.redsoft.clothingstore.domain.DomainObject;
 import pro.redsoft.clothingstore.domain.attributes.Image;
 import pro.redsoft.clothingstore.domain.properties.Properties;
 
@@ -17,7 +18,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Product implements Serializable {
+public abstract class Product extends DomainObject implements Serializable {
 
     private static final long serialVersionUID = 6906437706286113838L;
 

@@ -22,21 +22,6 @@ public class AdminController {
         return "admin.products";
     }
 
-    @RequestMapping("/product/add")
-    public String addProduct(){
-        return "admin.product.add";
-    }
-
-    @RequestMapping("/brand/add")
-    public String addBrand(){
-        return "admin.brand.add";
-    }
-
-    @RequestMapping("/category/add")
-    public String addCategory(){
-        return "admin.category.add";
-    }
-
     @RequestMapping("/orders")
     public String orders(){
         return "admin.orders";

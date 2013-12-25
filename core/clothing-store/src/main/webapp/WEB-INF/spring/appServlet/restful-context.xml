@@ -7,17 +7,21 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
+    <bean class="org.codehaus.jackson.map.ObjectMapper" id="jacksonObjectMapper"/>
+
+
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+                <property name="objectMapper" ref="jacksonObjectMapper"/>
                 <property name="supportedMediaTypes" value="application/json"/>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-    <bean id="jsonViewResolver" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+    <bean id="jsonViewResolver" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
 
     <context:component-scan base-package="pro.redsoft.clothingstore.web.rest"/>
 

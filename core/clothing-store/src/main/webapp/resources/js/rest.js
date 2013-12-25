@@ -14,7 +14,7 @@ $.postJSON = function (url, data, callback) {
         'url': url,
         'contentType': 'application/json; charset=utf-8',
         'mimeType': 'application/json',
-        'data': $.toJSON(data),
+        'data': JSON.stringify(data),
         'dataType': 'json',
         'success': callback
     });
@@ -37,8 +37,3 @@ $.deleteItem = function(url){
         'url': url
     });
 };
-
-App.Rest.categories = $.getJSON(App.Rest.link + '/category');
-App.Rest.brands = $.getJSON(App.Rest.link + '/brand');
-App.Rest.clothing = $.getJSON(App.Rest.link + '/clothing');
-App.Rest.orders = $.getJSON(App.Rest.link + '/order');

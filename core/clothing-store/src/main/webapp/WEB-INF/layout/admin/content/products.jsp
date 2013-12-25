@@ -22,6 +22,24 @@
             <div class="row-fluid">
                 <div class="span8">
                     <table class="table table-condensed table-striped table-hover table-bordered" id="table_catalog">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Модель</th>
+                            <th>Брэнд</th>
+                            <th>Категория</th>
+                            <th style="width: 10%">Опции</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Модель</th>
+                            <th>Брэнд</th>
+                            <th>Категория</th>
+                            <th>Опции</th>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <div class="span4" id="admin-select-table">
@@ -50,7 +68,22 @@
                 </a>
             </p>
 
-            <div id="table_category"></div>
+            <div class="span8">
+                <table class="table table-condensed table-striped table-hover table-bordered" id="table_category">
+                    <thead>
+                    <tr>
+                        <th>Категория</th>
+                        <th style="width:20%">Опции</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Категория</th>
+                        <th style="width:20%">Опции</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
 
         <%-- Вкаладка брэндов --%>

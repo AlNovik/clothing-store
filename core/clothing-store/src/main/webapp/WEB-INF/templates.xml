@@ -28,18 +28,6 @@
         <put-attribute name="title" type="string" value=""/>
         <put-attribute name="settings" value="/WEB-INF/layout/admin/content/products.jsp"/>
     </definition>
-    <definition name="admin.product.add" extends="base.admin">
-        <put-attribute name="title" type="string" value=""/>
-        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/product.add.jsp"/>
-    </definition>
-    <definition name="admin.category.add" extends="base.admin">
-        <put-attribute name="title" type="string" value=""/>
-        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/category.add.jsp"/>
-    </definition>
-    <definition name="admin.brand.add" extends="base.admin">
-        <put-attribute name="title" type="string" value=""/>
-        <put-attribute name="settings" value="/WEB-INF/layout/admin/content/brand.add.jsp"/>
-    </definition>
     <definition name="admin.orders" extends="base.admin">
         <put-attribute name="title" type="string" value=""/>
         <put-attribute name="settings" value="/WEB-INF/layout/admin/content/orders.jsp"/>
@@ -82,10 +70,6 @@
     <definition name="shopping" extends="base.client">
         <put-attribute name="title" type="string" value=""/>
         <put-attribute name="content" value="/WEB-INF/layout/client/content/shoppingCart.jsp"/>
-    </definition>
-    <definition name="shopping.send" extends="base.client">
-        <put-attribute name="title" type="string" value=""/>
-        <put-attribute name="content" value="/WEB-INF/layout/client/content/shoppingSend.jsp"/>
     </definition>
     <definition name="about" extends="base.client">
         <put-attribute name="title" type="string" value=""/>

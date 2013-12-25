@@ -2,6 +2,7 @@ package pro.redsoft.clothingstore.domain.attributes;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
+import pro.redsoft.clothingstore.domain.DomainObject;
 import pro.redsoft.clothingstore.domain.products.Clothing;
 import pro.redsoft.clothingstore.domain.properties.Properties;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "category")
-public class Category implements Serializable {
+public class Category extends DomainObject implements Serializable {
 
     private static final long serialVersionUID = 9061366754793151468L;
 

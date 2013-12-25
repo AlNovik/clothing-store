@@ -47,8 +47,7 @@ public class PaginationController {
                                @RequestParam(value = "sortBy", required = false) String sortBy,
                                @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = getSort(sortBy, order);
-        PageRequest pageRequest = getPageRequest(sort, 1, size);
+        PageRequest pageRequest = getPageRequest(sortBy, order, 1, size);
         Page<? extends Product> page = clothingService.findAllByPage(pageRequest);
         ProductPage productPage = getProductPage(page);
         productPage.setClothings(Lists.newArrayList(page.iterator()));
@@ -62,8 +61,7 @@ public class PaginationController {
                                      @RequestParam(value = "sortBy", required = false) String sortBy,
                                      @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = getSort(sortBy, order);
-        PageRequest pageRequest = getPageRequest(sort,pageNumber,size);
+        PageRequest pageRequest = getPageRequest(sortBy, order,pageNumber,size);
         Page<? extends Product> page = clothingService.findAllByPage(pageRequest);
         ProductPage productPage = getProductPage(page);
         productPage.setClothings(Lists.newArrayList(page.iterator()));
@@ -77,8 +75,7 @@ public class PaginationController {
                                        @RequestParam(value = "sortBy", required = false) String sortBy,
                                        @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = getSort(sortBy, order);
-        PageRequest pageRequest = getPageRequest(sort, 1, size);
+        PageRequest pageRequest = getPageRequest(sortBy, order, 1, size);
         Category category = categoryService.findById(id);
         Page<Clothing> page = clothingService.findPageByCategory(category, pageRequest);
         Map<String, Object> properties = new HashMap<String, Object>();
@@ -98,8 +95,7 @@ public class PaginationController {
                                              @RequestParam(value = "sortBy", required = false) String sortBy,
                                              @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = getSort(sortBy, order);
-        PageRequest pageRequest = getPageRequest(sort,pageNumber,size);
+        PageRequest pageRequest = getPageRequest(sortBy, order,pageNumber,size);
         Category category = categoryService.findById(id);
         Page<Clothing> page = clothingService.findPageByCategory(category, pageRequest);
         Map<String, Object> properties = new HashMap<String, Object>();
@@ -118,8 +114,7 @@ public class PaginationController {
                                     @RequestParam(value = "sortBy", required = false) String sortBy,
                                     @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = getSort(sortBy, order);
-        PageRequest pageRequest = getPageRequest(sort,1,size);
+        PageRequest pageRequest = getPageRequest(sortBy, order,1,size);
         Brand brand = brandService.findById(id);
         Page<Clothing> page = clothingService.findPageByBrand(brand, pageRequest);
         Map<String, Object> properties = new HashMap<String, Object>();
@@ -139,8 +134,7 @@ public class PaginationController {
                                           @RequestParam(value = "sortBy", required = false) String sortBy,
                                           @RequestParam(value = "order", required = false) String order) {
 
-        Sort sort = getSort(sortBy, order);
-        PageRequest pageRequest = getPageRequest(sort,pageNumber,size);
+        PageRequest pageRequest = getPageRequest(sortBy, order,pageNumber,size);
         Brand brand = brandService.findById(id);
         Page<Clothing> page = clothingService.findPageByBrand(brand, pageRequest);
         Map<String, Object> properties = new HashMap<String, Object>();
@@ -152,8 +146,7 @@ public class PaginationController {
         return productPage;
     }
 
-    private Sort getSort(String sortBy, String order) {
-
+    private PageRequest getPageRequest(String sortBy, String order, Integer pageNumber, Integer size) {
         Sort sort = null;
         if (sortBy != null && order != null) {
             if (order.equals("desc")) {
@@ -162,10 +155,6 @@ public class PaginationController {
                 sort = new Sort(Sort.Direction.ASC, sortBy);
             }
         }
-        return sort;
-    }
-
-    private PageRequest getPageRequest(Sort sort, Integer pageNumber, Integer size) {
         PageRequest pageRequest = null;
         if (sort != null) {
             pageRequest = new PageRequest(pageNumber - 1, size, sort);

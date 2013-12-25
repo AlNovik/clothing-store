@@ -2,6 +2,7 @@ $(document).ready(function () {
     ititTables();
     initTemplate();
     submitForm();
+    textareaDescription();
 
     $('#modal-category-add input[name=title]').syncTranslit({destination: "url-category"});
     $('#modal-product-add input[name=title]').syncTranslit({destination: "url-product"});
@@ -9,61 +10,146 @@ $(document).ready(function () {
 });
 
 function ititTables() {
-    var data_catalog_table = [];
     var table_catalog_params = {
-        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span4'i><'span8'p>>",
+        "oLanguage": {
+            "sUrl": App.link + '/resources/i18n/datatables_ru.json'
+        },
         "aoColumns": [
             {
-                "sTitle": "Id",
+                "mData": "id",
                 "bSearchable": false,
                 "bSortable": true
             },
             {
-                "sTitle": "Модель",
+                "mData": "title",
                 "bSearchable": true,
                 "bSortable": true
             },
             {
-                "sTitle": "Брэнд",
+                "mData": "brand.title",
                 "bSearchable": true,
                 "bSortable": true
             },
             {
-                "sTitle": "Категория",
+                "mData": "category.title",
                 "bSearchable": true,
                 "bSortable": true
             },
             {
-                "sTitle": "Опции",
+                "mData": null,
                 "bSearchable": false,
                 "bSortable": false
             }
         ],
-        "aaData": data_catalog_table,
-//        "bProcessing": true,
-//        "bServerSide": true,
-//        "sAjaxSource": appLink + "/rest/tables/clothing",
-        "sPaginationType": "full_numbers"
-    };
-    App.Rest.clothing.done(function (data) {
-        console.time('clothing list');
-        $.each(data.clothings, function () {
-            var item = [];
-            var option = null;
-            if (this.properties.visible) {
-                option = '<i class="visible icon-eye-open"></i> <i class="icon-search"></i> <i class="icon-remove"></i>';
+        "bProcessing": true,
+        "bServerSide": true,
+        "sAjaxSource": App.Rest.link + "/table/clothing",
+        "fnServerData": function (sSource, aoData, fnCallback) {
+            $.postJSON(sSource, aoData_modify(aoData), function (res) {
+                fnCallback(res);
+            });
+        },
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            if (aData.properties.visible) {
+                $(nRow).find('td:last').html('<i class="icon-eye-open"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
             } else {
-                option = '<i class="visible icon-eye-close"></i> <i class="icon-search"></i> <i class="icon-remove"></i>';
+                $(nRow).find('td:last').html('<i class="icon-eye-close"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
             }
-            item.push(this.id, this.title, this.brand.title, this.category.title, option);
-            data_catalog_table.push(item);
-        });
-        console.timeEnd('clothing list');
-        $('#table_catalog').dataTable(table_catalog_params);
-    });
+        },
+        "fnInitComplete": function (oSettings, json) {
+            $('#table_catalog').find('.icon-eye-open').tooltip({title: 'Скрыть'});
+            $('#table_catalog').find('.icon-eye-close').tooltip({title: 'Отобразить'});
+            $('#table_catalog').find('.icon-edit').tooltip({title: 'Редактировать'});
+            $('#table_catalog').find('.icon-remove').tooltip({title: 'Удалить'});
+        },
+        "sPaginationType": "bootstrap"
+    };
+    var table_category_params = {
+        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span4'i><'span8'p>>",
+        "oLanguage": {
+            "sUrl": App.link + '/resources/i18n/datatables_ru.json'
+        },
+        "aoColumns": [
+            {
+                "mData": "title",
+                "bSearchable": true,
+                "bSortable": true
+            },
+            {
+                "mData": null,
+                "bSearchable": false,
+                "bSortable": false
+            }
+        ],
+        "bProcessing": true,
+        "bServerSide": true,
+        "sAjaxSource": App.Rest.link + "/table/category",
+        "fnServerData": function (sSource, aoData, fnCallback) {
+            $.postJSON(sSource, aoData_modify(aoData), function (res) {
+                fnCallback(res);
+            });
+        },
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            if (aData.properties.visible) {
+                $(nRow).find('td:last').html('<i class="icon-eye-open"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
+            } else {
+                $(nRow).find('td:last').html('<i class="icon-eye-close"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
+            }
+        },
+        "fnInitComplete": function (oSettings, json) {
+            $('#table_category .icon-eye-open').tooltip({title: 'Скрыть'});
+            $('#table_category .icon-eye-close').tooltip({title: 'Отобразить'});
+            $('#table_category .icon-edit').tooltip({title: 'Редактировать'});
+            $('#table_category .icon-remove').tooltip({title: 'Удалить'});
+        },
+        "sPaginationType": "bootstrap"
+    };
+    var table_brand_params = {
+        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span4'i><'span8'p>>",
+        "oLanguage": {
+            "sUrl": App.link + '/resources/i18n/datatables_ru.json'
+        },
+        "aoColumns": [
+            {
+                "mData": "title",
+                "bSearchable": true,
+                "bSortable": true
+            },
+            {
+                "mData": null,
+                "bSearchable": false,
+                "bSortable": false
+            }
+        ],
+        "bProcessing": true,
+        "bServerSide": true,
+        "sAjaxSource": App.Rest.link + "/table/brand",
+        "fnServerData": function (sSource, aoData, fnCallback) {
+            $.postJSON(sSource, aoData_modify(aoData), function (res) {
+                fnCallback(res);
+            });
+        },
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            if (aData.properties.visible) {
+                $(nRow).find('td:last').html('<i class="icon-eye-open"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
+            } else {
+                $(nRow).find('td:last').html('<i class="icon-eye-close"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
+            }
+        },
+        "fnInitComplete": function (oSettings, json) {
+            $('#table_brand .icon-eye-open').tooltip({title: 'Скрыть'});
+            $('#table_brand .icon-eye-close').tooltip({title: 'Отобразить'});
+            $('#table_brand .icon-edit').tooltip({title: 'Редактировать'});
+            $('#table_brand .icon-remove').tooltip({title: 'Удалить'});
+        },
+        "sPaginationType": "bootstrap"
+    };
+    $('#table_category').dataTable(table_category_params);
+    $('#table_brand').dataTable(table_brand_params);
 
-//    Навешиваем события на элементы таблицы
-    $('#table_catalog').click(function (e) {
+//    Строим таблицу и навешиваем события на колонку опций
+    $('#table_catalog').dataTable(table_catalog_params).click(function (e) {
         var clicked = $(e.target);
         var id = clicked.closest('tr').find('td:first').html();
         switch (true) {
@@ -106,11 +192,7 @@ function ititTables() {
         }
     });
     $('#order-new').dataTable({
-        "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-        "aaData": data_catalog_table,
-//        "bProcessing": true,
-//        "bServerSide": true,
-//        "sAjaxSource": appLink + "/rest/tables/clothing",
+        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
         "sPaginationType": "full_numbers"
     });
 // Таблица категорий
@@ -134,12 +216,13 @@ function ititTables() {
 }
 
 function submitForm() {
-    // Save Person AJAX Form Submit
     $('#newProduct').submit(function (e) {
-        // will pass the form data using the jQuery serialize function
-        $.post(restAPI + '/clothing', $(this).serialize(),function (response) {
-//                $('#personFormResponse').text(response);
-        }).success(function () {
+        var formData = form2js('newProduct', '.', true);
+        delete formData._wysihtml5_mode;
+        $.postJSON(App.Rest.link + '/clothing', formData)
+            .success(function () {
+                $('#newProduct').trigger('reset');
+                $('#modal-product-add').modal('hide');
                 alert("Успешное выполнение");
             })
             .error(function () {
@@ -155,14 +238,10 @@ function submitForm() {
     $('#newCategory').submit(function (e) {
         var formData = form2js('newCategory', '.', true);
         delete formData._wysihtml5_mode;
-        console.log('formData - ' + formData);
-        console.log(formData);
-        var send = $.toJSON(formData);
-        console.log('send - ' + send);
-        console.log(send);
-        $.postJSON(restAPI + '/category', send,function (response) {
+        $.postJSON(App.Rest.link + '/category', formData,function (response) {
         }).success(function () {
                 $('#newCategory').trigger('reset');
+                $('#modal-category-add').modal('hide');
                 alert("Успешное выполнение");
             })
             .error(function (data, status, er) {
@@ -176,9 +255,12 @@ function submitForm() {
     });
 
     $('#newBrand').submit(function (e) {
-        $.post(restAPI + '/brand', $(this).serialize(),function (response) {
+        var formData = form2js('newBrand', '.', true);
+        delete formData._wysihtml5_mode;
+        $.postJSON(App.Rest.link + '/brand', formData,function (response) {
         }).success(function () {
                 $('#newBrand').trigger('reset');
+                $('modal-brand-add').modal('hide');
                 alert("Успешное выполнение");
             })
             .error(function (data, status, er) {
@@ -263,4 +345,121 @@ function initTemplate() {
         $('#select-category .controls').html(selectCategory(data));
     });
 }
+
+var aoData_modify = function (aoData) {
+    var result = {};
+    var modifiers = ['mDataProp_', 'sSearch_', 'iSortCol_', 'bSortable_', 'bRegex_', 'bSearchable_', 'sSortDir_'];
+    jQuery.each(aoData, function (idx, obj) {
+        if (obj.name) {
+            for (var i = 0; i < modifiers.length; i++) {
+                if (obj.name.substring(0, modifiers[i].length) == modifiers[i]) {
+                    var index = parseInt(obj.name.substring(modifiers[i].length));
+                    var key = 'a' + modifiers[i].substring(0, modifiers[i].length - 1);
+                    if (!result[key]) {
+                        result[key] = [];
+                    }
+                    result[key][index] = obj.value;
+                    return;
+                }
+            }
+            result[obj.name] = obj.value;
+        }
+        else {
+            result[idx] = obj;
+        }
+    });
+    return result;
+};
+
+/* API method to get paging information */
+$.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
+    return {
+        "iStart": oSettings._iDisplayStart,
+        "iEnd": oSettings.fnDisplayEnd(),
+        "iLength": oSettings._iDisplayLength,
+        "iTotal": oSettings.fnRecordsTotal(),
+        "iFilteredTotal": oSettings.fnRecordsDisplay(),
+        "iPage": oSettings._iDisplayLength === -1 ?
+            0 : Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+        "iTotalPages": oSettings._iDisplayLength === -1 ?
+            0 : Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+    };
+};
+
+/* Bootstrap style pagination control */
+$.extend($.fn.dataTableExt.oPagination, {
+    "bootstrap": {
+        "fnInit": function (oSettings, nPaging, fnDraw) {
+            var oLang = oSettings.oLanguage.oPaginate;
+            var fnClickHandler = function (e) {
+                e.preventDefault();
+                if (oSettings.oApi._fnPageChange(oSettings, e.data.action)) {
+                    fnDraw(oSettings);
+                }
+            };
+
+            $(nPaging).addClass('pagination').append(
+                '<ul>' +
+                    '<li class="prev disabled"><a href="#">&larr; ' + oLang.sPrevious + '</a></li>' +
+                    '<li class="next disabled"><a href="#">' + oLang.sNext + ' &rarr; </a></li>' +
+                    '</ul>'
+            );
+            var els = $('a', nPaging);
+            $(els[0]).bind('click.DT', { action: "previous" }, fnClickHandler);
+            $(els[1]).bind('click.DT', { action: "next" }, fnClickHandler);
+        },
+
+        "fnUpdate": function (oSettings, fnDraw) {
+            var iListLength = 5;
+            var oPaging = oSettings.oInstance.fnPagingInfo();
+            var an = oSettings.aanFeatures.p;
+            var i, j, sClass, iStart, iEnd, iHalf = Math.floor(iListLength / 2);
+
+            if (oPaging.iTotalPages < iListLength) {
+                iStart = 1;
+                iEnd = oPaging.iTotalPages;
+            }
+            else if (oPaging.iPage <= iHalf) {
+                iStart = 1;
+                iEnd = iListLength;
+            } else if (oPaging.iPage >= (oPaging.iTotalPages - iHalf)) {
+                iStart = oPaging.iTotalPages - iListLength + 1;
+                iEnd = oPaging.iTotalPages;
+            } else {
+                iStart = oPaging.iPage - iHalf + 1;
+                iEnd = iStart + iListLength - 1;
+            }
+
+            for (i = 0, iLen = an.length; i < iLen; i++) {
+                // Remove the middle elements
+                $('li:gt(0)', an[i]).filter(':not(:last)').remove();
+
+                // Add the new list items and their event handlers
+                for (j = iStart; j <= iEnd; j++) {
+                    sClass = (j == oPaging.iPage + 1) ? 'class="active"' : '';
+                    $('<li ' + sClass + '><a href="#">' + j + '</a></li>')
+                        .insertBefore($('li:last', an[i])[0])
+                        .bind('click', function (e) {
+                            e.preventDefault();
+                            oSettings._iDisplayStart = (parseInt($('a', this).text(), 10) - 1) * oPaging.iLength;
+                            fnDraw(oSettings);
+                        });
+                }
+
+                // Add / remove disabled classes from the static elements
+                if (oPaging.iPage === 0) {
+                    $('li:first', an[i]).addClass('disabled');
+                } else {
+                    $('li:first', an[i]).removeClass('disabled');
+                }
+
+                if (oPaging.iPage === oPaging.iTotalPages - 1 || oPaging.iTotalPages === 0) {
+                    $('li:last', an[i]).addClass('disabled');
+                } else {
+                    $('li:last', an[i]).removeClass('disabled');
+                }
+            }
+        }
+    }
+});
 

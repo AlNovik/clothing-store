@@ -89,9 +89,4 @@ public class MainController {
     public String shopping() {
         return "shopping";
     }
-
-    @RequestMapping("/shopping/send")
-    public String shoppingSend() {
-        return "shopping.send";
-    }
 }

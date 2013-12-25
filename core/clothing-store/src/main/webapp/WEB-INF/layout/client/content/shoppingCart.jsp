@@ -4,13 +4,72 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
+<script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-formhelpers-phone.js"></script>
 <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>
 <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-spinedit.css">
 <h2>Оформление заказа</h2>
 
 <div id="shopping"></div>
 <div class="pull-right">
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/shopping/send">Оформить заказ</a>
+    <a href="#shopping-send" class="btn btn-success" data-toggle="modal">Оформить заказ</a>
+</div>
+
+
+<div class="modal hide fade" id="shopping-send" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Оформление заказа</h3>
+    </div>
+    <form class="form-horizontal" id="createOrder">
+        <div class="modal-body well">
+
+            <div class="control-group">
+                <label class="control-label">ФИО</label>
+
+                <div class="controls">
+                    <input type="text" class="span9" name="contact.name">
+                    <span class="help-block"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Адрес</label>
+
+                <div class="controls controls-row">
+                    <div style="margin-bottom: 10px" class="row-fluid">
+                        <input type="text" placeholder="Город" name="contact.address.city" class="span4">
+                        <input type="text" placeholder="улица" name="contact.address.street" class="span5">
+                    </div>
+                    <div class="row-fluid">
+                        <input type="text" class="span2" name="contact.address.house" placeholder="д.">
+                        <input type="text" class="span2" name="contact.address.building" placeholder="корп.">
+                        <input type="text" class="span2" name="contact.address.flat" placeholder="кв.">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Телефон</label>
+
+                <div class="controls">
+                    <input type="text" class="form-control bfh-phone" data-format="+375 (dd) ddd-dddd"
+                           name="contact.phone.number">
+                    <span class="help-block"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Сообщение :</label>
+
+                <div class="controls">
+                    <textarea class="span9" rows="3" name="note"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+            <button class="btn btn-success" type="submit">Отправить</button>
+        </div>
+    </form>
 </div>
 
 <script>
@@ -18,6 +77,25 @@
     $(document).ready(function () {
         template = Handlebars.compile($("#shopping-table").html());
         initShoppingTable();
+        $('#createOrder').submit(function (e) {
+            var order = form2js('createOrder', '.', true);
+            order.items = JSON.parse(App.Storage.get('basketCart')).items;
+            $.postJSON(App.Rest.link + '/order', order,function (response) {
+            }).success(function () {
+                        $('#createOrder').trigger('reset');
+                        App.Storage.delete('basketCart');
+                        basketCount();
+                        $('#shopping-send').modal('hide');
+                    })
+                    .error(function (data, status, er) {
+                        console.log("error: " + data + " status: " + status + " er:" + er);
+                    })
+                    .complete(function () {
+                        alert("Завершение выполнения");
+                    });
+
+            e.preventDefault(); // prevent actual form submit and page reload
+        });
     });
 </script>
 
