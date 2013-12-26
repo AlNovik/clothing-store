@@ -14,9 +14,10 @@
         <%-- Вкладка товаров --%>
         <div class="tab-pane fade active in" id="catalog">
             <p>
-                <a href="#modal-product-add" class="btn btn-success" data-toggle="modal">
+                <button class="btn btn-success" onclick="openModal('modal-product-add')">
                     <i class="icon-plus icon-white"></i> Новый товар
-                </a>
+                </button>
+                <span class="callback"></span>
             </p>
 
             <div class="row-fluid">
@@ -63,9 +64,10 @@
             <h3>Категории </h3>
 
             <p>
-                <a href="#modal-category-add" class="btn btn-success" data-toggle="modal">
+                <button class="btn btn-success" onclick="openModal('modal-category-add')">
                     <i class="icon-plus icon-white"></i> Новая категория
-                </a>
+                </button>
+                <span class="callback"></span>
             </p>
 
             <div class="span8">
@@ -91,9 +93,10 @@
             <h3>Брэнды </h3>
 
             <p>
-                <a href="#modal-brand-add" class="btn btn-success" data-toggle="modal">
+                <button class="btn btn-success" onclick="openModal('modal-brand-add')">
                     <i class="icon-plus icon-white"></i> Новый производитель
-                </a>
+                </button>
+                <span class="callback"></span>
             </p>
             <table id="table_brand" class="table table-condensed table-striped table-hover table-bordered">
                 <thead>

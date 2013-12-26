@@ -31,8 +31,8 @@
     <link rel="stylesheet" href="${staticInTomcat}/resources/css/style.css">
 
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
-    <script src="${staticInTomcat}/resources/jQuery/js/jquery.json-2.4.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/form2js.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/js2form.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.ui.widget.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.iframe-transport.js"></script>

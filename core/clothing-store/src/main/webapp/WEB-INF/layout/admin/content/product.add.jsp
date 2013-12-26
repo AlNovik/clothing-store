@@ -13,6 +13,7 @@
     </div>
     <form class="form-horizontal" id="newProduct">
         <div class="modal-body well">
+            <input type="hidden" name="id">
 
             <div class="row-fluid">
                 <div class="span6" style="margin-left: 100px">
@@ -172,7 +173,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true"
+                    onclick="cleanForm($(this).closest('form').attr('id'))">Отмена
+            </button>
             <button class="btn btn-success" type="submit">Добавить</button>
         </div>
     </form>
@@ -181,7 +184,7 @@
 
 <script id="selected-brand" type="text/x-handlebars-template">
     <select class="span12" id="brand" name="brand.id">
-        <option disabled>Выбрать</option>
+        <option selected>Выбрать</option>
         {{#each brands}}
         <option value="{{id}}">{{title}}</option>
         {{/each}}
@@ -190,7 +193,7 @@
 </script>
 <script id="selected-category" type="text/x-handlebars-template">
     <select class="span12" id="category" name="category.id">
-        <option disabled>Выбрать</option>
+        <option selected>Выбрать</option>
         {{#each categories}}
         <option value="{{id}}">{{title}}</option>
         {{/each}}

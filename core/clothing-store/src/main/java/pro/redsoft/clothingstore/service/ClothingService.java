@@ -122,10 +122,6 @@ public class ClothingService implements IClothingService {
 
     @Override
     public Clothing create(Clothing clothing) {
-        DateTime currentDate = new DateTime();
-        clothing.getProperties().setCreated(currentDate);
-        clothing.getProperties().setUpdated(currentDate);
-        clothing.getProperties().setModify(0);
         clothing.setBrand(brandRepository.findOne(clothing.getBrand().getId()));
         clothing.setCategory(categoryRepository.findOne(clothing.getCategory().getId()));
         return clothingRepository.save(clothing);

@@ -99,7 +99,7 @@
         Handlebars.registerPartial("products-group", $("#products-group").html());
         var data;
         paginationCheck();
-        $.getJSON(restLink, $.evalJSON($.cookie('paginationParam')), function (json) {
+        $.getJSON(restLink, App.Storage.get('paginationParam'), function (json) {
             data = json;
             var render = template(data);
             $("#products").html(render);
@@ -115,9 +115,9 @@
                 "sortBy": "price"
             };
         } else {
-            paginationParam = $.evalJSON($.cookie('paginationParam'));
+            paginationParam = App.Storage.get('paginationParam');
         }
-        $.cookie('paginationParam', $.toJSON(paginationParam), { expires: 28, path: '/'});
+        App.Storage.save('paginationParam',paginationParam);
     }
 
     function pagination(param) {
@@ -129,13 +129,12 @@
                 "sortBy": "price"
             };
         } else {
-            paginationParam = $.evalJSON($.cookie('paginationParam'));
+            paginationParam = App.Storage.get('paginationParam');
         }
         for (var key in param) {
             paginationParam[key] = param[key];
         }
-        $.cookie('paginationParam', $.toJSON(paginationParam), { expires: 28, path: '/'});
-
+        App.Storage.save('paginationParam',paginationParam);
         document.location = window.location.href;
     }
 </script>

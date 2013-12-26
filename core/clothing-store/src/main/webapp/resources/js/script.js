@@ -6,10 +6,10 @@ var App = {
     Rest: {link: restAPI},
     Storage: {
         save: function (key, data) {
-            $.cookie(key, data, { expires: 28, path: '/'});
+            $.cookie(key, JSON.stringify(data), { expires: 28, path: '/'});
         },
         get: function (key) {
-            return $.cookie(key);
+            return JSON.parse($.cookie(key));
         },
         delete: function (key) {
             $.cookie(key, null, {path: '/'});
@@ -25,7 +25,7 @@ function addCart() {
     if (App.Storage.get('basketCart') == null) {
         basket = {items: []};
     } else {
-        basket = $.evalJSON(App.Storage.get('basketCart'));
+        basket = App.Storage.get('basketCart');
     }
     if (basket.items.length > 0) {
         var inBasket = false;
@@ -41,7 +41,7 @@ function addCart() {
     } else {
         basket.items.push(addItemToCart());
     }
-    App.Storage.save('basketCart',$.toJSON(basket));
+    App.Storage.save('basketCart', basket);
     basketCount();
 }
 
@@ -55,7 +55,7 @@ function addItemToCart() {
 
 function initShoppingTable() {
     var data = {items: []};
-    var basketItems = $.evalJSON(App.Storage.get('basketCart'));
+    var basketItems = App.Storage.get('basketCart');
     var titles = [];
     $.each(basketItems.items, function () {
         titles.push(this.title);
@@ -86,13 +86,13 @@ function editQuantity() {
         var tr = $(this).closest("tr");
         var title = tr.find('.item-title').html();
         var size = tr.find('.item-size').html();
-        var basket = $.evalJSON(App.Storage.get('basketCart'));
+        var basket = App.Storage.get('basketCart');
         $.each(basket.items, function () {
             if (this.title == title && this.size == size) {
                 this.quantity = newQuantity;
             }
         });
-        App.Storage.save('basketCart',$.toJSON(basket));
+        App.Storage.save('basketCart', basket);
         initShoppingTable();
     });
     $('.spinedit i').click(function () {
@@ -111,17 +111,17 @@ function totalPrice() {
 function deleteItem() {
     $('#shopcart .delete').click(function () {
         var ind = $(this).closest("tr")[0].rowIndex;
-        var basket = $.evalJSON(App.Storage.get('basketCart'));
+        var basket = App.Storage.get('basketCart');
         basket.items.splice(ind - 1, 1);
-        App.Storage.save('basketCart',$.toJSON(basket));
+        App.Storage.save('basketCart', basket);
         initShoppingTable();
         basketCount();
     })
 }
 
 function basketCount() {
-    if ($.evalJSON(App.Storage.get('basketCart') != null)) {
-        var basket = $.evalJSON(App.Storage.get('basketCart'));
+    if (App.Storage.get('basketCart') != null) {
+        var basket = App.Storage.get('basketCart');
         $('.navbar .badge-info').html(basket.items.length);
     } else {
         $('.navbar .badge-info').empty();

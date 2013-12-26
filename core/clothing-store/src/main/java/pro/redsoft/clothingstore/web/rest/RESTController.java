@@ -60,8 +60,31 @@ public class RESTController {
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Clothing findClothingById(@PathVariable Long id) {
-        Clothing clothing = clothingService.findById(id);
-        return clothing;
+        return clothingService.findById(id);
+    }
+
+    @RequestMapping(value = "/clothing/category/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, List<Clothing>> findClothingByCategory(@PathVariable Long id) {
+
+        Category category = categoryService.findById(id);
+        List<Clothing> clothings = clothingService.findByCategory(category);
+        logger.info("Found " + clothings.size() + " categories");
+        Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
+        listClothinds.put("clothings", clothings);
+        return listClothinds;
+    }
+
+    @RequestMapping(value = "/clothing/brand/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, List<Clothing>> findClothingByBrand(@PathVariable Long id) {
+
+        Brand brand = brandService.findById(id);
+        List<Clothing> clothings = clothingService.findByBrand(brand);
+        logger.info("Found " + clothings.size() + " clothing");
+        Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
+        listClothinds.put("clothings", clothings);
+        return listClothinds;
     }
 
     @RequestMapping(value = "/clothing", method = RequestMethod.POST, headers = {"content-type=application/json"})
@@ -76,7 +99,6 @@ public class RESTController {
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.PUT, headers = {"content-type=application/json"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateClothing(@Valid @RequestBody Clothing clothing, @PathVariable Integer id) {
-
         clothingService.modify(clothing);
     }
 
@@ -102,14 +124,8 @@ public class RESTController {
 
     @RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, List<Clothing>> findClothingByCategory(@PathVariable Long id) {
-
-        Category category = categoryService.findById(id);
-        List<Clothing> clothings = clothingService.findByCategory(category);
-        logger.info("Found " + clothings.size() + " categories");
-        Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
-        listClothinds.put("clothings", clothings);
-        return listClothinds;
+    public Category findCategoryById(@PathVariable Long id) {
+        return categoryService.findById(id);
     }
 
     @RequestMapping(value = "/category", method = RequestMethod.POST, headers = {"content-type=application/json"})
@@ -119,6 +135,12 @@ public class RESTController {
 
         logger.info("Creating category: " + category);
         return categoryService.create(category);
+    }
+
+    @RequestMapping(value = "/category/{id}", method = RequestMethod.PUT, headers = {"content-type=application/json"})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateCategory(@Valid @RequestBody Category category, @PathVariable Integer id) {
+        categoryService.modify(category);
     }
 
     @RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE)
@@ -141,6 +163,12 @@ public class RESTController {
         return listBrands;
     }
 
+    @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Brand findBrandById(@PathVariable Long id) {
+        return brandService.findById(id);
+    }
+
     @RequestMapping(value = "/brand", method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
@@ -150,16 +178,10 @@ public class RESTController {
         return brandService.create(brand);
     }
 
-    @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, List<Clothing>> findClothingByBrand(@PathVariable Long id) {
-
-        Brand brand = brandService.findById(id);
-        List<Clothing> clothings = clothingService.findByBrand(brand);
-        logger.info("Found " + clothings.size() + " clothing");
-        Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
-        listClothinds.put("clothings", clothings);
-        return listClothinds;
+    @RequestMapping(value = "/brand/{id}", method = RequestMethod.PUT, headers = {"content-type=application/json"})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateBrand(@Valid @RequestBody Brand brand, @PathVariable Integer id) {
+        brandService.modify(brand);
     }
 
     @RequestMapping(value = "/brand/{id}", method = RequestMethod.DELETE)
@@ -182,18 +204,18 @@ public class RESTController {
         return result;
     }
 
-    @RequestMapping(value = "/order",method = RequestMethod.POST, headers = {"content-type=application/json"})
+    @RequestMapping(value = "/order", method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Orders createOrder(@Valid @RequestBody Orders orders){
+    public Orders createOrder(@Valid @RequestBody Orders orders) {
 
         return orderService.create(orders);
     }
 
-    @RequestMapping(value = "/order",method = RequestMethod.PUT, headers = {"content-type=application/json"})
+    @RequestMapping(value = "/order", method = RequestMethod.PUT, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void editOrder(@Valid @RequestBody Orders orders){
+    public void editOrder(@Valid @RequestBody Orders orders) {
 
         orderService.modify(orders);
     }

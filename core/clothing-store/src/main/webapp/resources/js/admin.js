@@ -230,66 +230,83 @@ function tableEventHandler(clicked, id, link) {
                 $('#modal-delete').modal('hide');
             });
             break;
+        case clicked.hasClass('icon-edit'):
+            switch (clicked.closest('.table').attr('id')) {
+                case 'table_catalog':
+                    var productModal = $('#modal-product-add');
+                    productModal.modal();
+                    productModal.find('.modal-header h3').html('Редактировать');
+                    productModal.find('button[type="submit"]').html('Редактировать');
+                    $.getJSON(link + id, function (data) {
+                        js2form(document.getElementById('modal-product-add'), data);
+                    });
+                    break;
+                case 'table_category':
+                    var categoryModal = $('#modal-category-add');
+                    categoryModal.modal();
+                    categoryModal.find('.modal-header h3').html('Редактировать');
+                    categoryModal.find('button[type="submit"]').html('Редактировать');
+                    $.getJSON(link + id, function (data) {
+                        js2form(document.getElementById('modal-category-add'), data);
+                    });
+                    break;
+                case 'table_brand':
+                    var brandModal = $('#modal-brand-add');
+                    brandModal.modal();
+                    brandModal.find('.modal-header h3').html('Редактировать');
+                    brandModal.find('button[type="submit"]').html('Редактировать');
+                    $.getJSON(link + id, function (data) {
+                        js2form(document.getElementById('modal-brand-add'), data);
+                    });
+                    break;
+            }
+            break;
     }
 }
 
 function submitForm() {
     $('#newProduct').submit(function (e) {
-        var formData = form2js('newProduct', '.', true);
-        delete formData._wysihtml5_mode;
-        $.postJSON(App.Rest.link + '/clothing', formData)
-            .success(function () {
-                $('#newProduct').trigger('reset');
-                $('#modal-product-add').modal('hide');
-                alert("Успешное выполнение");
-            })
-            .error(function () {
-                alert("Ошибка выполнения");
-            })
-            .complete(function () {
-                alert("Завершение выполнения");
-            });
-
-        e.preventDefault(); // prevent actual form submit and page reload
+        sendForm('newProduct', App.Rest.link + '/clothing');
+        e.preventDefault();
     });
 
     $('#newCategory').submit(function (e) {
-        var formData = form2js('newCategory', '.', true);
-        delete formData._wysihtml5_mode;
-        $.postJSON(App.Rest.link + '/category', formData,function (response) {
-        }).success(function () {
-                $('#newCategory').trigger('reset');
-                $('#modal-category-add').modal('hide');
-                alert("Успешное выполнение");
-            })
-            .error(function (data, status, er) {
-                console.log("error: " + data + " status: " + status + " er:" + er);
-            })
-            .complete(function () {
-                alert("Завершение выполнения");
-            });
-
-        e.preventDefault(); // prevent actual form submit and page reload
+        sendForm('newCategory', App.Rest.link + '/category');
+        e.preventDefault();
     });
 
     $('#newBrand').submit(function (e) {
-        var formData = form2js('newBrand', '.', true);
-        delete formData._wysihtml5_mode;
-        $.postJSON(App.Rest.link + '/brand', formData,function (response) {
-        }).success(function () {
-                $('#newBrand').trigger('reset');
-                $('modal-brand-add').modal('hide');
-                alert("Успешное выполнение");
-            })
+        sendForm('newBrand', App.Rest.link + '/brand');
+        e.preventDefault();
+    });
+}
+
+function sendForm(idForm, link) {
+    var formData = form2js(idForm, '.', true);
+    delete formData._wysihtml5_mode;
+    if ($('#' + idForm + ' input[name=id]').val() == '') {
+        $.postJSON(link, formData, function () {
+            $('#' + idForm).closest('.modal').modal('hide');
+            $('.callback').addClass('text-success').html('Операция выполнена успешно!').fadeOut(3000, function () {
+                $(this).removeClass('text-success');
+            });
+            cleanForm(idForm);
+        })
             .error(function (data, status, er) {
                 console.log("error: " + data + " status: " + status + " er:" + er);
-            })
-            .complete(function () {
-                alert("Завершение выполнения");
             });
-
-        e.preventDefault(); // prevent actual form submit and page reload
-    });
+    } else {
+        $.putJSON(link + '/' + $('#' + idForm + ' input[name=id]').val(), formData, function () {
+            $('#' + idForm).closest('.modal').modal('hide');
+            $('.callback').addClass('text-success').html('Операция выполнена успешно!').fadeOut(3000, function () {
+                $(this).removeClass('text-success');
+            });
+            cleanForm(idForm);
+        })
+            .error(function () {
+                alert("Ошибка выполнения");
+            });
+    }
 }
 
 function textareaDescription() {
@@ -300,7 +317,8 @@ function textareaDescription() {
         "html": true, //Button which allows you to edit the generated HTML. Default false
         "link": true, //Button to insert a link. Default true
         "image": true, //Button to insert an image. Default true,
-        "color": true //Button to change color of font
+        "color": true, //Button to change color of font
+        "stylesheets": false
     });
     $('#modal-product-add textarea[name=description]').wysihtml5({
         "font-styles": true,
@@ -309,7 +327,8 @@ function textareaDescription() {
         "html": true,
         "link": true,
         "image": true,
-        "color": true
+        "color": true,
+        "stylesheets": false
     });
     $('#modal-brand-add textarea[name=description]').wysihtml5({
         "font-styles": true,
@@ -318,8 +337,21 @@ function textareaDescription() {
         "html": true,
         "link": true,
         "image": true,
-        "color": true
+        "color": true,
+        "stylesheets": false
     });
+}
+
+function openModal(id) {
+    $('#' + id).modal();
+    $('#' + id).find('.modal-header h3').html('Добавить');
+    $('#' + id).find('button[type="submit"]').html('Сохранить');
+    cleanForm($('#' + id).find('form').attr('id'));
+}
+
+function cleanForm(id) {
+    $('#' + id).trigger('reset');
+    $('#' + id + ' .bootstrap-tagsinput span').remove();
 }
 
 $(function () {
@@ -336,7 +368,7 @@ $(function () {
                         .append($('<td/>').text(file.fileSize))
                         .append($('<td/>').text(file.fileType))
                         .append($('<td/>').html("<a href='/rest/file/get/" + index + "'>Click</a>"))
-                )//end $("#uploaded-files").append()
+                );//end $("#uploaded-files").append()
             });
         },
 

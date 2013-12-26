@@ -18,9 +18,9 @@ public class Properties implements Serializable {
 
     private static final long serialVersionUID = -6072799079178219591L;
 
-    private DateTime created;
-    private DateTime updated;
-    private Integer modify;
+    private DateTime created = new DateTime();
+    private DateTime updated = new DateTime();
+    private Integer modify = 0;
     private Boolean visible = false;
     private String url;
 

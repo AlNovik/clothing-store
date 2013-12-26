@@ -15,6 +15,7 @@
     <form class="form-horizontal" id="newCategory">
 
         <div class="modal-body well">
+            <input type="hidden" name="id">
 
             <div class="row-fluid">
                 <div class="span9">
@@ -67,28 +68,28 @@
                     </div>
                 </div>
                 <%--<div class="span6">--%>
-                    <%--<h4>Картинки</h4>--%>
+                <%--<h4>Картинки</h4>--%>
 
-                    <%--<div style="padding:20px">--%>
+                <%--<div style="padding:20px">--%>
 
-                        <%--<input id="fileupload" type="file" name="files[]" data-url="rest/file/upload" multiple>--%>
+                <%--<input id="fileupload" type="file" name="files[]" data-url="rest/file/upload" multiple>--%>
 
-                        <%--<div id="dropzone">Drop files here</div>--%>
+                <%--<div id="dropzone">Drop files here</div>--%>
 
-                        <%--<div id="progress">--%>
-                            <%--<div style="width: 0%;"></div>--%>
-                        <%--</div>--%>
+                <%--<div id="progress">--%>
+                <%--<div style="width: 0%;"></div>--%>
+                <%--</div>--%>
 
-                        <%--<table id="uploaded-files">--%>
-                            <%--<tr>--%>
-                                <%--<th>File Name</th>--%>
-                                <%--<th>File Size</th>--%>
-                                <%--<th>File Type</th>--%>
-                                <%--<th>Download</th>--%>
-                            <%--</tr>--%>
-                        <%--</table>--%>
+                <%--<table id="uploaded-files">--%>
+                <%--<tr>--%>
+                <%--<th>File Name</th>--%>
+                <%--<th>File Size</th>--%>
+                <%--<th>File Type</th>--%>
+                <%--<th>Download</th>--%>
+                <%--</tr>--%>
+                <%--</table>--%>
 
-                    <%--</div>--%>
+                <%--</div>--%>
                 <%--</div>--%>
             </div>
 
@@ -100,7 +101,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true"
+                    onclick="cleanForm($(this).closest('form').attr('id'))">Отмена
+            </button>
             <button class="btn btn-success" type="submit">Добавить</button>
         </div>
     </form>

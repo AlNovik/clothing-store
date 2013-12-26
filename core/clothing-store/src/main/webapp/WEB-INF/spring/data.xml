@@ -40,6 +40,7 @@
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="showSql" value="true"/>
+                <!--<property name="formatSql" value="true"/>-->
                 <property name="database" value="MYSQL"/>
                 <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect"/>
                 <property name="generateDdl" value="true"/>
@@ -49,6 +50,7 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+                <prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider</prop>
             </props>
         </property>
     </bean>
