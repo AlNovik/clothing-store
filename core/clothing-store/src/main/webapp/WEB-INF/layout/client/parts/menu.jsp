@@ -4,26 +4,14 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-<ul class="nav nav-list well" id="category">
-    <li class="nav-header">Каталог одежды</li>
-</ul>
+<div class="block">
+    <ul class="nav nav-list" id="category">
+        <li class="nav-header">Каталог одежды</li>
+    </ul>
+     <br>
+    <ul class="nav nav-list" id="company">
+        <li class="nav-header">Производители</li>
+    </ul>
+</div>
 
-<ul class="nav nav-list well" id="company">
-    <li class="nav-header">Производители</li>
-</ul>
-
-<script>
-
-    $.getJSON(appLink + '/rest/category', function (json) {
-        $.each(json.categories, function () {
-            $('#category').append('<li><a href="${pageContext.request.contextPath}/catalog/category/' + this.id +'">' + this.title + '</a></li>')
-        })
-    });
-    $.getJSON(appLink + '/rest/brand', function (json) {
-        $.each(json.brands, function () {
-            $('#company').append('<li><a href="${pageContext.request.contextPath}/catalog/brand/' + this.id +'">' + this.title + '</a></li>')
-        })
-    });
-
-</script>
         

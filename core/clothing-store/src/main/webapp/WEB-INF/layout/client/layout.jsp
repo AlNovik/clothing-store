@@ -29,10 +29,12 @@
     <link rel="stylesheet" href="${staticInTomcat}/resources/css/style.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-spinedit.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/jquery.jqzoom.css">
+    <link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/nivo-slider.css">
 
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/form2js.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.nivo.slider.pack.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>
     <script src="${staticInTomcat}/resources/js/handlebars-v1.1.2.js"></script>
@@ -46,7 +48,7 @@
 <div class="page-wrapper">
     <div class="container-fluid">
         <tiles:insertAttribute name="header"/>
-        <div class="row-fluid">
+        <div class="row-fluid" style="background: #ffffff">
             <!-- Menu -->
             <div class="span2 left_content">
                 <tiles:insertAttribute name="menu"/>

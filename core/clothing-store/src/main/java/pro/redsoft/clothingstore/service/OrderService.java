@@ -3,6 +3,7 @@ package pro.redsoft.clothingstore.service;
 import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pro.redsoft.clothingstore.domain.order.Orders;
@@ -52,5 +53,10 @@ public class OrderService implements IOrderService {
     @Override
     public void modify(Orders orders) {
         orderRepository.save(orders);
+    }
+
+    @Override
+    public List<Orders> findSortDatatables(String query, Sort sort) {
+        return orderRepository.findDataTables("%" + query + "%", sort);
     }
 }

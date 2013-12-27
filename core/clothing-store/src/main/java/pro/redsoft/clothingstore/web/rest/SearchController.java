@@ -52,7 +52,6 @@ public class SearchController {
     public Map<String, List<Clothing>> search(@RequestParam(value = "title", required = false, defaultValue = "") String title) {
 
         Map<String, List<Clothing>> result = new HashMap<String, List<Clothing>>();
-
         result.put("clothing", clothingService.findClothingLikeTitle(title));
         return result;
     }

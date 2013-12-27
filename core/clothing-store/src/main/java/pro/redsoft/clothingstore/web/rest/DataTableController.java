@@ -107,10 +107,12 @@ public class DataTableController {
     @ResponseBody
     public DataTablesResponse<Orders> order(@RequestBody DataTablesRequest request) {
 
-        List<Orders> orders = orderService.findAll();
+        Sort sort = getSort(request);
+        String searchQuery = request.getsSearch();
+        List<Orders> orders = orderService.findSortDatatables(searchQuery,sort);
         DataTablesResponse<Orders> response = new DataTablesResponse<Orders>();
         response.setsEcho(request.getsEcho());
-        response.setiTotalRecords(orders.size());
+        response.setiTotalRecords(orderService.findAll().size());
         response.setiTotalDisplayRecords(orders.size());
         if (orders.size() < request.getiDisplayStart() + request.getiDisplayLength())
             orders = orders.subList(request.getiDisplayStart(), orders.size());

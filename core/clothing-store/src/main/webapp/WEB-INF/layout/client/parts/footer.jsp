@@ -4,8 +4,16 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
-<div class="footer">
-    <div style="width: 250px; margin: 30px auto">
-        <h2 style="text-align: center;">FOOTER</h2>
+<footer id="footer-bar">
+    <div class="row-fluid">
+        <div class="span3">
+            <h4>Навигация</h4>
+        </div>
+        <div class="span3">
+            <h4>Информация</h4>
+        </div>
     </div>
-</div>
+</footer>
+<section id="copyright">
+    <span>Copyright 2013</span>
+</section>

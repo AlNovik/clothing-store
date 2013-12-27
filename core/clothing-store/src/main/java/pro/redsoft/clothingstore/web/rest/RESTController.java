@@ -48,13 +48,20 @@ public class RESTController {
 
     @RequestMapping(value = "/clothing", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, List<Clothing>> findAllClothings() {
+    public Map<String, List<Clothing>> findAllClothings(@RequestParam(value = "start", required = false, defaultValue = "0") Integer start,
+                                                        @RequestParam(value = "length", required = false, defaultValue = "10") Integer length,
+                                                        @RequestParam(value = "sort", required = false) String sort) {
 
-        List<Clothing> clothings = clothingService.findAll();
-        logger.info("Found " + clothings.size() + " items");
-        Map<String, List<Clothing>> listClothinds = new HashMap<String, List<Clothing>>();
-        listClothinds.put("clothings", clothings);
-        return listClothinds;
+
+        List<Clothing> clothing = clothingService.findAll();
+        logger.info("Found " + clothing.size() + " items");
+        Map<String, List<Clothing>> response = new HashMap<String, List<Clothing>>();
+        if (clothing.size() < start + length) {
+            response.put("clothing", clothing.subList(start, clothing.size()));
+        } else {
+            response.put("clothing", clothing.subList(start, start + length));
+        }
+        return response;
     }
 
     @RequestMapping(value = "/clothing/{id}", method = RequestMethod.GET)

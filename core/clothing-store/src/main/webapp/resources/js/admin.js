@@ -149,6 +149,70 @@ function ititTables() {
         },
         "sPaginationType": "bootstrap"
     };
+    var table_orders_params = {
+        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span4'i><'span8'p>>",
+        "oLanguage": {
+            "sUrl": App.link + '/resources/i18n/datatables_ru.json'
+        },
+        "aoColumns": [
+            {
+                "mData": "id",
+                "bSearchable": false,
+                "bSortable": false
+            },
+            {
+                "mData": "id",
+                "bSearchable": true,
+                "bSortable": true
+            },
+            {
+                "mData": "create",
+                "bSearchable": false,
+                "bSortable": true
+            },
+            {
+                "mData": "contact.phone.number",
+                "bSearchable": true,
+                "bSortable": true
+            },
+            {
+                "mData": null,
+                "bSearchable": false,
+                "bSortable": true
+            }
+        ],
+        "bProcessing": true,
+        "bServerSide": true,
+        "sAjaxSource": App.Rest.link + "/table/order",
+        "fnServerData": function (sSource, aoData, fnCallback) {
+            $.postJSON(sSource, aoData_modify(aoData), function (res) {
+                fnCallback(res);
+            });
+        },
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            var sum = 0;
+            $.each(aData.items, function () {
+                var quantity = this.quantity;
+                $.getJSON(App.Rest.link + '/search', {title: this.title}).complete(function (data) {
+                    sum += data.clothing[0].price * quantity;
+                });
+            });
+            $(nRow).find('td:last').html(sum);
+//            if (aData.properties.visible) {
+//                $(nRow).find('td:last').html('<i class="icon-eye-open"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
+//            } else {
+//                $(nRow).find('td:last').html('<i class="icon-eye-close"></i> <i class="icon-edit"></i> <i class="icon-remove"></i>');
+//            }
+//            $(nRow).find('td:last').attr("data-id", aData.id);
+        },
+        "fnInitComplete": function (oSettings, json) {
+//            $('#table_brand .icon-eye-open').tooltip({title: 'Скрыть'});
+//            $('#table_brand .icon-eye-close').tooltip({title: 'Отобразить'});
+//            $('#table_brand .icon-edit').tooltip({title: 'Редактировать'});
+//            $('#table_brand .icon-remove').tooltip({title: 'Удалить'});
+        },
+        "sPaginationType": "bootstrap"
+    };
 
     //    Строим таблицу и навешиваем события на колонку опций
     $('#table_catalog').dataTable(table_catalog_params).click(function (e) {
@@ -169,6 +233,7 @@ function ititTables() {
         var link = App.Rest.link + '/brand/';
         tableEventHandler(clicked, id, link);
     });
+    $('#order-new').dataTable(table_orders_params);
 
     $('#admin-select-table').click(function (e) {
         var clicked = $(e.target);
@@ -181,10 +246,6 @@ function ititTables() {
                 }
             });
         }
-    });
-    $('#order-new').dataTable({
-        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-        "sPaginationType": "full_numbers"
     });
 // Таблица категорий
     $.getJSON(App.Rest.link + '/category', function (data) {

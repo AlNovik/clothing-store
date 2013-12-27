@@ -17,30 +17,21 @@
 
     {{> pagination-line}}
 
-    <div class="thumbnails" id="items">
+    <ul class="thumbnails listing-products" id="items">
         {{#each clothings}}
-        <div class="thumbnail span3">
-            <a href="${pageContext.request.contextPath}/clothing/{{id}}">
-                <img src="" alt="images"></a>
-            <h6>{{title}}</h6>
-            <span class="badge">{{price}} руб.</span>
-            <dl class="dl-horizontal">
-                <dt>Фирма :</dt>
-                <dd>{{#if brand}}<a href="/catalog/brand/{{brand.id}}">{{brand.title}}</a>
-                    {{else}}не указано{{/if}}
-                </dd>
-                <dt>Размер :</dt>
-                <dd>{{#if size}}{{#each size}}{{this}},{{/each}}
-                    {{else}}не указано{{/if}}
-                </dd>
-                <dt>Тип :</dt>
-                <dd> {{#if category}}{{category.title}}
-                    {{else}}не указано{{/if}}
-                </dd>
-            </dl>
-        </div>
+        <li class="span3">
+            <div class="product-box"><span class="sale_tag"></span>
+                <a href="/clothing/{{id}}">
+                    <img src="/resources/img/assets_images_FANTAZIA_57_1.jpg.ce19723794696a7d450fc4850919c696.jpg"
+                         alt="images"></a><br>
+                <a class="title" href="/clothing/{{id}}">{{title}}</a><span> , {{brand.title}}</span><br>
+                <a class="category" href="#">{{category.title}}</a>
+
+                <p class="price">{{price}} руб.</p>
+            </div>
+        </li>
         {{/each}}
-    </div>
+    </ul>
     {{> pagination-line}}
 </script>
 
@@ -108,7 +99,7 @@
 
     function paginationCheck() {
         var paginationParam;
-        if ($.cookie('paginationParam') == null) {
+        if (App.Storage.get('paginationParam') == null) {
             paginationParam = {
                 "size": 16,
                 "order": "asc",
@@ -117,12 +108,12 @@
         } else {
             paginationParam = App.Storage.get('paginationParam');
         }
-        App.Storage.save('paginationParam',paginationParam);
+        App.Storage.save('paginationParam', paginationParam);
     }
 
     function pagination(param) {
         var paginationParam;
-        if ($.cookie('paginationParam') == null) {
+        if (App.Storage.get('paginationParam') == null) {
             paginationParam = {
                 "size": 16,
                 "order": "asc",
@@ -134,7 +125,7 @@
         for (var key in param) {
             paginationParam[key] = param[key];
         }
-        App.Storage.save('paginationParam',paginationParam);
+        App.Storage.save('paginationParam', paginationParam);
         document.location = window.location.href;
     }
 </script>

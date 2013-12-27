@@ -44,10 +44,11 @@ Handlebars.registerHelper("paginationList", function (totalPages, currentPage) {
 Handlebars.registerHelper("select-size-checkbox", function () {
     var result = '';
     for (var i = 36; i <= 72; i += 2) {
-        result += '<label class="checkbox inline search-size-item">' +
+        result += '<label class="checkbox check-item-mini">' +
             '<input class="size_ch" type="checkbox" value="' + i + '" name="size[]">' + i +
             '</label>';
     }
+    result += '<div class="clearfix"></div>';
     return new Handlebars.SafeString(result);
 });
 
@@ -72,5 +73,29 @@ Handlebars.registerHelper("menuList", function (link, data) {
     $.each(data, function () {
         result += '<li><a href="' + link + this.id + '">' + this.title + '</a></li>'
     });
+    return new Handlebars.SafeString(result);
+});
+
+Handlebars.registerHelper("promo-product", function (product) {
+    var result = '';
+    var count = 0;
+    $.each(product, function (i) {
+        if (count == 0) {
+            result += '<div class="item"><ul class="thumbnails listing-products">';
+        }
+        result += '<li class="span3"><div class="product-box"><span class="sale_tag"></span>' +
+            '<a href="/clothing/' + this.id + '">' +
+            '<img src="/resources/img/assets_images_FANTAZIA_57_1.jpg.ce19723794696a7d450fc4850919c696.jpg" alt="images"></a><br>' +
+            '<a class="title" href="/clothing/' + this.id + '">' + this.title + '</a><span> , ' + this.brand.title + '</span><br>' +
+            '<a class="category" href="#">' + this.category.title + '</a>' +
+            '<p class="price">' + this.price + ' руб.</p>' +
+            '</div></li>';
+        count++;
+        if (count == 4 || i == product.length - 1) {
+            result += '</ul></div>';
+            count = 0;
+        }
+    });
+
     return new Handlebars.SafeString(result);
 });
