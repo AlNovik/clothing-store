@@ -219,3 +219,26 @@ function searchModel() {
         //действие, выполняемое при выборе елемента из списка
     });
 }
+
+function numeral(number, array) {
+    if (number > 10 && number < 15) {
+        return array[2];
+    }
+    else {
+        switch (number % 10) {
+            case 1:
+                return array[0];
+            case 2:
+            case 3:
+            case 4:
+                return array[1];
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 0:
+                return array[2];
+        }
+    }
+}

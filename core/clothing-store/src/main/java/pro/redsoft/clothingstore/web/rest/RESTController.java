@@ -3,6 +3,7 @@ package pro.redsoft.clothingstore.web.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.FieldError;
@@ -17,6 +18,7 @@ import pro.redsoft.clothingstore.service.IBrandService;
 import pro.redsoft.clothingstore.service.ICategoryService;
 import pro.redsoft.clothingstore.service.IClothingService;
 import pro.redsoft.clothingstore.service.IOrderService;
+import pro.redsoft.clothingstore.service.validation.FieldValid;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ import java.util.Map;
 public class RESTController {
 
     Logger logger = LoggerFactory.getLogger(RESTController.class);
+
+    private MessageSource messageSource;
 
     @Autowired
     private IClothingService clothingService;
@@ -151,7 +155,7 @@ public class RESTController {
     }
 
     @RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable Long id) {
 
         logger.info("Deleting category with id: " + id);
@@ -192,7 +196,7 @@ public class RESTController {
     }
 
     @RequestMapping(value = "/brand/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBrand(@PathVariable Long id) {
 
         logger.info("Deleting brand with id: " + id);
@@ -230,19 +234,17 @@ public class RESTController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public List<String> handleValidationError(MethodArgumentNotValidException e) {
-        List<String> errorMessages = new ArrayList<String>();
+    public Map<String, List<FieldValid>> handleValidationError(MethodArgumentNotValidException e) {
+        Map<String, List<FieldValid>> errors = new HashMap<String, List<FieldValid>>();
+        List<FieldValid> fieldErrors = new ArrayList<FieldValid>();
         for (ObjectError objectError : e.getBindingResult().getAllErrors()) {
-            errorMessages.add(buildMessage(objectError));
+            fieldErrors.add(buildMessage(objectError));
         }
-        return errorMessages;
+        errors.put("errors", fieldErrors);
+        return errors;
     }
 
-    private String buildMessage(ObjectError objectError) {
-        if (objectError instanceof FieldError) {
-            return ((FieldError) objectError).getField() + ": " + objectError.getDefaultMessage();
-        } else {
-            return objectError.getDefaultMessage();
-        }
+    private FieldValid buildMessage(ObjectError objectError) {
+        return new FieldValid(((FieldError) objectError).getField(), objectError.getDefaultMessage());
     }
 }

@@ -1,9 +1,11 @@
 package pro.redsoft.clothingstore.domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 import pro.redsoft.clothingstore.domain.order.Orders;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -35,6 +37,7 @@ public class Contact extends DomainObject implements Serializable {
     }
 
     @Column(name = "name")
+    @NotEmpty(message = "Введите имя")
     public String getName() {
         return name;
     }
@@ -80,7 +83,8 @@ public class Contact extends DomainObject implements Serializable {
 
         if (address != null ? !address.equals(contact.address) : contact.address != null) return false;
         if (id != null ? !id.equals(contact.id) : contact.id != null) return false;
-        if (!name.equals(contact.name)) return false;
+        if (name != null ? !name.equals(contact.name) : contact.name != null) return false;
+        if (orders != null ? !orders.equals(contact.orders) : contact.orders != null) return false;
         if (phone != null ? !phone.equals(contact.phone) : contact.phone != null) return false;
 
         return true;
@@ -89,9 +93,10 @@ public class Contact extends DomainObject implements Serializable {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + name.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (orders != null ? orders.hashCode() : 0);
         return result;
     }
 
@@ -102,6 +107,7 @@ public class Contact extends DomainObject implements Serializable {
                 ", name='" + name + '\'' +
                 ", address=" + address +
                 ", phone=" + phone +
+                ", orders=" + orders +
                 '}';
     }
 }

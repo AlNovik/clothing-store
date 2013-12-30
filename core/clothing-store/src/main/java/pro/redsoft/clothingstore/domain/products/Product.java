@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import pro.redsoft.clothingstore.domain.DomainObject;
 import pro.redsoft.clothingstore.domain.attributes.Image;
 import pro.redsoft.clothingstore.domain.properties.Properties;
+import pro.redsoft.clothingstore.service.validation.annotation.UniqueTitle;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -51,6 +52,7 @@ public abstract class Product extends DomainObject implements Serializable {
 
     @Column(name = "title", unique = true)
     @NotEmpty(message = "Заполните поле")
+    @UniqueTitle
     public String getTitle() {
         return title;
     }

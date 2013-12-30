@@ -70,4 +70,9 @@ public class BrandService implements IBrandService {
     public List<Brand> findSortDatatables(String query, Sort sort) {
         return brandRepository.findSortDataTables("%" + query + "%", sort);
     }
+
+    @Override
+    public Brand findByTitle(String title) {
+        return brandRepository.findByTitle(title);
+    }
 }

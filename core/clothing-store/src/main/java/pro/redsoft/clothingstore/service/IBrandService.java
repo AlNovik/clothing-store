@@ -14,4 +14,6 @@ public interface IBrandService extends CRUDService<Brand> {
     List<Brand> findAllOrderByTitleAsc();
 
     List<Brand> findSortDatatables(String query,Sort sort);
+
+    Brand findByTitle(String title);
 }

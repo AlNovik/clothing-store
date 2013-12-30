@@ -1,5 +1,7 @@
 package pro.redsoft.clothingstore.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -27,6 +29,7 @@ public class Phone implements Serializable {
     }
 
     @Column(name = "number")
+    @NotEmpty
     public String getNumber() {
         return number;
     }

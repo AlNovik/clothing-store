@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import pro.redsoft.clothingstore.domain.DomainObject;
 import pro.redsoft.clothingstore.domain.products.Clothing;
 import pro.redsoft.clothingstore.domain.properties.Properties;
+import pro.redsoft.clothingstore.service.validation.annotation.UniqueCategory;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -46,6 +47,7 @@ public class Category extends DomainObject implements Serializable {
 
     @Column(name = "title", unique = true, nullable = false)
     @NotEmpty(message = "Заполните поле")
+    @UniqueCategory
     public String getTitle() {
         return title;
     }

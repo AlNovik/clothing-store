@@ -70,4 +70,9 @@ public class CategoryService implements ICategoryService {
     public List<Category> findSortDatatables(String query, Sort sort) {
         return categoryRepository.findSortDataTables("%" + query + "%", sort);
     }
+
+    @Override
+    public Category findByTitle(String title) {
+        return categoryRepository.findByTitle(title);
+    }
 }

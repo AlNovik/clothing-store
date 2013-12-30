@@ -1,6 +1,7 @@
 package pro.redsoft.clothingstore.domain.order;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import pro.redsoft.clothingstore.domain.Contact;
@@ -98,6 +99,7 @@ public class Orders extends DomainObject implements Serializable {
     }
 
     @Column(name = "note")
+    @Length(max = 500, message = "Длинна сообщения должна быть не более 500 символов")
     public String getNote() {
         return note;
     }

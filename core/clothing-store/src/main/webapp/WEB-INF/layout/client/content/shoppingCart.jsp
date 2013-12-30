@@ -79,7 +79,7 @@
         initShoppingTable();
         $('#createOrder').submit(function (e) {
             var order = form2js('createOrder', '.', true);
-            order.items = JSON.parse(App.Storage.get('basketCart')).items;
+            order.items = App.Storage.get('basketCart').items;
             $.postJSON(App.Rest.link + '/order', order,function (response) {
             }).success(function () {
                         $('#createOrder').trigger('reset');

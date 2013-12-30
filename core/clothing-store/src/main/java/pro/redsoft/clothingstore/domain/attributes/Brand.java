@@ -1,9 +1,11 @@
 package pro.redsoft.clothingstore.domain.attributes;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 import pro.redsoft.clothingstore.domain.DomainObject;
 import pro.redsoft.clothingstore.domain.products.Clothing;
 import pro.redsoft.clothingstore.domain.properties.Properties;
+import pro.redsoft.clothingstore.service.validation.annotation.UniqueBrand;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -45,6 +47,8 @@ public class Brand extends DomainObject implements Serializable {
     }
 
     @Column(name = "title", unique = true, nullable = false)
+    @NotEmpty(message = "Заполните поле")
+    @UniqueBrand
     public String getTitle() {
         return title;
     }

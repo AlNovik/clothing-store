@@ -14,4 +14,6 @@ public interface ICategoryService extends CRUDService<Category> {
     List<Category> findAllOrderByTitleAsc();
 
     List<Category> findSortDatatables(String query, Sort sort);
+
+    Category findByTitle(String title);
 }

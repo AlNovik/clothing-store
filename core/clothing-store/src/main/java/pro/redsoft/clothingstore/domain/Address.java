@@ -1,5 +1,7 @@
 package pro.redsoft.clothingstore.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -30,6 +32,7 @@ public class Address implements Serializable {
     }
 
     @Column(name = "street")
+    @NotEmpty(message = "Введите улицу")
     public String getStreet() {
         return street;
     }

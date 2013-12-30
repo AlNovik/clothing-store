@@ -33,4 +33,6 @@
 
     <!-- Определяем папку, в которой будем искать веб компоненты (контроллеры)-->
     <context:component-scan base-package="pro.redsoft.clothingstore.web.controller" />
+
+
 </beans>
