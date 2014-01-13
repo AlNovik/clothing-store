@@ -69,10 +69,11 @@ public class SearchController {
 
     @RequestMapping(value = "/clothing", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, List<Clothing>> findClothingByTitle(@RequestParam(value = "titles[]") String[] titles) {
+    public Map<String, List<Clothing>> findClothingByTitle(@RequestParam(value = "titles[]") List<String> titles) {
 
         Map<String, List<Clothing>> result = new HashMap<String, List<Clothing>>();
         List<Clothing> clothings = new ArrayList<Clothing>();
+//        List<Clothing> clothings = clothingService.findByTitleCollection(titles);
         for (String title : titles) {
             Clothing clothing = clothingService.findByTitle(title);
             clothings.add(clothing);

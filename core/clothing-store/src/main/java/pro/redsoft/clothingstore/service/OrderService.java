@@ -45,18 +45,18 @@ public class OrderService implements IOrderService {
 
     @Override
     public Orders create(Orders orders) {
-        orders.setCreate(new DateTime());
-        orders.setStatus(Orders.OrderStatus.NEW);
         return orderRepository.save(orders);
     }
 
     @Override
     public void modify(Orders orders) {
+        orders.setUpdated(new DateTime());
         orderRepository.save(orders);
     }
 
     @Override
     public List<Orders> findSortDatatables(String query, Sort sort) {
-        return orderRepository.findDataTables("%" + query + "%", sort);
+//        return orderRepository.findDataTables("%" + query + "%", sort);
+        return null;
     }
 }

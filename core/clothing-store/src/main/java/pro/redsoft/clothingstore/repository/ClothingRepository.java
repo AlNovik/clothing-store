@@ -24,6 +24,9 @@ public interface ClothingRepository extends PagingAndSortingRepository<Clothing,
 
     Clothing findByTitle(String title);
 
+    @Query("SELECT c FROM Clothing c WHERE c.title IN :titles")
+    List<Clothing> findByTitleCollection(List<String> titles);
+
     @Query("SELECT c.title FROM Clothing c WHERE c.title LIKE :title")
     List<String> findModelsClothing(@Param("title") String title);
 

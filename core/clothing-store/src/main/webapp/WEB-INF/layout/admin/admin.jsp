@@ -50,9 +50,9 @@
     <script src="${staticInTomcat}/resources/js/admin.js"></script>
 
 </head>
-<body>
+<body style="background-color: #ffffff">
 
-<div class="page-wrapper">
+<%--<div class="page-wrapper">--%>
     <div class="container-fluid">
         <tiles:insertAttribute name="notification"/>
         <div class="row-fluid">
@@ -66,7 +66,7 @@
                 <tiles:insertAttribute name="settings"/>
             </div>
         </div>
-    </div>
+    <%--</div>--%>
 
     <tiles:insertAttribute name="footer"/>
 </div>

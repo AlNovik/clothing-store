@@ -13,13 +13,13 @@
     <meta name="author" content="">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="http://${pageContext.request.serverName}/resources/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.serverName}/resources/bootstrap/css/bootstrap.css">
     <link rel="stylesheet"
-          href="http://${pageContext.request.serverName}/resources/bootstrap/css/bootstrap-responsive.css">
+          href="${pageContext.request.serverName}/resources/bootstrap/css/bootstrap-responsive.css">
 
-    <script src="http://${pageContext.request.serverName}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
-    <script src="http://${pageContext.request.serverName}/resources/bootstrap/js/bootstrap.min.js"></script>
-    <script src="http://${pageContext.request.serverName}/resources/js/script.js"></script>
+    <script src="${pageContext.request.serverName}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
+    <script src="${pageContext.request.serverName}/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.serverName}/resources/js/script.js"></script>
 
 </head>
 <body>

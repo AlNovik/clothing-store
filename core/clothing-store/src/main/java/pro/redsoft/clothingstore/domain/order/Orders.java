@@ -22,9 +22,9 @@ public class Orders extends DomainObject implements Serializable {
     private static final long serialVersionUID = 8729276045907878723L;
 
     private Long id;
-    private DateTime create;
-    private DateTime updated;
-    private OrderStatus status;
+    private DateTime create = new DateTime();
+    private DateTime updated = new DateTime();
+    private OrderStatus status = OrderStatus.NEW;
     private List<OrderItem> items;
     private Contact contact;
     private String note;
@@ -99,7 +99,7 @@ public class Orders extends DomainObject implements Serializable {
     }
 
     @Column(name = "note")
-    @Length(max = 500, message = "Длинна сообщения должна быть не более 500 символов")
+    @Length(max = 100, message = "Длинна сообщения должна быть не более 500 символов")
     public String getNote() {
         return note;
     }
@@ -147,10 +147,7 @@ public class Orders extends DomainObject implements Serializable {
 
     public enum OrderStatus {
 
-        NEW, PROCESSED, CLOSED, CANCELED;
-
-        private OrderStatus() {
-        }
+        NEW, PROCESSED, CLOSED, CANCELED
 
     }
 }

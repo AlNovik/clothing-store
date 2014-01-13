@@ -18,6 +18,8 @@ public interface IClothingService extends CRUDService<Clothing> {
 
     Clothing findByTitle(String title);
 
+    List<Clothing> findByTitleCollection(List<String> titles);
+
     List<Clothing> findByCategory(Category category);
 
     List<Clothing> findByBrand(Brand brand);

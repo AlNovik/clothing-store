@@ -354,7 +354,9 @@ function sendForm(idForm, link) {
             cleanForm(idForm);
         })
             .error(function (data, status, er) {
-                console.log("error: " + data + " status: " + status + " er:" + er);
+                $.each(JSON.parse(data.responseText).errors, function () {
+                    $('#' + idForm + ' *[name=' + this.field + ']').closest('.control-group').addClass('error').children('.help-block').html(this.message);
+                });
             });
     } else {
         $.putJSON(link + '/' + $('#' + idForm + ' input[name=id]').val(), formData, function () {

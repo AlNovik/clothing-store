@@ -73,10 +73,9 @@
 </div>
 
 <script>
-    var template;
     $(document).ready(function () {
-        template = Handlebars.compile($("#shopping-table").html());
-        initShoppingTable();
+        App.Templates.shoppingTable = Handlebars.compile($("#shopping-table").html());
+        shoppingCartEvent();
         $('#createOrder').submit(function (e) {
             var order = form2js('createOrder', '.', true);
             order.items = App.Storage.get('basketCart').items;
@@ -128,7 +127,7 @@
                 {{price}}
             </td>
             <td>
-                <span class="item-sum">{{math quantity "*" price}}</span>
+                <span class="item-sum">{{sum}}</span>
             </td>
             <td>
                 <button class="btn btn-link delete">Удалить</button>
@@ -138,8 +137,8 @@
         </tbody>
         <tfoot>
         <tr>
-            <th colspan="3">В корзине {{lengthArray items}} товаров</th>
-            <th colspan="3">Итого: <span id="total-price"></span></th>
+            <th colspan="3">В корзине {{quantity}} товаров</th>
+            <th colspan="3">Итого: <span id="total-price">{{totalPrice}}</span></th>
         </tr>
         </tfoot>
     </table>

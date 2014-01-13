@@ -21,10 +21,10 @@
         {{#each clothings}}
         <li class="span3">
             <div class="product-box"><span class="sale_tag"></span>
-                <a href="/clothing/{{id}}">
-                    <img src="/resources/img/assets_images_FANTAZIA_57_1.jpg.ce19723794696a7d450fc4850919c696.jpg"
+                <a href="${pageContext.request.contextPath}/clothing/{{id}}">
+                    <img src="${pageContext.request.contextPath}/resources/img/assets_images_FANTAZIA_57_1.jpg.ce19723794696a7d450fc4850919c696.jpg"
                          alt="images"></a><br>
-                <a class="title" href="/clothing/{{id}}">{{title}}</a><span> , {{brand.title}}</span><br>
+                <a class="title" href="${pageContext.request.contextPath}/clothing/{{id}}">{{title}}</a><span> , {{brand.title}}</span><br>
                 <a class="category" href="#">{{category.title}}</a>
 
                 <p class="price">{{price}} руб.</p>

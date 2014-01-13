@@ -4,12 +4,12 @@ package pro.redsoft.clothingstore.service.validation;
  * @author Alexander Novik
  *         Date: 29.12.13
  */
-public class FieldValid {
+public class FieldValidMessage {
 
     private String field;
     private String message;
 
-    public FieldValid(String field, String message) {
+    public FieldValidMessage(String field, String message) {
         this.field = field;
         this.message = message;
     }

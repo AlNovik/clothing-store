@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="${staticInTomcat}/resources/bootstrap/css/bootstrap-spinedit.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/jquery.jqzoom.css">
     <link rel="stylesheet" href="${staticInTomcat}/resources/jQuery/css/nivo-slider.css">
+    <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans+Narrow">
 
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>

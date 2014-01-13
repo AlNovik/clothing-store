@@ -46,8 +46,7 @@
     </definition>
 
     <!-- Авторизация в админку -->
-    <definition name="login">
-        <put-attribute name="login" value="login.jsp"/>
+    <definition name="login" template="/login.jsp">
     </definition>
 
     <!-- PARTS -->

@@ -84,9 +84,9 @@ Handlebars.registerHelper("promo-product", function (product) {
             result += '<div class="item"><ul class="thumbnails listing-products">';
         }
         result += '<li class="span3"><div class="product-box"><span class="sale_tag"></span>' +
-            '<a href="/clothing/' + this.id + '">' +
+            '<a href="/clothing-store-0.1/clothing/' + this.id + '">' +
             '<img src="/resources/img/assets_images_FANTAZIA_57_1.jpg.ce19723794696a7d450fc4850919c696.jpg" alt="images"></a><br>' +
-            '<a class="title" href="/clothing/' + this.id + '">' + this.title + '</a><span> , ' + this.brand.title + '</span><br>' +
+            '<a class="title" href="/clothing-store-0.1/clothing/' + this.id + '">' + this.title + '</a><span> , ' + this.brand.title + '</span><br>' +
             '<a class="category" href="#">' + this.category.title + '</a>' +
             '<p class="price">' + this.price + ' руб.</p>' +
             '</div></li>';

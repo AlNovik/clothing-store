@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pro.redsoft.clothingstore.domain.attributes.Brand;
 import pro.redsoft.clothingstore.domain.attributes.Category;
 import pro.redsoft.clothingstore.domain.order.Orders;
@@ -18,13 +19,10 @@ import pro.redsoft.clothingstore.service.IBrandService;
 import pro.redsoft.clothingstore.service.ICategoryService;
 import pro.redsoft.clothingstore.service.IClothingService;
 import pro.redsoft.clothingstore.service.IOrderService;
-import pro.redsoft.clothingstore.service.validation.FieldValid;
+import pro.redsoft.clothingstore.service.validation.FieldValidMessage;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Alexander Novik
@@ -101,7 +99,8 @@ public class RESTController {
     @RequestMapping(value = "/clothing", method = RequestMethod.POST, headers = {"content-type=application/json"})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Clothing createClothing(@Valid @RequestBody Clothing clothing) {
+    public Clothing createClothing(@Valid @RequestBody Clothing clothing,
+                                   @RequestParam(value = "image", required = false) Set<MultipartFile> images) {
 
         logger.info("Creating clothing: " + clothing);
         return clothingService.create(clothing);
@@ -234,9 +233,9 @@ public class RESTController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public Map<String, List<FieldValid>> handleValidationError(MethodArgumentNotValidException e) {
-        Map<String, List<FieldValid>> errors = new HashMap<String, List<FieldValid>>();
-        List<FieldValid> fieldErrors = new ArrayList<FieldValid>();
+    public Map<String, List<FieldValidMessage>> handleValidationError(MethodArgumentNotValidException e) {
+        Map<String, List<FieldValidMessage>> errors = new HashMap<String, List<FieldValidMessage>>();
+        List<FieldValidMessage> fieldErrors = new ArrayList<FieldValidMessage>();
         for (ObjectError objectError : e.getBindingResult().getAllErrors()) {
             fieldErrors.add(buildMessage(objectError));
         }
@@ -244,7 +243,7 @@ public class RESTController {
         return errors;
     }
 
-    private FieldValid buildMessage(ObjectError objectError) {
-        return new FieldValid(((FieldError) objectError).getField(), objectError.getDefaultMessage());
+    private FieldValidMessage buildMessage(ObjectError objectError) {
+        return new FieldValidMessage(((FieldError) objectError).getField(), objectError.getDefaultMessage());
     }
 }

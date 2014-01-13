@@ -49,6 +49,18 @@
                     </div>
                 </div>
             </div>
+            <div class="control-group">
+                <label class="control-label" for="price">
+                    Цена
+                </label>
+
+                <div class="controls">
+                    <div class="input-append">
+                        <input class="span10" id="price" size="16" type="number" name="price"><span
+                            class="add-on">.руб</span>
+                    </div>
+                </div>
+            </div>
             <div class="control-group" id="select-size">
                 <label class="control-label">Размеры</label>
 
@@ -70,46 +82,37 @@
                     </label>
                 </div>
             </div>
-            <h4>Другие характеристики</h4>
 
-            <div class="control-group">
-                <label class="control-label">Цвет</label>
+            <div class="row-fluid">
+                <div class="span5">
+                    <h4>Другие характеристики</h4>
 
-                <div class="controls">
-                    <input type="text" value="" data-role="tagsinput" name="color[]" class="span6"
-                           placeholder="Введите доступные цвета..."/>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Ткань</label>
+                    <div class="control-group">
+                        <label class="control-label">Цвет</label>
 
-                <div class="controls">
-                    <input type="text" value="" data-role="tagsinput" name="cloth[]" class="span6"
-                           placeholder="Введите доступные ткани..."/>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Сезонность</label>
+                        <div class="controls">
+                            <input type="text" value="" data-role="tagsinput" name="color[]" class="span12"
+                                   placeholder="Введите доступные цвета..."/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Ткань</label>
 
-                <div class="controls">
-                    <input type="text" value="" data-role="tagsinput" name="season[]" class="span6"
-                           placeholder="Сезонность..."/>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="price">
-                    Цена
-                </label>
+                        <div class="controls">
+                            <input type="text" value="" data-role="tagsinput" name="cloth[]" class="span12"
+                                   placeholder="Введите доступные ткани..."/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Сезонность</label>
 
-                <div class="controls">
-                    <div class="input-append">
-                        <input class="span10" id="price" size="16" type="number" name="price"><span
-                            class="add-on">.руб</span>
+                        <div class="controls">
+                            <input type="text" value="" data-role="tagsinput" name="season[]" class="span12"
+                                   placeholder="Сезонность..."/>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6">
+                <div class="span5 offset1">
                     <h4>Свойства страницы</h4>
 
                     <div class="control-group">
@@ -124,48 +127,48 @@
                         <label class="control-label">Title</label>
 
                         <div class="controls">
-                            <input type="text" id="title-page">
+                            <input type="text" id="title-page" class="span12">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">Keywords</label>
 
                         <div class="controls">
-                            <input type="text" id="keywords">
+                            <input type="text" id="keywords" class="span12">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">Описание</label>
 
                         <div class="controls">
-                            <input type="text" id="properties-page">
+                            <input type="text" id="properties-page" class="span12">
                         </div>
-                    </div>
-                </div>
-                <div class="span6">
-                    <h4>Картинки</h4>
-
-                    <div style="padding:20px">
-
-                        <input id="fileupload" type="file" name="files[]" data-url="/rest/file/upload" multiple>
-
-                        <div id="dropzone">Drop files here</div>
-
-                        <div id="progress">
-                            <div style="width: 0%;"></div>
-                        </div>
-
-                        <table id="uploaded-files">
-                            <tr>
-                                <th>File Name</th>
-                                <th>File Size</th>
-                                <th>File Type</th>
-                                <th>Download</th>
-                            </tr>
-                        </table>
                     </div>
                 </div>
             </div>
+
+            <h4>Картинки</h4>
+
+            <div style="padding:20px">
+
+                <input id="fileupload" type="file" name="files[]" data-url="/rest/file/upload" multiple>
+
+                <div id="dropzone">Drop files here</div>
+
+                <div id="progress">
+                    <div style="width: 0%;"></div>
+                </div>
+
+                <table id="uploaded-files">
+                    <tr>
+                        <th>File Name</th>
+                        <th>File Size</th>
+                        <th>File Type</th>
+                        <th>Download</th>
+                    </tr>
+                </table>
+            </div>
+
             <div class="control-group">
                 <h4>Описание</h4>
                 <textarea class="span10" placeholder="Описание..." style="height: 200px"
@@ -184,7 +187,7 @@
 
 <script id="selected-brand" type="text/x-handlebars-template">
     <select class="span12" id="brand" name="brand.id">
-        <option selected>Выбрать</option>
+        <option value="" selected>Выбрать</option>
         {{#each brands}}
         <option value="{{id}}">{{title}}</option>
         {{/each}}
@@ -193,7 +196,7 @@
 </script>
 <script id="selected-category" type="text/x-handlebars-template">
     <select class="span12" id="category" name="category.id">
-        <option selected>Выбрать</option>
+        <option value="" selected>Выбрать</option>
         {{#each categories}}
         <option value="{{id}}">{{title}}</option>
         {{/each}}

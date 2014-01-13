@@ -7,16 +7,15 @@
 <div id="top-bar" class="container-fluid">
     <div id="logo">
         <a href="${pageContext.request.contextPath}/index">
-            <img src="/resources/img/brand.png">
+            <img src="${pageContext.request.contextPath}/resources/img/brand.png">
         </a>
     </div>
     <div class="row-fluid">
         <div id="search-line">
-            <form class="form-search" id="search-title">
-                <div class="input-append span12">
-                    <input type="text" class="span10 search-query" id="title" autocomplete="off" name="title">
-                    <button type="submit" class="btn btn-warning">Найти</button>
-                </div>
+            <form id="search-title">
+                <input type="text" class="span12" id="title" autocomplete="off" name="title" placeholder="Найти...">
+                <div class="search-button"></div>
+                <span class="search-advanced">Расширенный поиск</span>
             </form>
         </div>
         <div id="links-bar">
@@ -26,7 +25,7 @@
         </div>
         <div id="cart">
             <a href="${pageContext.request.contextPath}/shopping">
-                <span id="cart-total"> 0 товаров - 0 руб.</span>
+                <span id="cart-total"></span>
             </a>
         </div>
     </div>

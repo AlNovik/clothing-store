@@ -5,10 +5,10 @@
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
 <div id="slider" class="nivoSlider">
-    <img src="/resources/img/carousel/deprives-you-of-tangibility.jpg" alt=""/>
-    <a href="http://dev7studios.com"><img src="/resources/img/carousel/Holiday-Shopping-online.jpg" alt=""
+    <img src="${pageContext.request.contextPath}/resources/img/carousel/deprives-you-of-tangibility.jpg" alt=""/>
+    <a href="http://dev7studios.com"><img src="${pageContext.request.contextPath}/resources/img/carousel/Holiday-Shopping-online.jpg" alt=""
                                           title="#htmlcaption"/></a>
-    <img src="/resources/img/carousel/promo-products-page-banner.gif" alt="" title="А у нас сегодня ОГРОМНЫЕ скидки"/>
+    <img src="${pageContext.request.contextPath}/resources/img/carousel/promo-products-page-banner.gif" alt="" title="А у нас сегодня ОГРОМНЫЕ скидки"/>
 </div>
 <div id="htmlcaption" class="nivo-html-caption">
     Сегодня со скидкой можно купить <a href="${pageContext.request.contextPath}/clothing/262147">ЭТОТ</a> товар.
@@ -38,22 +38,22 @@
 
     <div class="row">
         <div class="span2">
-            <a href="#"><img alt="" src="/resources/img/clients/30.png"></a>
+            <a href="#"><img alt="" src="${pageContext.request.contextPath}/resources/img/clients/30.png"></a>
         </div>
         <div class="span2">
-            <a href="#"><img alt="" src="/resources/img/clients/35.png"></a>
+            <a href="#"><img alt="" src="${pageContext.request.contextPath}/resources/img/clients/35.png"></a>
         </div>
         <div class="span2">
-            <a href="#"><img alt="" src="/resources/img/clients/11.png"></a>
+            <a href="#"><img alt="" src="${pageContext.request.contextPath}/resources/img/clients/11.png"></a>
         </div>
         <div class="span2">
-            <a href="#"><img alt="" src="/resources/img/clients/22.png"></a>
+            <a href="#"><img alt="" src="${pageContext.request.contextPath}/resources/img/clients/22.png"></a>
         </div>
         <div class="span2">
-            <a href="#"><img alt="" src="/resources/img/clients/8.png"></a>
+            <a href="#"><img alt="" src="${pageContext.request.contextPath}/resources/img/clients/8.png"></a>
         </div>
         <div class="span2">
-            <a href="#"><img alt="" src="/resources/img/clients/16.png"></a>
+            <a href="#"><img alt="" src="${pageContext.request.contextPath}/resources/img/clients/16.png"></a>
         </div>
     </div>
 </section>

@@ -1,12 +1,14 @@
 package pro.redsoft.clothingstore.domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import pro.redsoft.clothingstore.domain.order.Orders;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author Alexander Novik
@@ -22,8 +24,11 @@ public class Contact extends DomainObject implements Serializable {
     private Long id;
     private String name;
     private Address address;
-    private Phone phone;
+    private Set<Phone> phone;
+    private String email;
+    private String skype;
     private Orders orders;
+    private Owner owner;
 
     @Id
     @GeneratedValue
@@ -36,8 +41,8 @@ public class Contact extends DomainObject implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "name")
-    @NotEmpty(message = "Введите имя")
+    @Column(name = "name", nullable = false)
+    @Length(max = 8, message = "test")
     public String getName() {
         return name;
     }
@@ -47,6 +52,7 @@ public class Contact extends DomainObject implements Serializable {
     }
 
     @Embedded
+    @NotNull
     public Address getAddress() {
         return address;
     }
@@ -55,13 +61,36 @@ public class Contact extends DomainObject implements Serializable {
         this.address = address;
     }
 
-    @Embedded
-    public Phone getPhone() {
+    @ElementCollection
+    @CollectionTable(
+            name = "contact_phones",
+            joinColumns = @JoinColumn(name = "contact_id")
+    )
+    public Set<Phone> getPhone() {
         return phone;
     }
 
-    public void setPhone(Phone phone) {
+    public void setPhone(Set<Phone> phone) {
         this.phone = phone;
+    }
+
+    @Column(name = "email")
+    @Email
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Column(name = "skype")
+    public String getSkype() {
+        return skype;
+    }
+
+    public void setSkype(String skype) {
+        this.skype = skype;
     }
 
     @OneToOne(mappedBy = "contact")
@@ -72,6 +101,16 @@ public class Contact extends DomainObject implements Serializable {
 
     public void setOrders(Orders orders) {
         this.orders = orders;
+    }
+
+    @Column(name = "owner")
+    @Enumerated(EnumType.STRING)
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
     @Override
@@ -109,5 +148,9 @@ public class Contact extends DomainObject implements Serializable {
                 ", phone=" + phone +
                 ", orders=" + orders +
                 '}';
+    }
+
+    public enum Owner {
+        CLIENT, SITE_CONTACT
     }
 }
