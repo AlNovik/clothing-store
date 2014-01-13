@@ -188,7 +188,7 @@
                     return false;
                 }
                 if (data.autoUpload || (data.autoUpload !== false &&
-                    $(this).fileupload('option', 'autoUpload'))) {
+                        $(this).fileupload('option', 'autoUpload'))) {
                     data.process().done(function () {
                         data.submit();
                     });
@@ -288,7 +288,7 @@
         _isXHRUpload: function (options) {
             return !options.forceIframeTransport &&
                 ((!options.multipart && $.support.xhrFileUpload) ||
-                    $.support.xhrFormDataFileUpload);
+                $.support.xhrFormDataFileUpload);
         },
 
         _getFormData: function (options) {
@@ -348,8 +348,8 @@
                 var now = ((Date.now) ? Date.now() : (new Date()).getTime()),
                     loaded;
                 if (data._time && data.progressInterval &&
-                    (now - data._time < data.progressInterval) &&
-                    e.loaded !== e.total) {
+                        (now - data._time < data.progressInterval) &&
+                        e.loaded !== e.total) {
                     return;
                 }
                 data._time = now;
@@ -417,7 +417,7 @@
             var that = this,
                 formData,
                 file = options.files[0],
-            // Ignore non-multipart setting if not supported:
+                // Ignore non-multipart setting if not supported:
                 multipart = options.multipart || !$.support.xhrFileUpload,
                 paramName = $.type(options.paramName) === 'array' ?
                     options.paramName[0] : options.paramName;
@@ -469,7 +469,7 @@
                             // This check allows the tests to run with
                             // dummy objects:
                             if (that._isInstanceOf('File', file) ||
-                                that._isInstanceOf('Blob', file)) {
+                                    that._isInstanceOf('Blob', file)) {
                                 formData.append(
                                     ($.type(options.paramName) === 'array' &&
                                         options.paramName[index]) || paramName,
@@ -563,7 +563,7 @@
                     options.form.prop('method')) || ''
                 ).toUpperCase();
             if (options.type !== 'POST' && options.type !== 'PUT' &&
-                options.type !== 'PATCH') {
+                    options.type !== 'PATCH') {
                 options.type = 'POST';
             }
             if (!options.formAcceptCharset) {
@@ -705,7 +705,7 @@
                 jqXHR,
                 upload;
             if (!(this._isXHRUpload(options) && slice && (ub || mcs < fs)) ||
-                options.data) {
+                    options.data) {
                 return false;
             }
             if (testOnly) {
@@ -741,7 +741,7 @@
                 // Add progress listeners for this chunk upload:
                 that._initProgressListener(o);
                 jqXHR = ((that._trigger('chunksend', null, o) !== false && $.ajax(o)) ||
-                    that._getXHRPromise(false, o.context))
+                        that._getXHRPromise(false, o.context))
                     .done(function (result, textStatus, jqXHR) {
                         ub = that._getUploadedBytes(jqXHR) ||
                             (ub + o.chunkSize);
@@ -876,45 +876,45 @@
                             $.Event('send', {delegatedEvent: e}),
                             options
                         ) === false) &&
-                            that._getXHRPromise(false, options.context, aborted)) ||
-                            that._chunkedUpload(options) || $.ajax(options)
-                        ).done(function (result, textStatus, jqXHR) {
-                            that._onDone(result, textStatus, jqXHR, options);
-                        }).fail(function (jqXHR, textStatus, errorThrown) {
-                            that._onFail(jqXHR, textStatus, errorThrown, options);
-                        }).always(function (jqXHRorResult, textStatus, jqXHRorError) {
-                            that._onAlways(
-                                jqXHRorResult,
-                                textStatus,
-                                jqXHRorError,
-                                options
-                            );
-                            that._sending -= 1;
-                            that._active -= 1;
-                            if (options.limitConcurrentUploads &&
+                        that._getXHRPromise(false, options.context, aborted)) ||
+                        that._chunkedUpload(options) || $.ajax(options)
+                    ).done(function (result, textStatus, jqXHR) {
+                        that._onDone(result, textStatus, jqXHR, options);
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        that._onFail(jqXHR, textStatus, errorThrown, options);
+                    }).always(function (jqXHRorResult, textStatus, jqXHRorError) {
+                        that._onAlways(
+                            jqXHRorResult,
+                            textStatus,
+                            jqXHRorError,
+                            options
+                        );
+                        that._sending -= 1;
+                        that._active -= 1;
+                        if (options.limitConcurrentUploads &&
                                 options.limitConcurrentUploads > that._sending) {
-                                // Start the next queued upload,
-                                // that has not been aborted:
-                                var nextSlot = that._slots.shift();
-                                while (nextSlot) {
-                                    if (that._getDeferredState(nextSlot) === 'pending') {
-                                        nextSlot.resolve();
-                                        break;
-                                    }
-                                    nextSlot = that._slots.shift();
+                            // Start the next queued upload,
+                            // that has not been aborted:
+                            var nextSlot = that._slots.shift();
+                            while (nextSlot) {
+                                if (that._getDeferredState(nextSlot) === 'pending') {
+                                    nextSlot.resolve();
+                                    break;
                                 }
+                                nextSlot = that._slots.shift();
                             }
-                            if (that._active === 0) {
-                                // The stop callback is triggered when all uploads have
-                                // been completed, equivalent to the global ajaxStop event:
-                                that._trigger('stop');
-                            }
-                        });
+                        }
+                        if (that._active === 0) {
+                            // The stop callback is triggered when all uploads have
+                            // been completed, equivalent to the global ajaxStop event:
+                            that._trigger('stop');
+                        }
+                    });
                     return jqXHR;
                 };
             this._beforeSend(e, options);
             if (this.options.sequentialUploads ||
-                (this.options.limitConcurrentUploads &&
+                    (this.options.limitConcurrentUploads &&
                     this.options.limitConcurrentUploads <= this._sending)) {
                 if (this.options.limitConcurrentUploads > 1) {
                     slot = $.Deferred();
@@ -962,7 +962,7 @@
                 limitSize = undefined;
             }
             if (!(options.singleFileUploads || limit || limitSize) ||
-                !this._isXHRUpload(options)) {
+                    !this._isXHRUpload(options)) {
                 fileSet = [files];
                 paramNameSet = [paramName];
             } else if (!(options.singleFileUploads || limitSize) && limit) {
@@ -982,8 +982,8 @@
                 for (i = 0; i < filesLength; i = i + 1) {
                     batchSize += files[i].size + overhead;
                     if (i + 1 === filesLength ||
-                        ((batchSize + files[i + 1].size + overhead) > limitSize) ||
-                        (limit && i + 1 - j >= limit)) {
+                            ((batchSize + files[i + 1].size + overhead) > limitSize) ||
+                            (limit && i + 1 - j >= limit)) {
                         fileSet.push(files.slice(j, i + 1));
                         paramNameSlice = paramName.slice(j, i + 1);
                         if (!paramNameSlice.length) {
@@ -1069,11 +1069,11 @@
                 dirReader = entry.createReader();
                 dirReader.readEntries(function (entries) {
                     that._handleFileTreeEntries(
-                            entries,
-                            path + entry.name + '/'
-                        ).done(function (files) {
-                            dfd.resolve(files);
-                        }).fail(errorHandler);
+                        entries,
+                        path + entry.name + '/'
+                    ).done(function (files) {
+                        dfd.resolve(files);
+                    }).fail(errorHandler);
                 }, errorHandler);
             } else {
                 // Return an empy list for file system items
@@ -1086,23 +1086,23 @@
         _handleFileTreeEntries: function (entries, path) {
             var that = this;
             return $.when.apply(
-                    $,
-                    $.map(entries, function (entry) {
-                        return that._handleFileTreeEntry(entry, path);
-                    })
-                ).pipe(function () {
-                    return Array.prototype.concat.apply(
-                        [],
-                        arguments
-                    );
-                });
+                $,
+                $.map(entries, function (entry) {
+                    return that._handleFileTreeEntry(entry, path);
+                })
+            ).pipe(function () {
+                return Array.prototype.concat.apply(
+                    [],
+                    arguments
+                );
+            });
         },
 
         _getDroppedFiles: function (dataTransfer) {
             dataTransfer = dataTransfer || {};
             var items = dataTransfer.items;
             if (items && items.length && (items[0].webkitGetAsEntry ||
-                items[0].getAsEntry)) {
+                    items[0].getAsEntry)) {
                 return this._handleFileTreeEntries(
                     $.map(items, function (item) {
                         var entry;
@@ -1157,14 +1157,14 @@
                 return this._getSingleFileInputFiles(fileInput);
             }
             return $.when.apply(
-                    $,
-                    $.map(fileInput, this._getSingleFileInputFiles)
-                ).pipe(function () {
-                    return Array.prototype.concat.apply(
-                        [],
-                        arguments
-                    );
-                });
+                $,
+                $.map(fileInput, this._getSingleFileInputFiles)
+            ).pipe(function () {
+                return Array.prototype.concat.apply(
+                    [],
+                    arguments
+                );
+            });
         },
 
         _onChange: function (e) {
@@ -1179,10 +1179,10 @@
                     that._replaceFileInput(data.fileInput);
                 }
                 if (that._trigger(
-                    'change',
-                    $.Event('change', {delegatedEvent: e}),
-                    data
-                ) !== false) {
+                        'change',
+                        $.Event('change', {delegatedEvent: e}),
+                        data
+                    ) !== false) {
                     that._onAdd(e, data);
                 }
             });
@@ -1200,10 +1200,10 @@
                     }
                 });
                 if (this._trigger(
-                    'paste',
-                    $.Event('paste', {delegatedEvent: e}),
-                    data
-                ) !== false) {
+                        'paste',
+                        $.Event('paste', {delegatedEvent: e}),
+                        data
+                    ) !== false) {
                     this._onAdd(e, data);
                 }
             }
@@ -1219,10 +1219,10 @@
                 this._getDroppedFiles(dataTransfer).always(function (files) {
                     data.files = files;
                     if (that._trigger(
-                        'drop',
-                        $.Event('drop', {delegatedEvent: e}),
-                        data
-                    ) !== false) {
+                            'drop',
+                            $.Event('drop', {delegatedEvent: e}),
+                            data
+                        ) !== false) {
                         that._onAdd(e, data);
                     }
                 });
@@ -1233,10 +1233,10 @@
             e.dataTransfer = e.originalEvent && e.originalEvent.dataTransfer;
             var dataTransfer = e.dataTransfer;
             if (dataTransfer && $.inArray('Files', dataTransfer.types) !== -1 &&
-                this._trigger(
-                    'dragover',
-                    $.Event('dragover', {delegatedEvent: e})
-                ) !== false) {
+                    this._trigger(
+                        'dragover',
+                        $.Event('dragover', {delegatedEvent: e})
+                    ) !== false) {
                 e.preventDefault();
                 dataTransfer.dropEffect = 'copy';
             }
@@ -1281,7 +1281,7 @@
             var options = this.options;
             if (options.fileInput === undefined) {
                 options.fileInput = this.element.is('input[type="file"]') ?
-                    this.element : this.element.find('input[type="file"]');
+                        this.element : this.element.find('input[type="file"]');
             } else if (!(options.fileInput instanceof $)) {
                 options.fileInput = $(options.fileInput);
             }

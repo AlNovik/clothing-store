@@ -70,95 +70,95 @@
                         '<iframe src="' + initialIframeSrc +
                             '" name="iframe-transport-' + counter + '"></iframe>'
                     ).bind('load', function () {
-                            var fileInputClones,
-                                paramNames = $.isArray(options.paramName) ?
+                        var fileInputClones,
+                            paramNames = $.isArray(options.paramName) ?
                                     options.paramName : [options.paramName];
-                            iframe
-                                .unbind('load')
-                                .bind('load', function () {
-                                    var response;
-                                    // Wrap in a try/catch block to catch exceptions thrown
-                                    // when trying to access cross-domain iframe contents:
-                                    try {
-                                        response = iframe.contents();
-                                        // Google Chrome and Firefox do not throw an
-                                        // exception when calling iframe.contents() on
-                                        // cross-domain requests, so we unify the response:
-                                        if (!response.length || !response[0].firstChild) {
-                                            throw new Error();
-                                        }
-                                    } catch (e) {
-                                        response = undefined;
+                        iframe
+                            .unbind('load')
+                            .bind('load', function () {
+                                var response;
+                                // Wrap in a try/catch block to catch exceptions thrown
+                                // when trying to access cross-domain iframe contents:
+                                try {
+                                    response = iframe.contents();
+                                    // Google Chrome and Firefox do not throw an
+                                    // exception when calling iframe.contents() on
+                                    // cross-domain requests, so we unify the response:
+                                    if (!response.length || !response[0].firstChild) {
+                                        throw new Error();
                                     }
-                                    // The complete callback returns the
-                                    // iframe content document as response object:
-                                    completeCallback(
-                                        200,
-                                        'success',
-                                        {'iframe': response}
-                                    );
-                                    // Fix for IE endless progress bar activity bug
-                                    // (happens on form submits to iframe targets):
-                                    $('<iframe src="' + initialIframeSrc + '"></iframe>')
-                                        .appendTo(form);
-                                    window.setTimeout(function () {
-                                        // Removing the form in a setTimeout call
-                                        // allows Chrome's developer tools to display
-                                        // the response result
-                                        form.remove();
-                                    }, 0);
-                                });
-                            form
-                                .prop('target', iframe.prop('name'))
-                                .prop('action', options.url)
-                                .prop('method', options.type);
-                            if (options.formData) {
-                                $.each(options.formData, function (index, field) {
-                                    $('<input type="hidden"/>')
-                                        .prop('name', field.name)
-                                        .val(field.value)
-                                        .appendTo(form);
-                                });
-                            }
-                            if (options.fileInput && options.fileInput.length &&
-                                options.type === 'POST') {
-                                fileInputClones = options.fileInput.clone();
-                                // Insert a clone for each file input field:
-                                options.fileInput.after(function (index) {
-                                    return fileInputClones[index];
-                                });
-                                if (options.paramName) {
-                                    options.fileInput.each(function (index) {
-                                        $(this).prop(
-                                            'name',
-                                            paramNames[index] || options.paramName
-                                        );
-                                    });
+                                } catch (e) {
+                                    response = undefined;
                                 }
-                                // Appending the file input fields to the hidden form
-                                // removes them from their original location:
-                                form
-                                    .append(options.fileInput)
-                                    .prop('enctype', 'multipart/form-data')
-                                    // enctype must be set as encoding for IE:
-                                    .prop('encoding', 'multipart/form-data');
-                                // Remove the HTML5 form attribute from the input(s):
-                                options.fileInput.removeAttr('form');
-                            }
-                            form.submit();
-                            // Insert the file input fields at their original location
-                            // by replacing the clones with the originals:
-                            if (fileInputClones && fileInputClones.length) {
-                                options.fileInput.each(function (index, input) {
-                                    var clone = $(fileInputClones[index]);
-                                    // Restore the original name and form properties:
-                                    $(input)
-                                        .prop('name', clone.prop('name'))
-                                        .attr('form', clone.attr('form'));
-                                    clone.replaceWith(input);
+                                // The complete callback returns the
+                                // iframe content document as response object:
+                                completeCallback(
+                                    200,
+                                    'success',
+                                    {'iframe': response}
+                                );
+                                // Fix for IE endless progress bar activity bug
+                                // (happens on form submits to iframe targets):
+                                $('<iframe src="' + initialIframeSrc + '"></iframe>')
+                                    .appendTo(form);
+                                window.setTimeout(function () {
+                                    // Removing the form in a setTimeout call
+                                    // allows Chrome's developer tools to display
+                                    // the response result
+                                    form.remove();
+                                }, 0);
+                            });
+                        form
+                            .prop('target', iframe.prop('name'))
+                            .prop('action', options.url)
+                            .prop('method', options.type);
+                        if (options.formData) {
+                            $.each(options.formData, function (index, field) {
+                                $('<input type="hidden"/>')
+                                    .prop('name', field.name)
+                                    .val(field.value)
+                                    .appendTo(form);
+                            });
+                        }
+                        if (options.fileInput && options.fileInput.length &&
+                                options.type === 'POST') {
+                            fileInputClones = options.fileInput.clone();
+                            // Insert a clone for each file input field:
+                            options.fileInput.after(function (index) {
+                                return fileInputClones[index];
+                            });
+                            if (options.paramName) {
+                                options.fileInput.each(function (index) {
+                                    $(this).prop(
+                                        'name',
+                                        paramNames[index] || options.paramName
+                                    );
                                 });
                             }
-                        });
+                            // Appending the file input fields to the hidden form
+                            // removes them from their original location:
+                            form
+                                .append(options.fileInput)
+                                .prop('enctype', 'multipart/form-data')
+                                // enctype must be set as encoding for IE:
+                                .prop('encoding', 'multipart/form-data');
+                            // Remove the HTML5 form attribute from the input(s):
+                            options.fileInput.removeAttr('form');
+                        }
+                        form.submit();
+                        // Insert the file input fields at their original location
+                        // by replacing the clones with the originals:
+                        if (fileInputClones && fileInputClones.length) {
+                            options.fileInput.each(function (index, input) {
+                                var clone = $(fileInputClones[index]);
+                                // Restore the original name and form properties:
+                                $(input)
+                                    .prop('name', clone.prop('name'))
+                                    .attr('form', clone.attr('form'));
+                                clone.replaceWith(input);
+                            });
+                        }
+                    });
                     form.append(iframe).appendTo(document.body);
                 },
                 abort: function () {
@@ -202,8 +202,8 @@
             'iframe xml': function (iframe) {
                 var xmlDoc = iframe && iframe[0];
                 return xmlDoc && $.isXMLDoc(xmlDoc) ? xmlDoc :
-                    $.parseXML((xmlDoc.XMLDocument && xmlDoc.XMLDocument.xml) ||
-                        $(xmlDoc.body).html());
+                        $.parseXML((xmlDoc.XMLDocument && xmlDoc.XMLDocument.xml) ||
+                            $(xmlDoc.body).html());
             },
             'iframe script': function (iframe) {
                 return iframe && $.globalEval($(iframe[0].body).text());

@@ -15,7 +15,7 @@ import pro.redsoft.clothingstore.domain.products.Product;
 import pro.redsoft.clothingstore.repository.BrandRepository;
 import pro.redsoft.clothingstore.repository.CategoryRepository;
 import pro.redsoft.clothingstore.repository.ClothingRepository;
-import pro.redsoft.clothingstore.repository.ProductRepository;
+//import pro.redsoft.clothingstore.repository.ProductRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,8 +42,8 @@ public class ClothingService implements IClothingService {
     @Autowired
     private BrandRepository brandRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
+//    @Autowired
+//    private ProductRepository productRepository;
 
     @Override
     public Clothing findByTitle(String title) {
@@ -106,13 +106,13 @@ public class ClothingService implements IClothingService {
     @Override
     @Transactional(readOnly = true)
     public List<Clothing> findAll() {
-        return Lists.newArrayList(productRepository.findAll());
+        return Lists.newArrayList(clothingRepository.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Clothing findById(Long id) {
-        return (Clothing) productRepository.findOne(id);
+        return clothingRepository.findOne(id);
     }
 
     @Override
