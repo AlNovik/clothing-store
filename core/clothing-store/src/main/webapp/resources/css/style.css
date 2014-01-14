@@ -380,6 +380,10 @@ iframe {
     right: 6px;
 }
 
+.pagin-sort{
+    display: inline;
+}
+
 #search-title .dropdown-menu {
     width: 100%;
 }

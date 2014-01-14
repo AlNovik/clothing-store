@@ -5,7 +5,7 @@
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
 
-<%--<script src="/resources/jQuery/js/jquery.jqzoom-core.js"></script>--%>
+<script src="/resources/jQuery/js/jquery.jqzoom-core.js"></script>
 
 
 <div id="item"></div>
@@ -21,6 +21,11 @@
             var renderItem = templateItem(itemData);
             $('#item').html(renderItem);
             $("input[name='quantity']").spinedit();
+            $('.jqzoom').jqzoom({
+                zoomType: 'reverse',
+                zoomWidth:500,
+                zoomHeight:500
+            });
         });
     });
 </script>
@@ -38,8 +43,9 @@
     <div class="thumbnail item">
         <div class="row-fluid">
             <div class="span4">
-                <img class="product-photo" src="${pageContext.request.contextPath}/resources/img/80137.jpg"
-                     alt="{{title}}">
+                <a href="/resources/img/80137.jpg" class="jqzoom"  title="{{title}}" >
+                    <img src="/resources/img/80137_small.jpg" title="{{title}}">
+                </a>
             </div>
             <div class="span8">
                 <div class="row-fluid">
@@ -104,10 +110,10 @@
 
     <h3> Все фотографии :</h3>
 
-    <div class="pdoduct-allphoto">
-        <a href="${pageContext.request.contextPath}/resources/img/80137.jpg" class="image-zoom" title="MYTITLE">
-            <img src="${pageContext.request.contextPath}/resources/img/assets_images_FANTAZIA_57_1.jpg.ce19723794696a7d450fc4850919c696.jpg"
-                 title="IMAGE TITLE">
-        </a>
-    </div>
+    <%--<div class="pdoduct-allphoto">--%>
+        <%--<a href="${pageContext.request.contextPath}/resources/img/80137.jpg" class="image-zoom" title="MYTITLE">--%>
+            <%--<img src="${pageContext.request.contextPath}/resources/img/assets_images_FANTAZIA_57_1.jpg"--%>
+                 <%--title="IMAGE TITLE">--%>
+        <%--</a>--%>
+    <%--</div>--%>
 </script>

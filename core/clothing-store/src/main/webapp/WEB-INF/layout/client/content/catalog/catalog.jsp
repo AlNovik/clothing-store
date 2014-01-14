@@ -22,7 +22,7 @@
         <li class="span3">
             <div class="product-box"><span class="sale_tag"></span>
                 <a href="${pageContext.request.contextPath}/clothing/{{id}}">
-                    <img src="${pageContext.request.contextPath}/resources/img/assets_images_FANTAZIA_57_1.jpg.ce19723794696a7d450fc4850919c696.jpg"
+                    <img src="${pageContext.request.contextPath}/resources/img/assets_images_FANTAZIA_57_1.jpg"
                          alt="images"></a><br>
                 <a class="title" href="${pageContext.request.contextPath}/clothing/{{id}}">{{title}}</a><span> , {{brand.title}}</span><br>
                 <a class="category" href="#">{{category.title}}</a>
@@ -37,36 +37,21 @@
 
 <script id="pagination-line" type="text/x-handlebars-template">
     <div class="well well-small row pagination-sort" style="margin-left: 0">
-        <div class="span6">
-            {{paginationList totalPages currentPage}}
+        <div class="span7">
+            <div class="pagination-line"></div>
         </div>
-        <div class="span6">
-            <ul class="nav pull-right" style="margin-bottom: 0">
-                <li>
-                    <div class="btn-group" data-toggle="buttons-radio">
-                        <button type="button" class="btn btn-mini" onclick="pagination({order:'desc'})"><i
-                                class="icon-arrow-down"></i></button>
-                        <button type="button" class="btn btn-mini" onclick="pagination({order:'asc'})"><i
-                                class="icon-arrow-up"></i></button>
-                    </div>
-                </li>
-                <li>
-                    <select class="span12" style="margin-bottom: 0"
-                            onchange="pagination({sortBy:this.options[this.selectedIndex].value})">
-                        <option>Сортировка</option>
-                        <option value="price">По цене</option>
-                        <option>По новизне</option>
-                        <option value="title">По модели</option>
-                    </select>
-                </li>
-                <li>
-                    <div class="btn-group" data-toggle="buttons-radio">
-                        <button class="btn btn-mini" onclick="pagination({size:16})">16</button>
-                        <button class="btn btn-mini" onclick="pagination({size:24})">24</button>
-                        <button class="btn btn-mini" onclick="pagination({size:32})">32</button>
-                    </div>
-                </li>
-            </ul>
+        <div class="span5">
+            <div>
+                <span>Сортировать по : </span>
+                <div class='pagin-sort'></div>
+                <span onclick="pagination({sortBy:'price'})">цене</span>
+                <span onclick="pagination({sortBy:'title'})">модели</span>
+                <br>
+                <span>Количество : </span>
+                <span onclick="pagination({size:16})">16</span>
+                <span onclick="pagination({size:24})">24</span>
+                <span onclick="pagination({size:32})">32</span>
+            </div>
         </div>
     </div>
 </script>
@@ -81,7 +66,7 @@
     </div>
 </script>
 
-
+<script src="/resources/jQuery/js/bootstrap-paginator.min.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -94,6 +79,42 @@
             data = json;
             var render = template(data);
             $("#products").html(render);
+            var pagin = {
+                currentPage: json.currentPage,
+                totalPages: json.totalPages,
+                pageUrl: function (type, page, current) {
+                    var curUrl = window.location.href;
+                    var url = '';
+                    if (curUrl.indexOf('page') + 1) {
+                        var ind = curUrl.lastIndexOf('/');
+                        console.info(ind);
+                        url = curUrl.slice(0, ind + 1) + page;
+
+                    } else {
+                        url = curUrl + '/page/' + page;
+                    }
+                    return url;
+                },
+                tooltipTitles: function (type, page, current) {
+                    switch (type) {
+                        case "first":
+                            return "Первая страница";
+                        case "prev":
+                            return "Предыдущая страница";
+                        case "next":
+                            return "Следующая страница";
+                        case "last":
+                            return "Последняя страница";
+                        case "page":
+                            return page === current ? "Текущая страница " + page : "Перейти на страницу " + page;
+                    }
+                },
+                useBootstrapTooltip: true,
+                size: 'small'
+            };
+            $('#products .pagination-line').bootstrapPaginator(pagin);
+            App.Storage.get('paginationParam').order == "asc" ? $('#products .pagin-sort').html("<img src='/resources/img/sort-desc.png' onclick=pagination({order:'desc'})>") : $('#products .pagin-sort').html("<img src='/resources/img/sort-asc.png' onclick=pagination({order:'asc'})>");
+
         })
     });
 
