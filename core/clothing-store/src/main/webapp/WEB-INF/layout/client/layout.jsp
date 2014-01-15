@@ -35,6 +35,7 @@
     <script src="${staticInTomcat}/resources/jQuery/js/jquery-1.7.2.min.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.cookie.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/form2js.js"></script>
+    <script src="${staticInTomcat}/resources/jQuery/js/jquery.jqzoom-core.js"></script>
     <script src="${staticInTomcat}/resources/jQuery/js/jquery.nivo.slider.pack.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${staticInTomcat}/resources/bootstrap/js/bootstrap-spinedit.js"></script>

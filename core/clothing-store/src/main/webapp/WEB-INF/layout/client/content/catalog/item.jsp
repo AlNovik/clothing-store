@@ -4,12 +4,9 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>--%>
 
+<div id="item">
 
-<script src="/resources/jQuery/js/jquery.jqzoom-core.js"></script>
-
-
-<div id="item"></div>
-
+</div>
 
 <script>
     $(document).ready(function () {
@@ -20,11 +17,15 @@
             itemData = data;
             var renderItem = templateItem(itemData);
             $('#item').html(renderItem);
-            $("input[name='quantity']").spinedit();
+            $("input[name='quantity']").spinedit({
+                minimum: 1,
+                value: 1
+            });
             $('.jqzoom').jqzoom({
                 zoomType: 'reverse',
-                zoomWidth:500,
-                zoomHeight:500
+//                zoomWidth:500,
+//                zoomHeight:500,
+                preloadImages: true
             });
         });
     });
@@ -43,7 +44,7 @@
     <div class="thumbnail item">
         <div class="row-fluid">
             <div class="span4">
-                <a href="/resources/img/80137.jpg" class="jqzoom"  title="{{title}}" >
+                <a href="/resources/img/80137.jpg" class="jqzoom"  title="{{title}}" rel='gal1'>
                     <img src="/resources/img/80137_small.jpg" title="{{title}}">
                 </a>
             </div>
@@ -110,10 +111,14 @@
 
     <h3> Все фотографии :</h3>
 
-    <%--<div class="pdoduct-allphoto">--%>
-        <%--<a href="${pageContext.request.contextPath}/resources/img/80137.jpg" class="image-zoom" title="MYTITLE">--%>
-            <%--<img src="${pageContext.request.contextPath}/resources/img/assets_images_FANTAZIA_57_1.jpg"--%>
-                 <%--title="IMAGE TITLE">--%>
-        <%--</a>--%>
-    <%--</div>--%>
+    <a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/resources/img/80137_small.jpg',largeimage: '/resources/img/80137.jpg'}">
+        <img src="/resources/img/80137_th.jpg">
+    </a>
+    <a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/resources/img/1251_small.jpg',largeimage: '/resources/img/1251.jpg'}">
+        <img src="/resources/img/1251_th.jpg">
+    </a>
+    <a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/resources/img/1441-2_small.jpg',largeimage: '/resources/img/1441-2.jpg'}">
+        <img src="/resources/img/1441-2_th.jpg">
+    </a>
+
 </script>

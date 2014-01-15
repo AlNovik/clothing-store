@@ -20,10 +20,13 @@
     <ul class="thumbnails listing-products" id="items">
         {{#each clothings}}
         <li class="span3">
-            <div class="product-box"><span class="sale_tag"></span>
-                <a href="${pageContext.request.contextPath}/clothing/{{id}}">
-                    <img src="${pageContext.request.contextPath}/resources/img/assets_images_FANTAZIA_57_1.jpg"
-                         alt="images"></a><br>
+            <div class="product-box">
+                <%--<span class="sale_tag"></span>--%>
+                <div style="width: 64px; margin: 0px auto;">
+                <a href="/resources/img/80137.jpg" class="MYCLASS" title="MYTITLE">
+                    <img src="/resources/img/80137_th.jpg" title="IMAGE TITLE" style="border: 2px solid silver;"/>
+                </a>
+                </div>
                 <a class="title" href="${pageContext.request.contextPath}/clothing/{{id}}">{{title}}</a><span> , {{brand.title}}</span><br>
                 <a class="category" href="#">{{category.title}}</a>
 
@@ -79,6 +82,7 @@
             data = json;
             var render = template(data);
             $("#products").html(render);
+            $('.MYCLASS').jqzoom();
             var pagin = {
                 currentPage: json.currentPage,
                 totalPages: json.totalPages,

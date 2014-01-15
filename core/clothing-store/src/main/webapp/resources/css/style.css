@@ -442,7 +442,7 @@ iframe {
     background-color: #F8F8F8;
     border-bottom: 1px solid #EEEEEE;
     border-radius: 4px;
-    padding-bottom: 15px;
+    /*padding-bottom: 15px;*/
     position: relative;
     text-align: center;
 }
